@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 2 参考卡｜Lighter RWA 原始数据审计</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference · Day 2</div>
+  <h1>Lighter WTI/BRENTOIL 原始数据审计卡</h1>
+  <p class="lede">目标不是找一个漂亮数字，而是知道这个数字能支持什么、不能支持什么。</p>
+
+  <h2>一、文件与证据层次</h2>
+  <table>
+    <thead><tr><th>文件</th><th>作用</th><th>不能替代</th></tr></thead>
+    <tbody>
+      <tr><td><code>lighter_rwa_raw/*.json</code></td><td>API 原始响应；保留字段和原始 timestamp。</td><td>不能替代清洗记录。</td></tr>
+      <tr><td><code>lighter_rwa_capture_manifest.json</code></td><td>端点、参数、HTTP 状态、接收时间、SHA-256。</td><td>不能证明数据长期稳定。</td></tr>
+      <tr><td><code>lighter_rwa_data_audit.json</code></td><td>覆盖、重复、描述性统计、阻断项。</td><td>不能替代净 PnL 回放。</td></tr>
+      <tr><td><code>lighter_rwa_aligned_1h.jsonl</code></td><td>按共同 timestamp 生成的双市场小时序列。</td><td>不能证明两腿经济上可对冲。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>二、审计五步</h2>
+  <ol>
+    <li><strong>身份：</strong>WTI = <code>145</code>；BRENTOIL = <code>159</code>；确认 <code>market_type=perp</code>。</li>
+    <li><strong>时间：</strong>识别毫秒/秒；转换 UTC；检查起止范围、单调性和时间桶间隔。</li>
+    <li><strong>重复：</strong>按“市场 + timestamp”分组；报告重复行和重复 timestamp，不能静默覆盖。</li>
+    <li><strong>缺失：</strong>用相邻 timestamp 检查缺小时；不插值；写入 <code>missing_interval</code> 状态。</li>
+    <li><strong>数值：</strong>检查价格/数量为正；OHLC 约束；异常值保留原始记录并写原因码。</li>
+  </ol>
+
+  <h2>三、常见字段</h2>
+  <table>
+    <thead><tr><th>字段</th><th>含义（当前数据层）</th><th>审计提醒</th></tr></thead>
+    <tbody>
+      <tr><td><code>t</code></td><td>candle timestamp，当前 raw candle 为毫秒。</td><td>不能和 funding 的秒级 <code>timestamp</code> 直接比较。</td></tr>
+      <tr><td><code>o/h/l/c</code></td><td>开、高、低、收价格。</td><td>不要把 candle close 自动叫 mark、index 或成交价。</td></tr>
+      <tr><td><code>v</code> / <code>V</code></td><td>返回中的成交量字段。</td><td>先确认单位和官方定义，再进入容量计算。</td></tr>
+      <tr><td><code>i</code></td><td>原始响应中的附加标识字段。</td><td>未经官方字段定义，不把它当 timestamp。</td></tr>
+      <tr><td>funding <code>rate</code></td><td>funding 原始 rate。</td><td>不能单独当成个人现金收益。</td></tr>
+      <tr><td>funding <code>value</code></td><td>funding 原始 value。</td><td>必须核对方向、仓位数量、结算价格和账户账本。</td></tr>
+      <tr><td><code>direction</code></td><td>funding 返回的方向标签。</td><td>不能仅凭方向标签推导你的仓位现金流。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>四、最小复现命令</h2>
+  <pre><code>python3 lab/audit_lighter_rwa.py
+python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
+
+  <h2>五、当前仓库基线</h2>
+  <table>
+    <thead><tr><th>指标</th><th>值</th><th>边界</th></tr></thead>
+    <tbody>
+      <tr><td>共同 1h candle</td><td><code>500</code></td><td>约 21 天；不足以证明长期性质。</td></tr>
+      <tr><td>对数收益变化</td><td><code>499</code></td><td>相关性是描述性统计。</td></tr>
+      <tr><td>收益相关性</td><td><code>0.970903148909904</code></td><td>不是协整、均值回归、盈利或可执行性。</td></tr>
+      <tr><td>daily duplicate</td><td>WTI <code>0</code>；BRENTOIL <code>0</code></td><td>无重复发现 ≠ 无缺失、无异常。</td></tr>
+      <tr><td>funding rows</td><td>每腿 <code>750</code> 条</td><td>不是账户资金费账本。</td></tr>
+      <tr><td>研究决策</td><td><span class="badge blocked">BLOCKED_FOR_STRATEGY_CONCLUSION</span></td><td>真实执行固定 <span class="badge blocked">No-Go</span>。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>六、不要犯的四个错误</h2>
+  <ul>
+    <li>按数组下标匹配两腿，而不是按 timestamp。</li>
+    <li>看到 duplicate 为 0，就声称数据完整。</li>
+    <li>把高相关性写成协整、均值回归或盈利证据。</li>
+    <li>把 funding API 字段直接相减，再把结果当成个人净现金。</li>
+  </ul>
+
+  <h2>七、研究状态映射</h2>
+  <table>
+    <thead><tr><th>发现</th><th>研究影响</th></tr></thead>
+    <tbody>
+      <tr><td>历史不足</td><td>不能判断长期稳定性、跨展期表现或样本外结果。</td></tr>
+      <tr><td>价格语义未知</td><td>不能确定你比较的是同一种经济价格。</td></tr>
+      <tr><td>funding 账本未知</td><td>不能计算可信的持仓净现金。</td></tr>
+      <tr><td>盘口/退出未知</td><td>不能把信号转成目标数量可成交的 PnL。</td></tr>
+      <tr><td>权限未知</td><td>不能进入真实执行。</td></tr>
+    </tbody>
+  </table>
+
+  <footer>来源与官方链接见 <a href="../RESOURCES.md">RESOURCES.md</a>；完整课程见 <a href="../lessons/0001-day2-audit-lighter-rwa.html">Day 2 lesson</a>。</footer>
+</main>
+</body>
+</html>

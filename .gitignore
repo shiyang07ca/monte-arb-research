@@ -17,3 +17,8 @@ walkthrough.md
 .env.*
 !.env.example
 .baoyu-skills/
+
+# Baoyu URL exports are local source material; do not include them in the research commit.
+resource/2083935229757337948/
+resource/2084604766714261729/
+resource/2085022891339554855/
