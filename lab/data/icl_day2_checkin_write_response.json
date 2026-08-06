@@ -1,0 +1,30 @@
+{
+  "action": "updated_existing_checkin",
+  "program_id": "b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+  "checkin_id": "cmsffxs4j00r9pl29hgvng6i9",
+  "preflight": {
+    "program_http_status": 200,
+    "checkins_http_status": 200,
+    "lifecycle_status": "ongoing",
+    "viewer_application_status": "approved",
+    "existing_checkin_count": 1,
+    "requested_at": "2026-08-06T15:00:37Z"
+  },
+  "update": {
+    "endpoint": "/api/v1/me/check-ins/cmsffxs4j00r9pl29hgvng6i9",
+    "method": "PATCH",
+    "http_status": 200,
+    "response_sha256": "2289d7a499efe58c528c5c8e85e6c4d6b4a9d5237fc14f7821314a145cc03e74",
+    "returned_id": "cmsffxs4j00r9pl29hgvng6i9",
+    "updated_at": "2026-08-06T15:03:33.218Z"
+  },
+  "readback": {
+    "endpoint": "/api/v1/me/check-ins?programId=b43d2e97-ed88-4ca3-b12f-7ef672b01205&page=1&pageSize=20",
+    "http_status": 200,
+    "returned_id": "cmsffxs4j00r9pl29hgvng6i9",
+    "updated_at": "2026-08-06T15:03:33.218Z",
+    "content_sha256": "b1a2cd06b701f147df6450309e95a011879202a3eebf6ce6294f17b178af150b",
+    "content_match": true
+  },
+  "privacy_note": "凭据值、Authorization header 和账户用户标识未写入仓库。"
+}
