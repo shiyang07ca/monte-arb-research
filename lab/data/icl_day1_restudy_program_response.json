@@ -1,0 +1,12 @@
+{
+  "endpoint": "https://intensivecolearn.ing/api/v1/programs/b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+  "method": "GET",
+  "http_status": 200,
+  "content_type": "application/json",
+  "observed_at": "2026-08-06T01:20:21Z",
+  "lifecycle_status": "ongoing",
+  "viewer_application_status": "approved",
+  "program_id": "b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+  "program_name": "链上套利残酷共学",
+  "privacy_note": "Authorization header, access key, community QR and unrelated account fields are not stored."
+}

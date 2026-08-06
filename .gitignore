@@ -1,0 +1,19 @@
+.env.dev
+.DS_Store
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+*.db
+*.db-shm
+*.db-wal
+
+walkthrough.md
+
+# Local Hermes/ICL credentials must never enter the repository.
+.env
+.env.*
+!.env.example
+.baoyu-skills/
