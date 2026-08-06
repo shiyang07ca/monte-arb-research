@@ -1,0 +1,52 @@
+{
+  "record_type": "icl_readonly_connectivity_test",
+  "checked_at": "2026-08-05T09:58:32+08:00",
+  "service": "Intensive CoLearn Agent API",
+  "base_url": "https://intensivecolearn.ing/api/v1",
+  "program_id": "b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+  "credential_source": "~/.hermes/.env:ICL_ACCESS_KEY",
+  "credential_value_recorded": false,
+  "read_only": true,
+  "requests": [
+    {
+      "endpoint": "https://intensivecolearn.ing/api/v1/programs/b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "application/json",
+      "requested_at": "2026-08-05T01:58:54.762485Z",
+      "received_at": "2026-08-05T01:58:56.064273Z",
+      "latency_ms": 1302.36,
+      "response_sha256": "b8fe0fced14703dd8a0744bdb2ff71be00c3d3945cb385bc9f6ad206c366da72"
+    },
+    {
+      "endpoint": "https://intensivecolearn.ing/api/v1/me/check-ins?programId=b43d2e97-ed88-4ca3-b12f-7ef672b01205&page=1&pageSize=20",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "application/json",
+      "requested_at": "2026-08-05T01:58:56.064998Z",
+      "received_at": "2026-08-05T01:58:56.599954Z",
+      "latency_ms": 535.03,
+      "response_sha256": "0a0fbc40fc02d0602cabac48ea757258afcea1387bc252c8eb119276c06cb9d1"
+    }
+  ],
+  "program": {
+    "name": "链上套利残酷共学",
+    "startDate": "2026-08-05",
+    "endDate": "2026-08-26",
+    "lifecycleStatus": "ongoing",
+    "viewerApplication": {
+      "id": "cms88oy7400evo329tkc3bapm",
+      "status": "approved",
+      "timezone": "UTC+8"
+    }
+  },
+  "checkin_count": 0,
+  "checkin_write": {
+    "status": "verified",
+    "evidence_file": "lab/data/icl_day1_checkin_write_response.json",
+    "create_http_status": 201,
+    "readback_http_status": 200,
+    "readback_verified": true,
+    "note": "首次立即查询有短暂 read-after-write 延迟；稍后查询读回同一条记录。"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "captured_at": "2026-08-05T10:59:24.148319+08:00",
+  "target_quote_usd": 20,
+  "equal_quantity_eth": 0.011,
+  "binance_perp_minimum_check": {
+    "min_notional": 20.0,
+    "qty_step": 0.001,
+    "q_0_010_notional": 18.735,
+    "q_0_011_notional": 20.6085,
+    "conclusion": "$20 target cannot be represented by 0.010 ETH Binance perp; 0.011 ETH is the first 0.001-step size above the $20 notional filter."
+  },
+  "gross_entry_comparisons": [
+    {
+      "trade_concept": "buy Binance perp ask / sell Hyperliquid perp bid",
+      "buy_price": 1873.51,
+      "sell_price": 1873.5,
+      "gross_price_difference_per_eth": -0.01,
+      "gross_quote_difference": -0.00011,
+      "status": "negative_before_costs"
+    },
+    {
+      "trade_concept": "buy Hyperliquid perp ask / sell Binance perp bid",
+      "buy_price": 1873.6,
+      "sell_price": 1873.5,
+      "gross_price_difference_per_eth": -0.1,
+      "gross_quote_difference": -0.0011,
+      "status": "negative_before_costs"
+    },
+    {
+      "trade_concept": "buy Binance spot ask / sell Binance perp bid",
+      "buy_price": 1874.42,
+      "sell_price": 1873.5,
+      "gross_price_difference_per_eth": -0.92,
+      "gross_quote_difference": -0.01012,
+      "status": "negative_before_costs"
+    },
+    {
+      "trade_concept": "sell Binance spot bid / buy Binance perp ask",
+      "sell_price": 1874.41,
+      "buy_price": 1873.51,
+      "gross_price_difference_per_eth": 0.9,
+      "gross_quote_difference": 0.0099,
+      "status": "positive_gross_but_spot_borrow_and_all_costs_unknown"
+    }
+  ],
+  "reason_codes": [
+    "FEE_UNKNOWN",
+    "FUNDING_BOUNDARY_UNKNOWN",
+    "PERMISSION_UNKNOWN",
+    "EXIT_UNAVAILABLE",
+    "EXIT_SLIPPAGE_TOO_LARGE",
+    "UNDERLYING_MISMATCH"
+  ],
+  "interpretation": "These are not trade recommendations. Equal quantity, borrow, fees, funding interval, settlement and exit conditions are not fully verified."
+}

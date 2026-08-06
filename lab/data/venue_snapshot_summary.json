@@ -1,0 +1,215 @@
+{
+  "captured_at": "2026-08-05T10:59:24.148319+08:00",
+  "target_quote_usd": 20,
+  "instrument_rules": {
+    "Binance_spot": {
+      "symbol": "ETHUSDT",
+      "baseAsset": "ETH",
+      "quoteAsset": "USDT",
+      "status": "TRADING",
+      "filters": {
+        "PRICE_FILTER": {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.01000000",
+          "maxPrice": "1000000.00000000",
+          "tickSize": "0.01000000"
+        },
+        "LOT_SIZE": {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.00010000",
+          "maxQty": "9000.00000000",
+          "stepSize": "0.00010000"
+        },
+        "MARKET_LOT_SIZE": {
+          "filterType": "MARKET_LOT_SIZE",
+          "minQty": "0.00000000",
+          "maxQty": "3227.42692125",
+          "stepSize": "0.00000000"
+        },
+        "NOTIONAL": {
+          "filterType": "NOTIONAL",
+          "minNotional": "5.00000000",
+          "applyMinToMarket": true,
+          "maxNotional": "9000000.00000000",
+          "applyMaxToMarket": false,
+          "avgPriceMins": 5
+        }
+      }
+    },
+    "Binance_perp": {
+      "symbol": "ETHUSDT",
+      "baseAsset": "ETH",
+      "quoteAsset": "USDT",
+      "marginAsset": "USDT",
+      "contractType": "PERPETUAL",
+      "status": "TRADING",
+      "quantityPrecision": 3,
+      "filters": {
+        "PRICE_FILTER": {
+          "minPrice": "39.86",
+          "filterType": "PRICE_FILTER",
+          "maxPrice": "306177",
+          "tickSize": "0.01"
+        },
+        "LOT_SIZE": {
+          "minQty": "0.001",
+          "stepSize": "0.001",
+          "filterType": "LOT_SIZE",
+          "maxQty": "10000"
+        },
+        "MARKET_LOT_SIZE": {
+          "maxQty": "2000",
+          "filterType": "MARKET_LOT_SIZE",
+          "stepSize": "0.001",
+          "minQty": "0.001"
+        },
+        "MIN_NOTIONAL": {
+          "filterType": "MIN_NOTIONAL",
+          "notional": "20"
+        }
+      }
+    },
+    "Hyperliquid_ETH": {
+      "szDecimals": 4,
+      "name": "ETH",
+      "maxLeverage": 25,
+      "marginTableId": 55
+    }
+  },
+  "rows": [
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Binance",
+      "symbol": "ETHUSDT",
+      "product": "spot",
+      "direction": "buy",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010669967243,
+      "vwap": 1874.42,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": null,
+      "source_sequence": 79510650245,
+      "received_at": "2026-08-05T10:59:21.165538+08:00",
+      "request_latency_ms": 286.04,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Binance_spot_depth.json",
+      "source_url": "https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=20",
+      "response_sha256": "34134c4222cabfd0e571174b5c49182d23810e6fdabfb2b7b8f4162003133a9e"
+    },
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Binance",
+      "symbol": "ETHUSDT",
+      "product": "spot",
+      "direction": "sell",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010670024168,
+      "vwap": 1874.41,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": null,
+      "source_sequence": 79510650245,
+      "received_at": "2026-08-05T10:59:21.165538+08:00",
+      "request_latency_ms": 286.04,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Binance_spot_depth.json",
+      "source_url": "https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=20",
+      "response_sha256": "34134c4222cabfd0e571174b5c49182d23810e6fdabfb2b7b8f4162003133a9e"
+    },
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Binance",
+      "symbol": "ETHUSDT",
+      "product": "USDT-M perpetual",
+      "direction": "buy",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010675149852,
+      "vwap": 1873.51,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": 1785898762879,
+      "source_sequence": 11214174271824,
+      "received_at": "2026-08-05T10:59:22.824803+08:00",
+      "request_latency_ms": 294.54,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Binance_perp_depth.json",
+      "source_url": "https://fapi.binance.com/fapi/v1/depth?symbol=ETHUSDT&limit=20",
+      "response_sha256": "c772dc3d84d8a709880513cd9b935b14619be0f0e53b4fb0cbddf678633e2851"
+    },
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Binance",
+      "symbol": "ETHUSDT",
+      "product": "USDT-M perpetual",
+      "direction": "sell",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010675206832,
+      "vwap": 1873.5,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": 1785898762879,
+      "source_sequence": 11214174271824,
+      "received_at": "2026-08-05T10:59:22.824803+08:00",
+      "request_latency_ms": 294.54,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Binance_perp_depth.json",
+      "source_url": "https://fapi.binance.com/fapi/v1/depth?symbol=ETHUSDT&limit=20",
+      "response_sha256": "c772dc3d84d8a709880513cd9b935b14619be0f0e53b4fb0cbddf678633e2851"
+    },
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Hyperliquid",
+      "symbol": "ETH",
+      "product": "perpetual",
+      "direction": "buy",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010674637062,
+      "vwap": 1873.6,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": 1785898763459,
+      "source_sequence": null,
+      "received_at": "2026-08-05T10:59:24.146843+08:00",
+      "request_latency_ms": 248.98,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Hyperliquid_l2Book_ETH.json",
+      "source_url": "https://api.hyperliquid.xyz/info",
+      "response_sha256": "86800422ffd591096ed9461b97d23b3b1f5d6cdd0e29a9bf83985843f5d8f379"
+    },
+    {
+      "captured_at": "2026-08-05T10:59:24.148319+08:00",
+      "venue": "Hyperliquid",
+      "symbol": "ETH",
+      "product": "perpetual",
+      "direction": "sell",
+      "target_quote": 20.0,
+      "filled_quote": 20.0,
+      "filled_base": 0.010675206832,
+      "vwap": 1873.5,
+      "unfilled_quote": 0.0,
+      "levels_used": 1,
+      "source_timestamp": 1785898763459,
+      "source_sequence": null,
+      "received_at": "2026-08-05T10:59:24.146843+08:00",
+      "request_latency_ms": 248.98,
+      "status": "ok",
+      "error": null,
+      "raw_file": "lab/data/venue_raw/Hyperliquid_l2Book_ETH.json",
+      "source_url": "https://api.hyperliquid.xyz/info",
+      "response_sha256": "86800422ffd591096ed9461b97d23b3b1f5d6cdd0e29a9bf83985843f5d8f379"
+    }
+  ],
+  "funding_file": "lab/data/venue_funding_observations.json",
+  "raw_manifest": "lab/data/venue_raw_manifest.json"
+}

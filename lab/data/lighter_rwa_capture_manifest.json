@@ -1,0 +1,155 @@
+{
+  "captured_at": "2026-08-06T00:22:42.026693+00:00",
+  "read_only": true,
+  "source": "Lighter public API",
+  "records": [
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=145&resolution=1h&start_timestamp=1&end_timestamp=1785975758741&count_back=500&set_timestamp_to_end=False",
+      "path": "/api/v1/candles",
+      "params": {
+        "market_id": 145,
+        "resolution": "1h",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 500,
+        "set_timestamp_to_end": false
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:38.741000+00:00",
+      "received_at": "2026-08-06T00:22:39.177000+00:00",
+      "request_latency_ms": 436,
+      "raw_file": "lab/data/lighter_rwa_raw/WTI_candles_1h.json",
+      "bytes": 56867,
+      "sha256": "1f70c46588e9fa25e1c8bb46b2fd9fcf5808c888a4ae51f896087fc455842941",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=145&resolution=1d&start_timestamp=1&end_timestamp=1785975758741&count_back=500&set_timestamp_to_end=False",
+      "path": "/api/v1/candles",
+      "params": {
+        "market_id": 145,
+        "resolution": "1d",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 500,
+        "set_timestamp_to_end": false
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:39.179000+00:00",
+      "received_at": "2026-08-06T00:22:39.583000+00:00",
+      "request_latency_ms": 404,
+      "raw_file": "lab/data/lighter_rwa_raw/WTI_candles_1d.json",
+      "bytes": 19472,
+      "sha256": "ed51f2c8f3a141f6fae9c7af9b4c5d78a287ab8dac0b3dedb1a40e6224e00196",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=145&resolution=1h&start_timestamp=1&end_timestamp=1785975758741&count_back=750",
+      "path": "/api/v1/fundings",
+      "params": {
+        "market_id": 145,
+        "resolution": "1h",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 750
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:39.584000+00:00",
+      "received_at": "2026-08-06T00:22:40.012000+00:00",
+      "request_latency_ms": 428,
+      "raw_file": "lab/data/lighter_rwa_raw/WTI_fundings_1h.json",
+      "bytes": 60864,
+      "sha256": "64b9f35842181b1525d478542369b374edcd844ce610ab666754f1b26d072f9d",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails?market_id=145",
+      "path": "/api/v1/orderBookDetails",
+      "params": {
+        "market_id": 145
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:40.014000+00:00",
+      "received_at": "2026-08-06T00:22:40.404000+00:00",
+      "request_latency_ms": 390,
+      "raw_file": "lab/data/lighter_rwa_raw/145_orderBookDetails.json",
+      "bytes": 1432,
+      "sha256": "444881d6009121cc1a267eeff47f654186ef238eb63eb6e08fccd42814b4ae7f",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=159&resolution=1h&start_timestamp=1&end_timestamp=1785975758741&count_back=500&set_timestamp_to_end=False",
+      "path": "/api/v1/candles",
+      "params": {
+        "market_id": 159,
+        "resolution": "1h",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 500,
+        "set_timestamp_to_end": false
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:40.405000+00:00",
+      "received_at": "2026-08-06T00:22:40.827000+00:00",
+      "request_latency_ms": 422,
+      "raw_file": "lab/data/lighter_rwa_raw/BRENTOIL_candles_1h.json",
+      "bytes": 54343,
+      "sha256": "2f0a3aa8421669ac53aa18fc0abbb5e7a3f5385b4a75ff4ac8226d9b88b53cb6",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=159&resolution=1d&start_timestamp=1&end_timestamp=1785975758741&count_back=500&set_timestamp_to_end=False",
+      "path": "/api/v1/candles",
+      "params": {
+        "market_id": 159,
+        "resolution": "1d",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 500,
+        "set_timestamp_to_end": false
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:40.828000+00:00",
+      "received_at": "2026-08-06T00:22:41.213000+00:00",
+      "request_latency_ms": 385,
+      "raw_file": "lab/data/lighter_rwa_raw/BRENTOIL_candles_1d.json",
+      "bytes": 15142,
+      "sha256": "50caeb8f709b63fb2ec4611cc1a4ff1102bd3e9286b6b94b423f7095f67c5806",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=159&resolution=1h&start_timestamp=1&end_timestamp=1785975758741&count_back=750",
+      "path": "/api/v1/fundings",
+      "params": {
+        "market_id": 159,
+        "resolution": "1h",
+        "start_timestamp": 1,
+        "end_timestamp": 1785975758741,
+        "count_back": 750
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:41.215000+00:00",
+      "received_at": "2026-08-06T00:22:41.661000+00:00",
+      "request_latency_ms": 446,
+      "raw_file": "lab/data/lighter_rwa_raw/BRENTOIL_fundings_1h.json",
+      "bytes": 60864,
+      "sha256": "f3c0fb0a4def8f0f1a364c662b0d359fa0b8491da93cc4871acfcade10e9688a",
+      "error": null
+    },
+    {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails?market_id=159",
+      "path": "/api/v1/orderBookDetails",
+      "params": {
+        "market_id": 159
+      },
+      "http_status": 200,
+      "request_started_at": "2026-08-06T00:22:41.661000+00:00",
+      "received_at": "2026-08-06T00:22:42.025000+00:00",
+      "request_latency_ms": 364,
+      "raw_file": "lab/data/lighter_rwa_raw/159_orderBookDetails.json",
+      "bytes": 1436,
+      "sha256": "71298c3d1b5f7b34321a81f0e81e6486ad6e97c2b2e08592bb11dcd5c869af18",
+      "error": null
+    }
+  ]
+}

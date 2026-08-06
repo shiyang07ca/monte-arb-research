@@ -1,360 +1,349 @@
-# 21 天链上套利研究训练计划
+# 10 天课程与第 11–21 天条件式计划（v5）
 
-> 版本：2026-08-04
+> 版本：2026-08-06
 >
-> 每日投入：40–90 分钟，默认 60 分钟
+> 研究对象：Lighter `WTI`（`market_id=145`）与 `BRENTOIL`（`market_id=159`）。
 >
-> 核心原则：先解释偏差，再测量偏差；先证明可执行净收益，再讨论自动交易。
+> 当前阶段：第 2 天已完成；第 1–10 天是本阶段的详细学习与研究计划。第 11–20 天不预先承诺内容，必须由第 10 天的证据闸门选择分支；第 21 天用于总结和复盘。
+>
+> 时间预算：每天 30–90 分钟，默认 60 分钟。每一天只追求一个可以运行、解释、复查的产出。
 
-## 结论
+## 1. 课程目标和边界
 
-这 21 天只做一件事：
+这不是“十天找到盈利策略”的计划，而是十天内建立一套能够拒绝伪机会、复现数据、解释代码和做出 `Go / No-Go / Blocked` 判断的研究能力。
 
-> **在 Arbitrum One 上，以 WETH/USDC 的两个 Uniswap v3 费率池为实验对象，完成“读取同一链上状态 → 计算不同规模的可执行报价 → 扣除成本 → 回放与证伪 → 输出继续或停止判断”的完整研究流程。**
+WTI 与 BRENTOIL 是同一场所的不同商品 RWA 永续，不是严格的跨场所套利；不预设 1:1 对冲、固定美元价差、固定价格比率或动态 beta。官方资料显示，两者分别代表 WTI 和 Brent 桶价，使用 Pyth Lazer 价格源，并具有不同的期货展期窗口。[43][44][45]
 
-最终目标不是做出一个赚钱 Bot，也不是学完所有 DeFi 主题，而是形成五种可复用能力：
-
-1. 能解释价格偏差为什么出现，以及偏差由谁修复。
-2. 能独立取得带区块信息的链上数据，并判断数据是否可比较。
-3. 能区分网页价格、毛价差与可执行净收益。
-4. 能用固定区块、真实交易和失败样本检验自己的判断。
-5. 能让 AI 帮助查资料、写代码和复盘，但不让 AI 代替确定性计算与风险规则。
-
-## 对当前背景的重新评估
-
-### 已确认
-
-- 已经使用 Claude Code 和 Codex，具备以代码仓库、任务和文档推进工作的习惯。
-- 目标偏向独立研究、数据分析、机会发现和工程实现，不需要通用区块链入门课程。
-- 每天只有 40–90 分钟，过重的基础设施建设会挤掉真正的数据实验。
-- 希望探索 Hermes，但现有 Coding Agent 已能完成大多数近期任务。
-
-### 尚未确认
-
-当前资料没有证明以下能力已经熟练掌握：
-
-- EVM 状态、区块标签、日志和交易回执；
-- Uniswap v3 的 tick、流动性区间与规模相关报价；
-- 固定区块回放、净收益模型和 MEV 排序约束；
-- 从候选信号到 Paper Trading 的独立研究过程。
-
-因此，本计划将你的起点定义为：
-
-> **通用工程与 AI 工具能力较强，链上套利研究能力需要用实际产出校准。**
-
-Day 1 不做问卷，而用一个最小任务测试起点。若 30 分钟内已能读取链、区块和池状态，就把余下时间用于增加测试或固定区块参数；不要因此增加第二条链或第二个策略。
-
-## 第一性原理
-
-### 套利成立的必要条件
+研究顺序固定为：
 
 ```text
-可执行净收益
-= 最终收到资产的可执行价值
-- 初始资产成本
-- 协议费
-- 价格冲击与滑点
-- Gas 与 L1 数据费
-- 排序或包含成本
-- 失败与状态过期成本
-- 资金占用与库存风险
+合约语义 → 数据审计 → 统计检验 → 执行回放 → 决策
 ```
 
-任何候选机会都必须回答五个问题：
+未知字段不能默认为 0。研究阶段资金为 `$0`；不认证、不连接私钥、不发真实订单、不写无人值守发单。
 
-1. **偏差机制**：为什么两个池会出现不同报价？
-2. **状态一致性**：报价是否来自同一 block number 和 block hash？
-3. **交易规模**：在 100、500、1,000、5,000、10,000 USDC 等规模下，实际能收到多少？
-4. **完整成本**：扣除手续费、Gas、安全余量和失败成本后还剩多少？
-5. **捕获条件**：机会持续多久，普通交易是否可能在排序竞争中得到它？
+## 2. 学习成功与策略成功分开
 
-如果第五个问题没有答案，结果只能标记为“研究信号”，不能标记为“可交易机会”。
+### 学习成功
 
-## 本期范围
+学习者能够：
 
-| 项目 | 本期选择 | 原因 |
-| --- | --- | --- |
-| 主链 | Arbitrum One | 费用较低，官方提供公开 RPC；Timeboost 使排序成本成为必须理解的变量 |
-| 交易对 | WETH/USDC | 资产与地址容易从协议官方资料交叉核验，流动性池长期存在 |
-| 比较对象 | Uniswap v3 0.05% 与 0.3% 两个池 | 只写一套协议适配代码，同时训练费率、流动性和规模对报价的影响 |
-| 方法 | 只读查询、历史数据、固定区块回放、Paper 记录 | 先证明数据和计算正确，不承担真实资金风险 |
-| 代码 | Python、少量 Pandas、pytest；需要回放时再装 Foundry | 避免提前建设数据库、服务和前端 |
-| AI | Codex 或 Claude Code 负责实现，另一个只在复盘日审查；Hermes 限时评估一次 | 防止工具切换代替学习 |
+- 用自己的话解释经济对象、价格源、展期、funding、保证金和退出风险；
+- 从官方 API 原始响应复现审计数字；
+- 逐字段解释研究代码，修改一个小规则并重新运行；
+- 在训练/验证/测试划分下说明什么可以结论、什么只能保持未知；
+- 看到证据不足时主动输出 `Blocked`。
 
-### 已核验的实验常量
+### 策略成功
 
-以下地址来自官方文档，并在 2026-08-04 通过 Arbitrum One 的 `eth_call` 再次检查。访问时区块为
-`491017954`，两个目标池的 `liquidity()` 都不为零。开始实验时仍要重新查询 Factory，不能把本表当作永久状态。
+只有在以下条件全部有证据时，候选才可从 `Blocked` 进入纸上 `Go`：
 
-| 对象 | 地址 |
-| --- | --- |
-| Arbitrum One 公共 RPC | `https://arb1.arbitrum.io/rpc` |
-| Uniswap v3 Factory | `0x1F98431c8aD98523631AE4a59f267346ea31F984` |
-| Uniswap v3 QuoterV2 | `0x61fFE014bA17989E743c5F6cB21bF9697530B21e` |
-| WETH | `0x82aF49447D8a07e3bd95BD0d56f35241523fBab1` |
-| USDC | `0xaf88d065e77c8cC2239327C5EDb3A432268e5831` |
-| WETH/USDC 0.05% 池 | `0xc6962004f452be9203591991d15f6b388e09e8d0` |
-| WETH/USDC 0.3% 池 | `0xc473e2aee3441bf9240be85eb122abb059a3b57c` |
+- 价格语义和展期状态可解释；
+- 历史数据覆盖足够且没有未来信息泄漏；
+- funding 现金流可映射到账本；
+- 目标数量的开仓、持仓、平仓成本可回放；
+- 权限、保证金、清算和单腿退出路径已核验；
+- 保守样本外净现金 PnL 在压力条件下仍不被成本吞没。
 
-公共 RPC 适合低频学习查询，但 Arbitrum 官方明确说明它没有可用性、延迟或限流保证。它不能用于判断生产系统的延迟优势。
+前十天不承诺满足这些条件，也不以获得正收益作为课程通过标准。
 
-## 方向取舍
+## 3. 每日固定学习循环
 
-| 方向 | 21 天内的决定 | 理由 |
-| --- | --- | --- |
-| 同链、同区块、不同规模的可执行报价比较 | **唯一主线** | 同时训练 AMM、RPC、数据、成本、验证和工程实现 |
-| MEV 与 Arbitrum Timeboost | **必须理解，不做竞速系统** | 排序决定理论机会能否被普通参与者捕获 |
-| LI.FI 跨链报价 | **限时 1 天观察** | 用于理解桥费、时间和非原子风险，不把聚合器最佳报价误当成个人优势 |
-| Hermes | **限时 1 天评估** | 只验证它是否比现有 Codex/Claude 工作方式多出长期记忆或定时任务价值 |
-| Uniswap v4、Hooks | **暂缓** | 当前训练不需要增加协议状态和 Hook 行为复杂度；v3 仍有官方部署和文档 |
-| CEX–DEX、跨链库存套利 | **暂缓** | 需要交易所数据、账户、库存和延迟模型，当前证据不足 |
-| 三角套利、清算、闪电贷 | **暂缓** | 都是成熟且竞争激烈的主题；闪电贷只解决资金，不创造净优势 |
-| Ethereum 主网公共 mempool Bot | **排除** | Ethereum 官方资料明确提示经典 DEX 套利对新 searcher 通常不再有直接盈利空间 |
-| Sandwich 与 AI 自动发送真实交易 | **排除** | 前者损害用户；后者把不确定推理放进高风险执行过程 |
-| Postgres、消息队列、微服务、监控大盘 | **排除** | 21 天内 CSV/Parquet、脚本和简短报告足够验证假设 |
+每天按以下顺序进行：
 
-这并不表示经典 DEX 套利“没有价值”。它仍是学习可执行价格、状态时效、成本和 MEV 的好实验，但不能把学习价值写成盈利承诺。若 21 天后要继续寻找更有希望的方向，应从协议特有机制、长尾事件和自身可验证的数据优势出发，而不是继续复制通用套利 Bot。
+1. **检索**：不看答案，写出今天问题的已有理解；
+2. **输入**：只读官方来源和仓库原始证据；
+3. **动作**：运行一个脚本、查询一个字段或完成一个纸上计算；
+4. **回忆**：关闭资料后口头解释；
+5. **记录**：写入产出、证据路径、未知项和明日唯一动作。
 
-## 最终能力模型与产出
+每个学习日的“通过”包含四类证据：
 
-### Day 21 应具备的能力
+- 口头解释；
+- 代码复现；
+- 数据审计；
+- 研究回放或纸上场景。
 
-| 能力 | 可观察证据 |
-| --- | --- |
-| 状态读取 | 能保存 chain ID、block number、block hash、timestamp、池地址和查询时间 |
-| AMM 与报价 | 能解释 tick、活动流动性、费率和交易规模为何改变 `amountOut` |
-| 数据分析 | 能比较两个池、两个方向和多个规模，并识别状态错配与异常值 |
-| 净收益判断 | 能输出毛价差、协议费、Gas、安全余量和最终判断 |
-| 证伪 | 至少否定一个原本看好的信号，并写清失败原因 |
-| 回放 | 能在固定区块重复一次报价或候选判断 |
-| 工程实现 | 一个命令可以完成“读取 → 报价 → 分析 → 输出报告” |
-| AI 工作方式 | 有一个固定研究提示词和一份 agent 分工说明，不向 agent 提供钱包私钥 |
+## 4. Day 1–10 详细计划
 
-### 只要求五项最终产出
+### Day 1｜定义候选与拒绝规则
 
-1. `research-charter.md`：一页研究范围、净收益模型、风险边界和停止条件。
-2. `quotes.csv` 或 `quotes.parquet`：至少 20 个时间点、两个池、两个方向、五个规模的带区块报价。
-3. `arb_lab.py` 或等价的小型模块：读取、报价、计算成本并给出 reason code。
-4. `case-study.md`：一笔真实交易或一次价格变化的状态、日志、成本和失败条件分析。
-5. `final-report.md`：两页以内的 Go / No-Go 结论，以及唯一一个下一阶段方向。
+**问题**：研究的到底是什么，什么不算机会？
 
-不要求执行合约、实时服务器、数据库、前端、监控大盘或真实收益。
+**输入**：`MISSION.md`、`notes/research-charter.md`、ICL 原始课程记录、Lighter RWA 总览。[42]
 
-## 每日节奏
+**动作**：
 
-默认 60 分钟：
+- 写出“同场所跨品种相对价值”与“跨场所无风险套利”的区别；
+- 列出结算、经济对象、数量、权限、价格、funding、深度、退出等检查项；
+- 为 `Go / No-Go / Blocked` 写定义。
 
-- 5 分钟：写下今日唯一问题和完成条件。
-- 15 分钟：阅读最多两份一手资料，只摘录实验需要的事实。
-- 30 分钟：查询、编码、计算或回放。
-- 10 分钟：保存证据、写结论和明日唯一动作。
+**产出**：`notes/research-charter.md`、`learning-records/0001-rwa-perpetual-relative-value-boundary.md`。
 
-时间不足时用 40 分钟版本：5 + 10 + 20 + 5。状态很好时最多延长到 90 分钟，只允许加深当天实验，不允许增加新主题。
+**通过标准**：不看资料，能说出至少 5 个未知字段；能解释为什么相关性或一次盈利不能代表策略成立。
 
-### 防止过度思考的规则
+**依赖**：无。
 
-- 同时只有一个活动假设；新想法写入 `parking-lot.md`。
-- 每天最多读两份资料，连续阅读 20 分钟后必须开始操作。
-- 卡住 15 分钟就让 Codex 或 Claude Code解释错误并给出最小修复。
-- 同一个问题只选一个 agent 实现；另一个 agent 只在 Day 7、14、20 审查。
-- 工具只有在同一阻碍出现两次后才允许新增。
-- 到 90 分钟立即停止，保留失败状态也算有效证据。
-- 漏一天不补双倍任务，直接继续下一天；Day 7 或 Day 14 再决定是否调整。
+### Day 2｜运行现有只读采集和审计
 
-## 21 天大纲
+**问题**：现有数据来自哪里，覆盖了什么，哪些数字只是描述性结果？
 
-### 第一周：从概念到第一次同区块比较
+**输入**：`lab/capture_lighter_rwa.py`、`lab/audit_lighter_rwa.py`、原始 JSON、manifest、audit。
 
-| Day | 时间 | 今日唯一问题 | 实操与完成条件 | 当日产出 |
-| --- | --- | --- | --- | --- |
-| 1 | 60 分钟 | 我现在能否独立读取链上状态？ | 固定主链、交易对和两个池；读取 chain ID、最新区块号、hash、timestamp；写明真实资金禁区 | `research-charter.md` 与第一条打卡 |
-| 2 | 60 分钟 | 为什么交易规模会改变价格？ | 用公式或 Python 实现常数乘积基线，画出 `amountIn → executionPrice`；再写三句话说明 v3 与 v2 的差异 | 一张曲线与一个可运行函数 |
-| 3 | 60 分钟 | 哪些数据必须绑定到同一状态？ | 连续读取 10 次区块，保存请求时间、block number、hash 和 timestamp；检查是否出现重复或状态变化 | `blocks.jsonl` 与字段说明 |
-| 4 | 60–75 分钟 | 两个目标池是否真实且可读？ | 从官方部署地址和 Factory 重新取得池地址；在同一 blockTag 读取 `token0`、`token1`、`fee`、`liquidity`、`slot0` | `pools.json` 与地址核验记录 |
-| 5 | 60–75 分钟 | 一个池在不同规模下能给出多少？ | 用 QuoterV2 对 100、500、1,000、5,000、10,000 USDC 报价；保存 amountOut、gasEstimate、block 和耗时 | 第一版 `quotes.csv` |
-| 6 | 60–90 分钟 | 两个池在同一状态下是否存在可执行差异？ | 同一 blockTag、同一方向和同一规模查询两个池；计算 gross spread bps，状态不一致时拒绝比较 | `compare.py` 与一张报价表 |
-| 7 | 40–60 分钟 | 第一周的流程能否重复？ | 从空输出目录重新运行 Day 3–6；记录三个最主要错误；删除一个不必要工具或任务 | 第一周复盘与更新后的下一周目标 |
-
-第一周通过条件：无需手工改数据，能在同一 blockTag 下得到两个池、五个规模的可比较报价。
-
-### 第二周：从毛价差到可证伪判断
-
-| Day | 时间 | 今日唯一问题 | 实操与完成条件 | 当日产出 |
-| --- | --- | --- | --- | --- |
-| 8 | 60 分钟 | 数据是否足以复现？ | 为报价增加 block hash、请求/响应时间、方向、原始单位、decimals 和 error；写 3 个数据校验 | schema 说明与测试 |
-| 9 | 60 分钟 | 毛价差扣完已知成本还剩多少？ | 加入两腿池费、Gas 估计和保守安全余量；输出乐观、基准、保守三种情景 | `cost-model.md` 与计算函数 |
-| 10 | 60–90 分钟 | 系统应在何时拒绝候选？ | 为 block mismatch、quote stale、net edge ≤ 0、异常 decimals 和 RPC error 添加 reason code | 候选检测器与测试 |
-| 11 | 60–75 分钟 | 真实 Swap 事件提供了哪些证据？ | 用 `eth_getLogs` 抓一个池的一小段 Swap 日志；解码区块、交易、amount、tick 和 liquidity | `swaps.csv`，不追求大样本 |
-| 12 | 60–90 分钟 | 一笔真实交易为什么改变了池状态？ | 从 Day 11 选择一笔交易，核对交易、回执、日志和前后状态；区分观察事实与估算 | `case-study.md` 初稿 |
-| 13 | 60–90 分钟 | 相同状态能否得到相同结论？ | 使用 Anvil 或支持历史状态的 RPC 固定区块，重跑一次报价与检测；若公共 RPC 不支持，记录限制并固定最近区块 | 回放命令、输入和输出 |
-| 14 | 40–60 分钟 | 当前假设值得继续吗？ | 汇总错误、负样本和未计成本；明确否定或保留“两个费率池存在可捕获净差异”这一假设 | 一页 Go / No-Go 中期判断 |
-
-第二周通过条件：至少有一个候选被明确拒绝，并能用数据说明拒绝原因；“没有机会”也是合格结果。
-
-### 第三周：从实验到独立研究与 AI 工作方式
-
-| Day | 时间 | 今日唯一问题 | 实操与完成条件 | 当日产出 |
-| --- | --- | --- | --- | --- |
-| 15 | 60–75 分钟 | 差异是偶然快照还是重复现象？ | 分时运行报价脚本，累计至少 20 个时间点；不要为了数量牺牲 block 和错误字段 | 完整 `quotes.csv/parquet` |
-| 16 | 60–90 分钟 | 候选差异的频率、规模和持续性如何？ | 按规模和方向统计 gross/net edge 分布、正值比例和连续出现次数；不外推真实 PnL | 一张图、一张表、三条结论 |
-| 17 | 60 分钟 | 即使净值为正，我有机会捕获吗？ | 阅读 Ethereum MEV 与 Arbitrum Timeboost 官方资料；把排序、200ms 延迟和竞争条件加入判断 | `execution-reality.md` |
-| 18 | 60 分钟 | 跨链最佳报价是否等于套利机会？ | 用 LI.FI API 查询同一资产和规模的两个跨链 route；拆出桥、DEX、Gas、预计时间和最小到账，不发送交易 | 一页跨链反例笔记 |
-| 19 | 60–75 分钟 | Hermes 是否解决现有工作方式没有解决的问题？ | 用同一任务比较 Hermes 与当前 agent：读取一个链接、生成研究卡、保存结论。安装或配置超过 60 分钟即停止 | `ai-workflow.md` 与保留/放弃结论 |
-| 20 | 60–90 分钟 | 新环境能否一次运行全部研究步骤？ | 整理一个命令完成读取、报价、成本、检测和报告；让第二个 Coding Agent 只审查可复现性与风险 | README、命令和测试结果 |
-| 21 | 60–90 分钟 | 下一阶段唯一值得继续的方向是什么？ | 演示完整流程；按能力模型逐项验收；写两页以内最终报告，只保留一个 30 天研究方向 | `final-report.md` 与最终打卡 |
-
-第三周通过条件：最终报告能明确回答“发现了什么、为什么可能成立、为什么可能无法捕获、下一步做什么或为什么停止”。
-
-## 未来五天的启动计划
-
-### Day 1：范围与链状态
-
-- 15 分钟：读共学说明与 Ethereum MEV 官方页面，写下“不以 21 天盈利为目标”。
-- 15 分钟：调用公共 RPC，确认 `eth_chainId = 0xa4b1`（42161），读取最新区块。
-- 20 分钟：完成 `research-charter.md`。
-- 10 分钟：按打卡模板记录证据。
-
-完成条件：文件中只有一条链、一个交易对、两个池和一个活动假设。
-
-### Day 2：AMM 与规模
-
-- 15 分钟：只读 Uniswap 集中流动性说明。
-- 30 分钟：写常数乘积基线并生成五个规模的结果。
-- 15 分钟：写出“为什么屏幕价格不能用于套利判断”。
-
-完成条件：有可运行函数和一张规模—价格曲线。
-
-### Day 3：状态与时间
-
-- 10 分钟：确认 RPC 返回字段。
-- 40 分钟：保存 10 次区块快照，并加入本地请求时间。
-- 10 分钟：解释 block number、hash 和 timestamp 各自解决什么问题。
-
-完成条件：每行数据都能定位到一个具体区块。
-
-### Day 4：真实池状态
-
-- 15 分钟：核对 Uniswap、Circle 和 Arbitrum 官方地址。
-- 35 分钟：从 Factory 查询两个池，并以同一 blockTag 读取池状态。
-- 10 分钟：检查 token 顺序与 decimals。
-
-完成条件：地址不是从博客复制，且两个池的返回值可以追溯到区块。
-
-### Day 5：第一张报价面
-
-- 15 分钟：阅读 QuoterV2 官方示例。
-- 35 分钟：查询一个池、一个方向、五个规模。
-- 10 分钟：检查 amount 单位、耗时与异常。
-
-完成条件：得到第一版 `quotes.csv`，即使查询失败也保存 error。
-
-## 现在立刻开始：20 分钟
-
-不要先安装 Hermes、数据库或完整 Foundry 环境。先验证链连接：
+**动作**：
 
 ```bash
-mkdir -p lab/data lab/notes
-
-curl -s https://arb1.arbitrum.io/rpc \
-  -H 'content-type: application/json' \
-  --data '{"jsonrpc":"2.0","id":1,"method":"eth_chainId","params":[]}'
-
-curl -s https://arb1.arbitrum.io/rpc \
-  -H 'content-type: application/json' \
-  --data '{"jsonrpc":"2.0","id":1,"method":"eth_blockNumber","params":[]}'
+python3 lab/capture_lighter_rwa.py
+python3 lab/audit_lighter_rwa.py
+python3 -m json.tool lab/data/lighter_rwa_capture_manifest.json >/dev/null
+python3 -m json.tool lab/data/lighter_rwa_data_audit.json >/dev/null
 ```
 
-随后把下面这段任务交给今天选定的一个 Coding Agent：
+保存请求 URL、参数、HTTP 状态、请求/接收时间、延迟、原始文件和 SHA-256；不把 token 或 header 写入仓库。
+
+**产出**：`lab/data/lighter_rwa_capture_manifest.json`、`lab/data/lighter_rwa_data_audit.json`、`lab/data/lighter_rwa_aligned_1h.jsonl`、`notes/day-1.md`。
+
+**当前证据**：两腿共同 1h candles 为 500 行、约 21 天；1h funding 各 750 行、约 31 天；收益相关性约 `0.9707121232645127`。这些数字只支持“值得继续审计”，不支持协整或盈利结论。[47][48][49][50][53][54]
+
+**通过标准**：能从 audit 的一条数字回到原始 JSON 和 manifest；能指出 `HISTORY_DEPTH_INSUFFICIENT`。
+
+**依赖**：Day 1。
+
+### Day 3｜建立 RWA 合约模型
+
+**问题**：两腿各自代表什么，数量和保证金怎样解释？
+
+**输入**：`notes/rwa-contract-model.md`、官方 RWA 市场规格、`orderBookDetails` 原始快照。[45][72]
+
+**动作**：
+
+- 手工填写 WTI/BRENTOIL 经济对象、market id、产品类型、最小基础数量、最小报价金额、数量/价格小数位、乘数和保证金字段；
+- 用一个 `$10` 目标报价金额和各自最小数量做数量可行性检查；
+- 区分动态快照与稳定规则。
+
+**产出**：`notes/rwa-contract-model.md`、字段字典、一个数量检查记录。
+
+**通过标准**：不看代码解释为什么价格相近不能决定数量相等；能指出至少 3 个字段仍需账户或成交回执核验。
+
+**依赖**：Day 2。
+
+### Day 4｜价格源、index、mark 和 EMA
+
+**问题**：一个 API 返回的价格是否都代表同一过程？
+
+**输入**：官方 RWA 定价、Fair Price Marking、PnL 文档。[43][75][76]
+
+**动作**：画出：
 
 ```text
-在当前仓库创建一个最小 Python 脚本，只读取 Arbitrum One。
-要求：
-1. 调用 eth_chainId 和 eth_getBlockByNumber；
-2. 输出 chain_id、block_number、block_hash、block_timestamp、received_at；
-3. 结果追加到 lab/data/blocks.jsonl；
-4. RPC URL 从环境变量读取，但允许使用官方公共 RPC 作为开发默认值；
-5. 不接收私钥，不发送交易，不增加数据库和 Web 服务；
-6. 提供一个单元测试和一条运行命令。
-完成后解释每个字段为什么是后续报价可比性的必要条件。
+外部 oracle → index / mark 计算
+订单簿 impact price → 内部 EMA（oracle stale 时）
+成交价 / mid / candle close → 观察数据
 ```
 
-今天做到脚本能运行并产生一行数据就停止。
+为数据表设计：`trade_price`、`candle_close`、`index_price`、`mark_price`、`mid_price`、`oracle_state`、`source_timestamp`。
 
-## 打卡模板
+**产出**：`notes/price-semantics.md`。
 
-```markdown
-# Day __ / 日期
+**通过标准**：能解释 oracle stale 如何造成价格过程切换；没有字段时写 `unknown`，不插值伪造。
 
-今日唯一问题：
-用时：
+**依赖**：Day 3。
 
-一手资料：
-- 链接：
-- 使用的事实：
+### Day 5｜展期和市场状态
 
-实际动作：
-- 命令、代码或查询：
+**问题**：价差变化来自相对价值，还是来自两个期货合约的不同展期？
 
-证据：
-- 文件、区块、交易哈希、图表或测试：
+**输入**：`notes/rwa-roll-and-session-model.md`、官方展期文档。[44]
 
-结论：
-- 支持 / 否定 / 暂时无法判断：
-- 原因：
+**动作**：
 
-卡点：
+- 把 UTC 时间转换为美国东部时间；
+- 给每个小时标记 `wti_roll_window`、`brentoil_roll_window`、`market_closed_window`；
+- 设计“全样本 / 排除展期 / 按展期阶段分层”的比较；
+- 不因异常直接删除样本。
 
-明日唯一动作：
-```
+**产出**：`notes/rwa-roll-and-session-model.md`、时间状态表。
 
-一次有效打卡只要求四项：有问题、有动作、有证据、有下一步。不要用长篇笔记代替实验。
+**通过标准**：能说出 WTI 17:30 与 BRENTOIL 19:00 的时区含义；能解释为什么时间错位会产生结构断点；缺数据时输出 `roll_semantics_unknown`。
 
-## 调整规则
+**依赖**：Day 4。
 
-| 现象 | 立即调整 |
-| --- | --- |
-| Day 5 仍无法取得报价 | Day 6–7 只检查地址、ABI、token 顺序、decimals 和 blockTag，不进入成本模型 |
-| 超过 20% 的比较来自不同区块 | 暂停机会分析，先修复状态绑定和数据校验 |
-| 加入保守成本后所有候选为负 | 保留代码和数据，将假设标记为 No-Go；Day 14 前不换交易对 |
-| 无法固定区块重复结果 | 不讨论策略收益，先记录 RPC 或历史状态能力限制 |
-| 连续两天只有阅读 | 下一天禁止读新资料，只完成一个查询、函数或图表 |
-| Hermes 安装或配置超过 60 分钟 | 本期停止探索，继续使用 Codex/Claude Code |
-| 漏打卡一天 | 不补双倍任务，继续下一个实验，并在周复盘说明缺口 |
-| 想增加新链、协议或策略 | 写入 `parking-lot.md`，Day 21 后再评估 |
+### Day 6｜Funding 现金流与纸上账本
 
-## 一手资料与可靠性
+**问题**：funding API 的字段怎样进入两腿现金流？
 
-访问日期均为 2026-08-04。协议行为、部署地址和产品能力优先使用项目官方文档或官方代码；动态状态再用链上查询核验。
+**输入**：官方 Funding 文档、fundings 原始响应。[46][48]
 
-### 本地课程资料
+**动作**：
 
-- [链上套利残酷共学页面快照](./残酷共学｜链上套利残酷共学.pdf)：用于确认 21 天周期、课程目标、打卡方式和风险边界。
-- [发起人的学习大纲](./套利共学｜为什么我在熊市发起链上套利残酷共学？顺便分享下我的学习大纲.pdf)：用于理解“先基础、再案例、最后选择方向”的原始意图。它是个人经验，不用于证明协议事实或盈利概率。
-- [Hermes Agent Setup 与学习 Prompt](./套利共学｜从零配置一个链上套利辅助和学习的 Hermes Agent：我的 Setup、硬件、模型和学习 Prompt.pdf)：支持“已有 Codex/Claude 时先用现有工具、计划滚动调整、缺什么再装什么”的取舍。
+- 建立 `timestamp/rate/value/direction/position_sign/quantity/settlement_price/cash_flow` 字段表；
+- 用多头 WTI、空头 WTI、多头 BRENTOIL、空头 BRENTOIL 四个场景手工判断现金流方向；
+- 明确 `value` 不能直接相减。
 
-### 在线一手资料
+**产出**：`notes/funding-ledger-model.md`、纸上 funding ledger。
 
-- [课程官方页面](https://intensivecolearn.ing/programs/b43d2e97-ed88-4ca3-b12f-7ef672b01205)：课程周期、面向人群和风险说明；报名人数等动态字段会变化。
-- [Ethereum：MEV](https://ethereum.org/developers/docs/mev/)：说明 DEX 套利的原子性、searcher 竞争和新参与者面对的现实。
-- [Arbitrum chain information](https://docs.arbitrum.io/for-devs/dev-tools-and-resources/chain-info)：官方 RPC、chain ID、sequencer endpoint 和公共 RPC 无 SLA 的限制。
-- [Arbitrum：How Timeboost works](https://docs.arbitrum.io/how-arbitrum-works/timeboost/gentle-introduction)：说明 express lane、60 秒 round 和普通交易默认 200ms 延迟。
-- [Uniswap：Concentrated Liquidity](https://developers.uniswap.org/docs/get-started/concepts/liquidity-providers/concentrated-liquidity)：理解活动流动性、tick 和规模相关成交价格。
-- [Uniswap v3：Getting a Quote](https://developers.uniswap.org/docs/sdks/v3/guides/swapping/quoting)：Quoter/QuoterV2 的参数、返回值和只读模拟方式。
-- [Uniswap v3 Arbitrum Deployments](https://developers.uniswap.org/docs/protocols/v3/deployments/v3-arbitrum-deployments)：Factory、QuoterV2、WETH 和其他官方部署地址。
-- [Circle：USDC contract addresses](https://developers.circle.com/stablecoins/usdc-contract-addresses)：Arbitrum 原生 USDC 地址和主网资产风险提示。
-- [Foundry：Anvil](https://www.getfoundry.sh/anvil/index.html)：固定 EVM 链状态、fork 和 trace；默认测试助记词绝不能用于真实资产。
-- [LI.FI OpenAPI](https://docs.li.fi/api-reference/openapi-spec) 与 [Quote vs Route](https://docs.li.fi/introduction/user-flows-and-examples/difference-between-quote-and-route)：跨链报价、route 的多步骤性质和 API 能力。聚合器返回的最佳 route 不是个人套利优势。
-- [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent) 与 [安全策略](https://github.com/NousResearch/hermes-agent/security)：Hermes 提供长期记忆、技能和定时任务；官方同时明确只有操作系统隔离才是真正的安全边界，因此本期不接入钱包私钥或无人值守交易。
+**通过标准**：能从仓位方向推出付款/收款方向；能说明为什么当前仍有 `FUNDING_LEDGER_UNKNOWN`。
 
-## Day 21 的最终问题
+**依赖**：Day 3、Day 4。
 
-最终报告只回答以下六个问题：
+### Day 7｜数据清洗和可复现规则
 
-1. 两个池的可执行报价在什么规模和状态下出现差异？
-2. 扣除已知成本后，候选是否仍为正？
-3. 数据、成本或执行假设中，哪一项最容易让结果失效？
-4. Timeboost 和竞争条件是否使普通参与者难以捕获该信号？
-5. 这 21 天真正增加的是哪一种能力：数据、模型、研究判断还是工程可靠性？
-6. 下一阶段唯一继续方向是什么；如果没有，为什么停止？
+**问题**：哪些样本能进入统计，哪些只能保留为异常证据？
 
-二十一天结束时，能够可靠地否定一个伪机会，比写出一个未经验证的 Bot 更有价值。
+**输入**：原始 candles/fundings、现有审计脚本、API candles/fundings 文档。[47][48]
+
+**动作**：
+
+- 统一 UTC 时间；
+- 检查重复 timestamp、缺失小时、零值、非正价格和异常跳点；
+- 保存原始值与清洗状态，不覆盖原始 JSON；
+- 设计训练/验证/测试的时间切分；
+- 若官方窗口无法扩展，记录 `HISTORY_DEPTH_INSUFFICIENT`。
+
+**产出**：`lab/data/lighter_rwa_clean_1h.csv`、`notes/data-quality-report.md`。
+
+**通过标准**：清洗可重新运行；每条统计样本能回溯到原始响应；异常不会被静默删除。
+
+**依赖**：Day 2、Day 5。
+
+### Day 8｜价差定义与样本外统计闸门
+
+**问题**：固定价差、价格比率和动态 beta 哪个定义有证据？
+
+**输入**：清洗数据、研究章程、统计方法资料；当前只允许把相关性作为描述性结果。
+
+**动作**：
+
+- 先写检验计划，再运行统计；
+- 比较固定美元差、对数差和训练集估计的 beta；
+- 只在训练集选择窗口和阈值；
+- 在验证/测试集记录触发次数、回归时间、最大偏离和结构断裂；
+- 如样本长度不够做协整或半衰期检验，标记 `Blocked`，不靠换公式制造结论。
+
+**产出**：`notes/spread-definition-decision.md`；若实现统计模块，再增加单元测试。
+
+**通过标准**：能解释相关性不等于协整；能指出任何全样本拟合回看的地方；能报告样本外限制。
+
+**依赖**：Day 7。
+
+### Day 9｜目标数量开平仓回放
+
+**问题**：理论价差扣除双腿真实进出成本后还剩多少？
+
+**输入**：`orderBookDetails`、`orderBookOrders`、`trades`、交易费用、订单类型和撮合文档。[28][62][68][69][78][79]
+
+**动作**：
+
+- 对至少 `$10/$20/$50/$100` 目标名义分别走 bid/ask 档位；
+- 计算 WTI/BRENTOIL 数量、步长、余量和未对冲名义；
+- 分别模拟开仓和平仓；
+- 加入 spread、冲击、延迟、部分成交、单腿失败和 reduce-only 退出；
+- 不把 24h volume 或一刻盘口快照当作容量证明。
+
+**产出**：执行回放表、`notes/execution-replay.md`；如实现模块，再增加回放测试。
+
+**通过标准**：至少一个方向在开仓和退出都使用正确方向的盘口；能给出单腿失败后的状态和停止动作；不使用 midpoint 代替成交价。
+
+**依赖**：Day 3、Day 6、Day 7。
+
+### Day 10｜证据闸门和分支选择
+
+**问题**：我们学会了什么，策略研究下一步是什么？
+
+**动作**：填写下表，不用“感觉”代替证据：
+
+| 闸门 | 状态 | 证据路径 | 未知项 |
+|---|---|---|---|
+| 经济对象和数量 | `confirmed/partial/blocked` | 规格表、原始 JSON | 账本/成交语义 |
+| 价格源和状态 | `confirmed/partial/blocked` | RWA 定价、价格字段 | oracle freshness |
+| 展期和市场时段 | `confirmed/partial/blocked` | 展期表 | 完整关闭/恢复记录 |
+| funding 现金流 | `confirmed/partial/blocked` | 纸上 ledger | 账户账本 |
+| 历史覆盖 | `confirmed/partial/blocked` | audit/manifest | 多状态样本 |
+| 目标数量进出 | `confirmed/partial/blocked` | execution replay | 连续深度 |
+| 权限/保证金/清算 | `confirmed/partial/blocked` | 官方规则/账户证据 | 当前账户状态 |
+
+**产出**：`notes/day-10-gate.md`、第 11–20 天分支选择。
+
+**通过标准**：能分别回答“我是否学会了”和“策略是否成立”；任何关键字段未知时保持 `Blocked`；不因为相关性高就进入真实交易。
+
+**依赖**：Day 1–9。
+
+## 5. 第 11–20 天：第 10 天后选择，不预先承诺
+
+### 分支 A｜历史仍不足：继续数据采集
+
+触发：`HISTORY_DEPTH_INSUFFICIENT` 或无法覆盖多个展期/市场状态。
+
+内容：分页或连续定时采集、原始证据哈希、缺失/重复审计、状态字段、时间窗口报告。
+
+禁止：长期协整结论、阈值优化、真实订单。
+
+### 分支 B｜统计关系否定：`No-Go` 复盘
+
+触发：训练/验证/测试关系不稳定，或压力假设下净现金必然为负。
+
+内容：保存否定性结果、分析结构断裂、比较替代定义、写替代研究问题。
+
+禁止：反复调参直到得到正收益；把一次样本外盈利当成证明。
+
+### 分支 C｜统计可研究但执行未知：执行与账本深化
+
+触发：关系有研究信号，但 funding、连续深度、退出或权限仍未知。
+
+内容：连续盘口快照、目标数量走档、双腿异步、部分成交、funding paper ledger、保证金和清算压力。
+
+禁止：真实下单；未知成本不填零。
+
+### 分支 D｜关键字段闭合：严格纸上回放
+
+触发：价格语义、展期、funding、历史、费用、进出、权限和风险路径均有证据。
+
+内容：冻结训练参数，在完全未使用的测试区间做净现金回放；测试压力场景；人工复核后决定是否只做极小额监督实验评估。
+
+注意：本分支也不自动授权交易。真实实验需要另行确认，且必须保留 kill switch 和单腿恢复方案。
+
+## 6. Day 21｜总结和复盘
+
+产出：
+
+- 学习成果清单：能解释、能复现、能审计、能回放的内容；
+- 策略结论：`Go / No-Go / Blocked`；
+- 未解决问题及证据路径；
+- 下一周期唯一研究问题；
+- 失败记录，而不是只记录正向结果。
+
+通过标准：第三方只看仓库文件，就能重建当前判断；策略没有因为计划结束而被强行升级为 `Go`。
+
+## 7. 当前建议状态
+
+基于当前仓库快照：
+
+- 学习方向：`Go`；
+- 数据和策略研究：`Blocked`；
+- 真实执行：`No-Go`。
+
+现有审计指出：历史约 21 天、funding 约 31 天，且 funding 账本、目标数量退出和权限仍未闭合。`0.9707121232645127` 只是 499 个收益变化的描述性相关性，不是长期协整或净收益证明。
+
+## Sources
+
+[28] https://docs.lighter.xyz/trading/trading-fees — Lighter: Trading Fees
+[42] https://docs.lighter.xyz/trading/real-world-assets-rwas — Lighter Docs: Real World Assets (RWAs)
+[43] https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism — Lighter Docs: RWA Pricing Mechanism
+[44] https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism — Lighter Docs: Futures Contract Price Rolling Mechanism
+[45] https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications — Lighter Docs: RWA Market Specifications
+[46] https://docs.lighter.xyz/trading/funding — Lighter Docs: Funding
+[47] https://apidocs.lighter.xyz/reference/candles — Lighter API: Candles
+[48] https://apidocs.lighter.xyz/reference/fundings — Lighter API: Fundings
+[49] https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=145&resolution=1h&count_back=500 — Lighter API snapshot: WTI 1h candles
+[50] https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=159&resolution=1h&count_back=500 — Lighter API snapshot: BRENTOIL 1h candles
+[53] https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=145&resolution=1h&count_back=750 — Lighter API snapshot: WTI 1h funding
+[54] https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=159&resolution=1h&count_back=750 — Lighter API snapshot: BRENTOIL 1h funding
+[61] https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
+[62] https://docs.lighter.xyz/trading/order-types-matching — Lighter Docs: Order Types & Matching
+[68] https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=145&limit=20 — Lighter API snapshot: WTI order book orders
+[69] https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=159&limit=20 — Lighter API snapshot: BRENTOIL order book orders
+[72] https://docs.lighter.xyz/trading/contract-specifications — Lighter Docs: Contract Specifications
+[75] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Docs: Fair Price Marking
+[76] https://docs.lighter.xyz/trading/pnl-and-total-account-value — Lighter Docs: PnL and Total Account Value
+[78] https://apidocs.lighter.xyz/reference/orderbookorders — Lighter API: Order Book Orders
+[79] https://apidocs.lighter.xyz/reference/trades — Lighter API: Trades
