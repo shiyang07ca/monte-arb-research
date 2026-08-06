@@ -22,4 +22,4 @@ python3 lab/audit_lighter_rwa.py
 python3 -m unittest lab.test_audit_lighter_rwa -v
 ```
 
-本教学阶段只读、不认证、不发单、不连接私钥。研究状态仍为 `Blocked`，真实执行为 `No-Go`。
+本教学阶段只读、不认证、不发单、不连接私钥。当前资料仍不足以判断策略是否成立。

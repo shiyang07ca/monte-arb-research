@@ -16,7 +16,7 @@
 - 训练集：只用于估计 beta、窗口、阈值和退出规则；
 - 验证集：用于选择候选定义和压力参数；
 - 测试集：完全冻结参数后只运行一次纸上回放；
-- 若当前约 21 天样本不足以形成有意义的切分，状态为 `HISTORY_DEPTH_INSUFFICIENT`。
+- 若当前约 21 天样本不足以形成有意义的切分，明确写历史资料不足。
 
 ## 最低报告项
 
@@ -32,10 +32,10 @@
 
 ## 拒绝规则
 
-- 相关性高但没有足够历史：`Blocked`；
+- 相关性高但没有足够历史：资料缺失，不能下长期结论；
 - 只在全样本拟合后盈利：拒绝；
-- 依赖未知 funding 或退出成本：`Blocked`；
-- 关系在测试集不稳定：`No-Go`；
+- 依赖未知 funding 或退出成本：资料缺失，不能计算可信净现金；
+- 关系在测试集不稳定：记录否定性结果，暂时不继续该定义；
 - 通过更换公式、阈值或窗口反复寻找正结果：研究无效。
 
 ## 结论模板
@@ -48,7 +48,7 @@ test_period:
 parameters_frozen_at:
 out_of_sample_result:
 net_cash_costs_included:
-unknowns:
-decision: Go / No-Go / Blocked
+evidence_gaps:
+research_conclusion: 资料足够继续验证 / 暂时不成立 / 资料缺失
 reason_codes:
 ```

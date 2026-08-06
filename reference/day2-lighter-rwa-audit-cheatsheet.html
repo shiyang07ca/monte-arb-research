@@ -18,7 +18,7 @@
     <tbody>
       <tr><td><code>lighter_rwa_raw/*.json</code></td><td>API 原始响应；保留字段和原始 timestamp。</td><td>不能替代清洗记录。</td></tr>
       <tr><td><code>lighter_rwa_capture_manifest.json</code></td><td>端点、参数、HTTP 状态、接收时间、SHA-256。</td><td>不能证明数据长期稳定。</td></tr>
-      <tr><td><code>lighter_rwa_data_audit.json</code></td><td>覆盖、重复、描述性统计、阻断项。</td><td>不能替代净 PnL 回放。</td></tr>
+      <tr><td><code>lighter_rwa_data_audit.json</code></td><td>覆盖、重复、描述性统计和资料缺口。</td><td>不能替代净 PnL 回放。</td></tr>
       <tr><td><code>lighter_rwa_aligned_1h.jsonl</code></td><td>按共同 timestamp 生成的双市场小时序列。</td><td>不能证明两腿经济上可对冲。</td></tr>
     </tbody>
   </table>
@@ -59,7 +59,7 @@ python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
       <tr><td>收益相关性</td><td><code>0.970903148909904</code></td><td>不是协整、均值回归、盈利或可执行性。</td></tr>
       <tr><td>daily duplicate</td><td>WTI <code>0</code>；BRENTOIL <code>0</code></td><td>无重复发现 ≠ 无缺失、无异常。</td></tr>
       <tr><td>funding rows</td><td>每腿 <code>750</code> 条</td><td>不是账户资金费账本。</td></tr>
-      <tr><td>研究决策</td><td><span class="badge blocked">BLOCKED_FOR_STRATEGY_CONCLUSION</span></td><td>真实执行固定 <span class="badge blocked">No-Go</span>。</td></tr>
+      <tr><td>研究结论</td><td>资料仍缺失</td><td>继续补充历史、成本、资金费账本和退出数据。</td></tr>
     </tbody>
   </table>
 
@@ -71,7 +71,7 @@ python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
     <li>把 funding API 字段直接相减，再把结果当成个人净现金。</li>
   </ul>
 
-  <h2>七、研究状态映射</h2>
+  <h2>七、资料缺口如何影响研究</h2>
   <table>
     <thead><tr><th>发现</th><th>研究影响</th></tr></thead>
     <tbody>
@@ -79,7 +79,7 @@ python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
       <tr><td>价格语义未知</td><td>不能确定你比较的是同一种经济价格。</td></tr>
       <tr><td>funding 账本未知</td><td>不能计算可信的持仓净现金。</td></tr>
       <tr><td>盘口/退出未知</td><td>不能把信号转成目标数量可成交的 PnL。</td></tr>
-      <tr><td>权限未知</td><td>不能进入真实执行。</td></tr>
+      <tr><td>权限未知</td><td>不能据此判断真实交易可行性。</td></tr>
     </tbody>
   </table>
 

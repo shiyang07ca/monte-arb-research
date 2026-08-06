@@ -17,7 +17,7 @@ settled_rate
 api_value
 api_direction
 cash_flow
-cash_flow_status       # verified / paper_only / unknown
+cash_flow_status       # 已核对 / 纸上账本 / 资料未知
 ```
 
 暂定纸上公式：
@@ -44,9 +44,9 @@ cash_flow
 
 研究回放必须按每条腿、每个结算时点分别记账，再合并为组合现金流。
 
-## 阻断规则
+## 资料缺失规则
 
-以下任一项未知，输出 `FUNDING_LEDGER_UNKNOWN`：
+以下任一项未知，都要明确说明资金费账本资料缺失：
 
 - `value` 的单位；
 - `rate` 是否已结算或只是展示值；

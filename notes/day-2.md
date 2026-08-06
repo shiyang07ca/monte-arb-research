@@ -27,7 +27,7 @@
 common_rows: 500
 log_return_correlation: 0.970903148909904
 daily_duplicate_rows: WTI=0, BRENTOIL=0
-decision: BLOCKED_FOR_STRATEGY_CONCLUSION
+research_conclusion: 当前资料不足以判断策略是否成立
 ```
 
 共同窗口为 `2026-07-16T05:00:00+00:00` 至 `2026-08-06T00:00:00+00:00`，约 21 天。funding 两腿各 750 条 1h 记录，但仍不能替代账户 funding 现金账本。
@@ -43,8 +43,7 @@ decision: BLOCKED_FOR_STRATEGY_CONCLUSION
 ## 状态
 
 - 学习：待用户完成练习后验收；
-- 策略研究：`Blocked`；
-- 真实执行：`No-Go`。
+- 研究：资料仍不足以判断策略是否成立。
 
 ## Sources
 

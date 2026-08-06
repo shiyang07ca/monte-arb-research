@@ -24,19 +24,19 @@
 
 | 检查 | 状态 | 证据/说明 |
 |---|---|---|
-| WTI 1h 重复 timestamp | `pending` | 运行清洗脚本后填写 |
-| BRENTOIL 1h 重复 timestamp | `pending` | 运行清洗脚本后填写 |
+| WTI 1h 重复 timestamp | 待检查 | 运行清洗脚本后填写 |
+| BRENTOIL 1h 重复 timestamp | 待检查 | 运行清洗脚本后填写 |
 | WTI daily 重复 timestamp | `checked` | 现有 audit 为 0 |
 | BRENTOIL daily 重复 timestamp | `checked` | 现有 audit 为 0 |
-| 缺失小时 | `pending` | 不能从当前共同行数推断 |
-| 非正价格 | `pending` | 逐字段检查 |
-| 展期状态 | `pending` | 需要时间状态字段 |
+| 缺失小时 | 待检查 | 不能从当前共同行数推断 |
+| 非正价格 | 待检查 | 逐字段检查 |
+| 展期状态 | 待检查 | 需要时间状态字段 |
 | oracle freshness | `unknown` | 当前原始 candle 不足以证明 |
-| funding 结算账本 | `blocked` | `FUNDING_LEDGER_UNKNOWN` |
+| funding 结算账本 | 资料缺失 | 尚未完成 `FUNDING_LEDGER_UNKNOWN` 核对 |
 
 ## 统计准入
 
-只有当样本有明确时间、价格语义和清洗状态时，才能进入描述性统计。历史不足、价格源未知或资金费无法入账时，统计结果只能作为教学材料，不能产生策略 `Go`。
+只有当样本有明确时间、价格语义和清洗状态时，才能进入描述性统计。历史不足、价格源未知或资金费无法入账时，统计结果只能作为教学材料，不能声称策略成立。
 
 ## 预期产出
 

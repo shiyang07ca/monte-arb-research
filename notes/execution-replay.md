@@ -41,18 +41,18 @@ impact_cost
 failure_reserve
 liquidation_reserve
 net_cash_pnl
-unknowns
-decision
+evidence_gaps
+research_conclusion
 ```
 
 ## 拒绝规则
 
 - 只有 top-of-book 快照：不能证明连续容量；
-- 没有退出方向盘口：`DEPTH_AND_EXIT_UNKNOWN`；
-- 未知费用或 funding：`Blocked`；
-- 单腿失败后没有处理：不能进入 paper `Go`；
-- 理论价差被双腿开平仓和压力成本吞没：`No-Go`。
+- 没有退出方向盘口：退出资料缺失；
+- 未知费用或资金费：资料缺失；
+- 单腿失败后没有处理：不能继续纸上回放；
+- 理论价差被双腿开平仓和压力成本吞没：记录为暂时不成立。
 
-## 当前状态
+## 当前研究结论
 
-尚未完成实际目标数量回放，继续保持 `DEPTH_AND_EXIT_UNKNOWN` 和 `Blocked`。
+尚未完成实际目标数量回放，退出资料仍缺失。

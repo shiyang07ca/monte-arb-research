@@ -252,8 +252,8 @@ def main() -> int:
                 "max": max(funding_differences),
             },
         },
-        "decision": "BLOCKED_FOR_STRATEGY_CONCLUSION",
-        "blockers": [
+        "research_conclusion": "当前资料不足以判断策略是否成立",
+        "evidence_gaps": [
             "HISTORY_DEPTH_INSUFFICIENT: one candles response is capped at 500 rows; the current common hourly sample is about 21 days.",
             "ROLL_SEMANTICS_MUST_BE_MODELED: WTI and BRENTOIL have different roll windows and roll times.",
             "FUNDING_LEDGER_UNKNOWN: API value/rate/direction fields are not yet verified against an account cash ledger.",
@@ -301,7 +301,7 @@ def main() -> int:
                     symbol: audit["coverage"]["daily_raw"][symbol]["duplicate_rows"]
                     for symbol in ("WTI", "BRENTOIL")
                 },
-                "decision": audit["decision"],
+                "research_conclusion": audit["research_conclusion"],
             },
             ensure_ascii=False,
             indent=2,

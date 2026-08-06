@@ -15,14 +15,14 @@
 
   <div class="callout red">
     <strong>本课的红线</strong><br>
-    当前仓库的结论仍是 <span class="badge blocked">研究 Blocked</span>、真实执行 <span class="badge blocked">No-Go</span>。审计通过只代表“数据可以被诚实描述”，不代表策略成立。
+    当前研究资料仍不完整。审计通过只代表“数据可以被诚实描述”，不代表策略成立。
   </div>
 
   <h2>1. 先建立文件地图</h2>
   <div class="grid">
     <div class="card"><strong>raw／原始响应</strong><code>lab/data/lighter_rwa_raw/</code><br><span class="small">保留 API 返回的字段和原始时间；不可覆盖。</span></div>
     <div class="card"><strong>manifest／采集记录</strong><code>lighter_rwa_capture_manifest.json</code><br><span class="small">记录端点、参数、HTTP 状态、接收时间和 SHA-256。</span></div>
-    <div class="card"><strong>audit／审计摘要</strong><code>lighter_rwa_data_audit.json</code><br><span class="small">覆盖、重复、描述性统计和阻断项；不是策略回测。</span></div>
+    <div class="card"><strong>audit／审计摘要</strong><code>lighter_rwa_data_audit.json</code><br><span class="small">覆盖、重复、描述性统计和资料缺口；不是策略回测。</span></div>
     <div class="card"><strong>aligned／共同小时序列</strong><code>lighter_rwa_aligned_1h.jsonl</code><br><span class="small">只保留两市场拥有相同 timestamp 的观察。</span></div>
   </div>
   <p><strong>关键区别：</strong><code>common_rows=500</code> 是“成功匹配到的共同观察数”，不是“有 500 个独立、充分、无缺陷的历史样本”。</p>

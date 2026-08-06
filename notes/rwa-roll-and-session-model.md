@@ -21,8 +21,8 @@ wti_roll_window
 brentoil_roll_window
 wti_underlying_closed
 brentoil_underlying_closed
-roll_phase_unknown
-market_state_unknown
+展期阶段资料缺失
+市场状态资料缺失
 ```
 
 规则：
@@ -33,7 +33,7 @@ market_state_unknown
 - 如果官方资料不能支持某天的具体底层关闭/恢复状态，写 `unknown`；
 - 不用插值把关闭或陈旧区间伪装成连续交易。
 
-## 研究闸门
+## 研究资料检查
 
 在以下问题完成前，不估计最终 beta、阈值或持仓规模：
 
@@ -43,7 +43,7 @@ market_state_unknown
 4. oracle stale 或内部 EMA 状态是否可以观测；
 5. 训练/验证/测试切分是否覆盖多个展期周期。
 
-若第 2–4 项不能取得足够证据，状态保持 `Blocked`，并把结果限定为教学用的描述性分析。
+若第 2–4 项不能取得足够证据，就继续补资料，并把结果限定为教学用的描述性分析。
 
 ## 学习退出题
 
@@ -51,7 +51,7 @@ market_state_unknown
 
 - WTI 和 BRENTOIL 的展期起点分别是什么时区和时间？
 - 为什么不同展期窗口会制造结构断点？
-- `roll_window` 应该是删除样本的理由，还是一个需要保留的研究状态？
+- `roll_window` 应该是删除样本的理由，还是一个需要保留的研究记录？
 
 通过标准：3 题全部答对，并能在一份样本上写出相应 UTC 与美国东部时间标记。
 

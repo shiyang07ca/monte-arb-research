@@ -8,7 +8,7 @@
 - 按 timestamp 而不是数组下标匹配两腿；
 - 区分行数、唯一 timestamp、共同观察数和收益变化数；
 - 发现“没有重复”不等于“数据完整”；
-- 把未知字段映射为研究 `Blocked`，而不是填成零成本。
+- 把未知字段写成“资料缺失及其影响”，而不是填成零成本。
 
 ## 输入文件
 
@@ -32,7 +32,7 @@ lab/data/lighter_rwa_aligned_1h.jsonl
 2. 为什么收益变化数会比 candle 数少 1？
 3. 哪个字段用于时间匹配？它的单位是什么？
 4. 你预计 daily duplicate 是多少？这个结果不能证明什么？
-5. 你预计研究状态是 `Go`、`No-Go` 还是 `Blocked`？
+5. 你预计当前资料能否判断策略是否成立？为什么？
 
 ## B. 运行审计
 
@@ -46,7 +46,7 @@ python3 lab/audit_lighter_rwa.py
 common_rows
 log_return_correlation
 daily_duplicate_rows
-decision
+research_conclusion
 ```
 
 ## C. 独立复现共同序列
@@ -124,12 +124,11 @@ BRENTOIL: market_id=159, min_base_amount=0.0800, size_decimals=4
 
 ## 4. Funding 反例
 
-## 5. 仍然阻断研究的未知项
+## 5. 研究资料缺口
 
-## 6. 当前三层状态
+## 6. 当前学习进度与研究结论
 - 学习：
 - 研究：
-- 真实执行：
 ```
 
 ## 通过标准
@@ -140,7 +139,7 @@ BRENTOIL: market_id=159, min_base_amount=0.0800, size_decimals=4
 - 能解释至少 3 个相关性无法回答的问题；
 - 能解释 funding API 字段不等于个人现金账本；
 - 能把历史、展期、funding、盘口退出和权限未知写成研究影响；
-- 不把练习通过写成策略 `Go`，不执行任何交易操作。
+- 不把练习完成写成策略成立，不执行任何交易操作。
 
 ## 提示
 

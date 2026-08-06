@@ -5,7 +5,7 @@
 - `lab/capture_lighter_rwa.py`：只读采集官方 candles、fundings 和 `orderBookDetails`，保存原始响应、请求元数据和 SHA-256；
 - `lab/audit_lighter_rwa.py`：读取原始响应，输出覆盖、重复时间戳、描述性统计和共同小时 JSONL；
 
-现有代码明确不认证、不发单、不提交交易。统计审计输出的 `decision` 为 `BLOCKED_FOR_STRATEGY_CONCLUSION`。
+现有代码明确不认证、不发单、不提交交易。统计审计输出的 `research_conclusion` 表示：当前资料不足以判断策略是否成立。
 
 后续实现统计或执行回放时必须先补测试，并遵循：
 
