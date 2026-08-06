@@ -121,9 +121,9 @@ python3 -m json.tool lab/data/lighter_rwa_data_audit.json >/dev/null
 - 用一个 `$10` 目标报价金额和各自最小数量做数量可行性检查；
 - 区分动态快照与稳定规则。
 
-**产出**：`notes/rwa-contract-model.md`、字段字典、一个数量检查记录。
+**产出**：`notes/rwa-contract-model.md`、字段字典、一个数量检查记录；可运行 `python3 -m unittest lab.test_audit_lighter_rwa` 验证 market id、必需字段、最小名义和数量精度。
 
-**通过标准**：不看代码解释为什么价格相近不能决定数量相等；能指出至少 3 个字段仍需账户或成交回执核验。
+**通过标准**：不看代码解释为什么价格相近不能决定数量相等；能指出至少 3 个字段仍需账户或成交回执核验；测试通过且数量检查明确标记为纸上可行性，不被描述为历史成交能力。
 
 **依赖**：Day 2。
 

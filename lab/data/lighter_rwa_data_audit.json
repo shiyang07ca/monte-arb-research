@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T01:00:07.160506+00:00",
+  "generated_at": "derived-from-source-snapshot",
   "source": "Lighter public API; raw responses in lab/data/lighter_rwa_raw/",
   "raw_sha256": {
     "145_orderBookDetails.json": "444881d6009121cc1a267eeff47f654186ef238eb63eb6e08fccd42814b4ae7f",

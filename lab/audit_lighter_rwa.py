@@ -14,6 +14,7 @@ import statistics
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "lab" / "data" / "lighter_rwa_raw"
@@ -38,6 +39,80 @@ def candle_rows(symbol: str, resolution: str) -> list[dict]:
 
 def funding_rows(symbol: str) -> list[dict]:
     return read_json(f"{symbol}_fundings_1h.json")["fundings"]
+
+
+def order_book_detail(symbol: str) -> dict[str, Any]:
+    """Return the public market snapshot without treating it as history."""
+    market = read_json(
+        "145_orderBookDetails.json" if symbol == "WTI" else "159_orderBookDetails.json"
+    )["order_book_details"]
+    if len(market) != 1:
+        raise ValueError(f"expected one order book detail for {symbol}, got {len(market)}")
+    return market[0]
+
+
+def validate_instrument_snapshot(symbol: str, expected_market_id: int) -> list[str]:
+    """Validate fields needed for a notional/precision paper calculation."""
+    detail = order_book_detail(symbol)
+    errors: list[str] = []
+    if detail.get("market_id") != expected_market_id:
+        errors.append(f"{symbol}: market_id={detail.get('market_id')} != {expected_market_id}")
+    if detail.get("market_type") != "perp":
+        errors.append(f"{symbol}: market_type is not perp")
+    for field in (
+        "min_base_amount",
+        "min_quote_amount",
+        "multiplier",
+        "quote_multiplier",
+        "size_decimals",
+        "price_decimals",
+        "mark_price",
+        "index_price",
+    ):
+        if field not in detail:
+            errors.append(f"{symbol}: missing {field}")
+    for field in ("min_base_amount", "min_quote_amount", "multiplier", "quote_multiplier"):
+        if field in detail and float(detail[field]) <= 0:
+            errors.append(f"{symbol}: {field} must be positive")
+    for field in ("size_decimals", "price_decimals"):
+        if field in detail and int(detail[field]) < 0:
+            errors.append(f"{symbol}: {field} must be non-negative")
+    if "mark_price" in detail and "index_price" in detail:
+        if float(detail["mark_price"]) <= 0 or float(detail["index_price"]) <= 0:
+            errors.append(f"{symbol}: mark/index price must be positive")
+    return errors
+
+
+def paper_quantity_for_quote(symbol: str, quote_notional: float) -> dict[str, Any]:
+    """Compute a rounded-up paper quantity from the current snapshot.
+
+    This is a feasibility calculation only. It is not an order and it does not
+    claim that the snapshot represents executable historical depth.
+    """
+    errors = validate_instrument_snapshot(symbol, 145 if symbol == "WTI" else 159)
+    if errors:
+        raise ValueError("; ".join(errors))
+    detail = order_book_detail(symbol)
+    price = float(detail["mark_price"])
+    multiplier = float(detail["multiplier"])
+    quote_multiplier = float(detail["quote_multiplier"])
+    min_base = float(detail["min_base_amount"])
+    min_quote = float(detail["min_quote_amount"])
+    step = 10 ** -int(detail["size_decimals"])
+    raw_quantity = quote_notional / (price * multiplier * quote_multiplier)
+    quantity = max(min_base, math.ceil(raw_quantity / step - 1e-12) * step)
+    actual_quote = quantity * price * multiplier * quote_multiplier
+    return {
+        "symbol": symbol,
+        "snapshot_mark_price": price,
+        "requested_quote_notional": quote_notional,
+        "base_quantity": quantity,
+        "actual_quote_notional": actual_quote,
+        "minimum_quote_amount": min_quote,
+        "size_decimals": int(detail["size_decimals"]),
+        "source": f"lab/data/lighter_rwa_raw/{145 if symbol == 'WTI' else 159}_orderBookDetails.json",
+        "interpretation": "paper feasibility only; not historical depth or execution capacity",
+    }
 
 
 def correlation(xs: list[float], ys: list[float]) -> float:
@@ -186,6 +261,10 @@ def main() -> int:
             "PERMISSION_UNKNOWN: account, region, and live-trading permissions are not part of this public read-only audit.",
         ],
     }
+    # Keep the audit reproducible: the source snapshot's hashes and derived
+    # values are stable. Runtime generation time belongs in the capture manifest,
+    # not in a tracked derived artifact.
+    audit["generated_at"] = "derived-from-source-snapshot"
     (DATA / "lighter_rwa_data_audit.json").write_text(
         json.dumps(audit, ensure_ascii=False, indent=2) + "\n"
     )
