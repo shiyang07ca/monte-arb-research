@@ -1,19 +1,33 @@
-# WTI–BRENTOIL 展期与时间状态表
+# Day 5｜展期与市场状态模型
 
-> 目的：把两个 RWA 永续的时间机制作为数据字段和研究分层条件，而不是把展期造成的结构变化误判为价差信号。
+## 研究问题
 
-## 已确认规则
+价差变化来自相对价值，还是来自两个期货合约的不同展期和不同底层市场状态？
 
-| 市场 | 官方展期窗口起点 | 展期规则 | 研究含义 |
-|---|---|---|---|
-| WTI | 美国东部时间 17:30 | 每个营业日将 20% 从当前月迁移到下一月 | 展期期间单独标记，不能默认价差平稳 |
-| BRENTOIL | 美国东部时间 19:00 | 每个营业日将 20% 从当前月迁移到下一月 | 与 WTI 的时间错位可能产生结构性差异 |
+## 官方规则（需带来源时间）
 
-来源：Lighter 官方《Futures Contract Price Rolling Mechanism》[44]。
+来源：Lighter [Futures Contract Price Rolling Mechanism](https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism)。本地教学快照保存于 `lab/data/day5_roll_session_snapshot.json`。
 
-## 数据字段
+- WTI、BRENTOIL 等 RWA 使用期货合约作为底层价格。
+- 在第 5 至第 10 个工作日之间，当前月到下月逐步切换。
+- 每天切换 20%。
+- WTI 每日 17:30 ET 开始；BRENTOIL 每日 19:00 ET 开始。
+- WTI 底层市场关闭 17:00–18:00 ET；BRENTOIL 关闭 18:00–20:00 ET。
 
-每条小时样本增加：
+## 时区模型
+
+官方日程使用 `America/New_York`，原始 candles 的时间统一按 UTC 处理。2026 年 8 月为 EDT（UTC−4）：
+
+```text
+WTI       17:30 ET → 21:30 UTC
+BRENTOIL  19:00 ET → 23:00 UTC
+```
+
+不能固定写 UTC−4 或 UTC−5；必须让时区库处理夏令时。
+
+## 状态字段
+
+每个共同小时保留原始价格，并增加：
 
 ```text
 timestamp_utc
@@ -21,40 +35,27 @@ wti_roll_window
 brentoil_roll_window
 wti_underlying_closed
 brentoil_underlying_closed
-展期阶段资料缺失
-市场状态资料缺失
+wti_roll_stage
+brentoil_roll_stage
+comparability_status
+exclusion_reason
 ```
 
-规则：
+### 处理政策
 
-- 先把 UTC 时间转换为美国东部时间，再判断窗口；
-- 不因展期窗口直接删除样本；
-- 分别报告全样本、排除窗口和按窗口分层的统计；
-- 如果官方资料不能支持某天的具体底层关闭/恢复状态，写 `unknown`；
-- 不用插值把关闭或陈旧区间伪装成连续交易。
+1. **全样本**：保留全部样本和状态标签，报告异常。
+2. **排除展期/关闭窗口**：只做敏感性分析，不覆盖全样本结果。
+3. **按展期阶段分层**：比较不同阶段的价差和收益，但不把分层差异自动解释为套利。
+4. **缺字段**：写 `unknown`；不使用上一小时价格填充，不静默删除。
 
-## 研究资料检查
+## 关键边界
 
-在以下问题完成前，不估计最终 beta、阈值或持仓规模：
+- 底层关闭窗口不自动证明 Lighter 市场不可交易。
+- 逐小时 candle timestamp 的区间边界尚未核实。
+- 现有共同样本为 `2026-07-15T19:00:00Z`–`2026-08-05T14:00:00Z`，500 行，在 2026-08-07 展期开始前结束。
+- 因此现有快照不能证明 2026 年 8 月展期期间的真实价格反应。
+- 真实市场状态、oracle freshness、连续深度、成交与退出仍未知。
 
-1. candle close、index、mark 是否代表同一价格过程；
-2. 展期窗口是否能按历史日期重建；
-3. 两腿底层关闭窗口是否有公开、稳定且可复现的字段；
-4. oracle stale 或内部 EMA 状态是否可以观测；
-5. 训练/验证/测试切分是否覆盖多个展期周期。
+## 后续
 
-若第 2–4 项不能取得足够证据，就继续补资料，并把结果限定为教学用的描述性分析。
-
-## 学习退出题
-
-不看文档回答：
-
-- WTI 和 BRENTOIL 的展期起点分别是什么时区和时间？
-- 为什么不同展期窗口会制造结构断点？
-- `roll_window` 应该是删除样本的理由，还是一个需要保留的研究记录？
-
-通过标准：3 题全部答对，并能在一份样本上写出相应 UTC 与美国东部时间标记。
-
-## Sources
-
-[44] https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism — Lighter Docs: Futures Contract Price Rolling Mechanism
+补采覆盖完整展期窗口后，先生成状态表，再分别比较全样本、剔除窗口和按阶段分层结果；禁止先看结果再调整标签规则。

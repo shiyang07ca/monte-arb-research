@@ -1,0 +1,187 @@
+{
+  "purpose": "Day 5 teaching snapshot: official RWA roll/session rules plus derived timezone conversions; not a live market-state feed.",
+  "retrieved_at": "2026-08-09T05:45:25.681401+00:00",
+  "source": {
+    "url": "https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism",
+    "claims_used": [
+      "WTI/NATGAS/BRENTOIL/XCU/WHEAT use futures underlying prices",
+      "roll occurs between 5th and 10th business day",
+      "20% transitions each day",
+      "WTI/NATGAS daily roll at 17:30 ET",
+      "BRENTOIL daily roll at 19:00 ET",
+      "WTI/NATGAS underlying close 17:00-18:00 ET",
+      "BRENTOIL underlying close 18:00-20:00 ET",
+      "August 2026 example schedule"
+    ]
+  },
+  "timezone": {
+    "iana": "America/New_York",
+    "august_2026_name": "EDT",
+    "august_2026_utc_offset_hours": -4,
+    "warning": "ET is not always UTC-5; daylight saving changes the UTC conversion."
+  },
+  "markets": {
+    "WTI": {
+      "market_id": 145,
+      "roll_time_et": "17:30",
+      "underlying_closed_et": [
+        "17:00",
+        "18:00"
+      ],
+      "roll_period_2026_08": [
+        "2026-08-07",
+        "2026-08-13"
+      ]
+    },
+    "BRENTOIL": {
+      "market_id": 159,
+      "roll_time_et": "19:00",
+      "underlying_closed_et": [
+        "18:00",
+        "20:00"
+      ],
+      "roll_period_2026_08": [
+        "2026-08-07",
+        "2026-08-13"
+      ]
+    }
+  },
+  "august_2026_schedule": [
+    {
+      "date_et": "2026-08-07",
+      "wti": {
+        "roll_event": {
+          "local_et": "2026-08-07T17:30:00-04:00",
+          "utc": "2026-08-07T21:30:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 80,
+        "next_month_percent": 20
+      },
+      "brentoil": {
+        "roll_event": {
+          "local_et": "2026-08-07T19:00:00-04:00",
+          "utc": "2026-08-07T23:00:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 80,
+        "next_month_percent": 20
+      }
+    },
+    {
+      "date_et": "2026-08-10",
+      "wti": {
+        "roll_event": {
+          "local_et": "2026-08-10T17:30:00-04:00",
+          "utc": "2026-08-10T21:30:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 60,
+        "next_month_percent": 40
+      },
+      "brentoil": {
+        "roll_event": {
+          "local_et": "2026-08-10T19:00:00-04:00",
+          "utc": "2026-08-10T23:00:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 60,
+        "next_month_percent": 40
+      }
+    },
+    {
+      "date_et": "2026-08-11",
+      "wti": {
+        "roll_event": {
+          "local_et": "2026-08-11T17:30:00-04:00",
+          "utc": "2026-08-11T21:30:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 40,
+        "next_month_percent": 60
+      },
+      "brentoil": {
+        "roll_event": {
+          "local_et": "2026-08-11T19:00:00-04:00",
+          "utc": "2026-08-11T23:00:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 40,
+        "next_month_percent": 60
+      }
+    },
+    {
+      "date_et": "2026-08-12",
+      "wti": {
+        "roll_event": {
+          "local_et": "2026-08-12T17:30:00-04:00",
+          "utc": "2026-08-12T21:30:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 20,
+        "next_month_percent": 80
+      },
+      "brentoil": {
+        "roll_event": {
+          "local_et": "2026-08-12T19:00:00-04:00",
+          "utc": "2026-08-12T23:00:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 20,
+        "next_month_percent": 80
+      }
+    },
+    {
+      "date_et": "2026-08-13",
+      "wti": {
+        "roll_event": {
+          "local_et": "2026-08-13T17:30:00-04:00",
+          "utc": "2026-08-13T21:30:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 0,
+        "next_month_percent": 100
+      },
+      "brentoil": {
+        "roll_event": {
+          "local_et": "2026-08-13T19:00:00-04:00",
+          "utc": "2026-08-13T23:00:00+00:00",
+          "utc_offset": -4.0,
+          "timezone_name": "EDT"
+        },
+        "front_month_percent": 0,
+        "next_month_percent": 100
+      }
+    }
+  ],
+  "sample_coverage": {
+    "source": "notes/day-1.md and lab/data/lighter_rwa_aligned_1h.jsonl",
+    "common_1h_first_utc": "2026-07-15T19:00:00Z",
+    "common_1h_last_utc": "2026-08-05T14:00:00Z",
+    "common_rows": 500,
+    "covers_august_2026_roll_period": false,
+    "reason": "The existing 500-hour sample ends before the official 2026-08-07 roll start; no roll-state conclusion can be drawn from those rows."
+  },
+  "unknown_or_not_proven": [
+    "per-candle exchange market state",
+    "exact candle timestamp interval semantics for roll/close overlap",
+    "oracle freshness during roll",
+    "continuous order-book depth during the close windows",
+    "actual fill/exit behavior"
+  ],
+  "tagging_policy": {
+    "wti_roll_window": "date/time overlaps the official WTI roll period or daily roll event; retain a state tag, do not silently delete",
+    "brentoil_roll_window": "date/time overlaps the official BRENTOIL roll period or daily roll event; retain a state tag, do not silently delete",
+    "market_closed_window": "date/time falls inside the relevant underlying close interval; mark as not directly comparable for execution",
+    "primary_signal": "only compare after explicitly deciding how to exclude or stratify tagged observations; this is a research policy, not an exchange guarantee"
+  }
+}
