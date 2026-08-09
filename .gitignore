@@ -16,6 +16,8 @@ walkthrough.md
 .env
 .env.*
 !.env.example
+# Current-session ICL API evidence is kept locally and represented by hashes in reports.
+lab/data/icl_2026*.json
 .baoyu-skills/
 
 # Baoyu URL exports are local source material; do not include them in the research commit.
