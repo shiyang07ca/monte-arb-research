@@ -2,10 +2,15 @@
 
 本目录按 `teach` skill 的结构保存课程材料：
 
-- `lessons/0001-day2-audit-lighter-rwa.html`：短 HTML lesson；
-- `lessons/day2-real-data-exercise.md`：真实仓库数据练习；
-- `reference/day2-lighter-rwa-audit-cheatsheet.html`：打印友好的 reference cheat sheet；
-- `assets/course.css`：课程共用样式。
+- `lessons/0001-day2-audit-lighter-rwa.html`：Day 2 HTML lesson；
+- `lessons/0002-day3-rwa-contract-model.html`：Day 3 互动 HTML lesson；
+- `lessons/0003-day4-price-semantics.html`：Day 4 互动 HTML lesson；
+- `reference/day2-lighter-rwa-audit-cheatsheet.html`：Day 2 打印版 reference；
+- `reference/day3-rwa-contract-model.html`：Day 3 打印版 reference；
+- `reference/day4-price-semantics.html`：Day 4 打印版 reference；
+- `assets/course.css`：课程共用样式；
+- `assets/day3-contract-model.js`：Day 3 纸上数量计算器和验收组件；
+- `assets/day4-price-semantics.js`：Day 4 价格语义、EMA、PnL 和验收组件。
 
 练习和课程材料绑定以下真实文件：
 

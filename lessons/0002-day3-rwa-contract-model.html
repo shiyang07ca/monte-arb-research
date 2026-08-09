@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 3｜建立 Lighter RWA 合约模型</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main data-day3-contract-app>
+  <div class="eyebrow">Day 3 · Contract model</div>
+  <h1>建立 Lighter RWA 合约模型</h1>
+  <p class="lede">把“两个价格看起来接近”拆成可检查的市场对象、数量约束、精度、名义金额与保证金字段。今天只做纸上可行性，不发订单。</p>
+  <p class="meta">研究任务：Lighter 内部 WTI（<code>market_id=145</code>）与 BRENTOIL（<code>market_id=159</code>）相对价值研究。</p>
+
+  <div class="callout blue">
+    <strong>今天的唯一胜利</strong>
+    <p>给定一个目标报价金额，你能分别算出两条腿的合法纸上基础数量，并解释为什么不能默认 1:1。课程数值来自仓库中的只读 <code>orderBookDetails</code> 快照；动态快照会变化，重新抓取后应以原始文件和源时间为准。</p>
+  </div>
+
+  <nav class="card" aria-label="课程导航">
+    <strong>本课导航</strong>
+    <a href="#model">1. 市场对象</a> ·
+    <a href="#constraints">2. 数量约束</a> ·
+    <a href="#calculator">3. 纸上计算器</a> ·
+    <a href="#quiz">4. 迁移验收</a> ·
+    <a href="../reference/day3-rwa-contract-model.html">打印版参考卡</a>
+  </nav>
+
+  <h2 id="model">1. 先回答：这两条腿分别是什么？</h2>
+  <p>Lighter 官方市场规格把 WTI 描述为 1 桶 West Texas Intermediate Light Sweet Crude Oil，把 BRENTOIL 描述为 1 桶 Brent Crude Oil。它们都是商品 RWA 永续，但不是同一个经济对象。</p>
+  <p>因此以下说法都不能直接成立：</p>
+  <pre><code>WTI 数量 = BRENTOIL 数量
+WTI - BRENTOIL = 稳定会回归的价差
+两个价格同时上涨 = 策略一定赚钱</code></pre>
+  <p>先建立市场模型，之后才有资格讨论对冲比率和价差定义。参考：<a href="https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications">Lighter RWA Market Specifications</a>。</p>
+
+  <table>
+    <thead><tr><th>字段</th><th>WTI</th><th>BRENTOIL</th><th>它告诉我们什么</th></tr></thead>
+    <tbody>
+      <tr><td><code>market_id</code></td><td><code>145</code></td><td><code>159</code></td><td>确认 API 快照对应哪个市场。</td></tr>
+      <tr><td><code>market_type</code></td><td><code>perp</code></td><td><code>perp</code></td><td>两者都是永续产品，不是现货桶。</td></tr>
+      <tr><td><code>min_base_amount</code></td><td><code>0.100</code></td><td><code>0.0800</code></td><td>基础数量的最低约束。</td></tr>
+      <tr><td><code>min_quote_amount</code></td><td><code>10</code></td><td><code>10</code></td><td>报价金额的最低约束。</td></tr>
+      <tr><td><code>size_decimals</code></td><td><code>3</code></td><td><code>4</code></td><td>数量步长分别约为 <code>0.001</code> 与 <code>0.0001</code>。</td></tr>
+      <tr><td><code>price_decimals</code></td><td><code>3</code></td><td><code>2</code></td><td>价格可表示精度不同；不要与数量精度混淆。</td></tr>
+      <tr><td><code>multiplier</code></td><td><code>1</code></td><td><code>1</code></td><td>纸上名义计算中的乘数；仍需以成交/账本语义核对。</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="constraints">2. 数量不是随便填的</h2>
+  <p>纸上报价金额先用下面的关系表示：</p>
+  <pre><code>quote_notional
+  = base_quantity × price × multiplier × quote_multiplier</code></pre>
+  <p>本仓库快照里两个乘数都为 <code>1</code>，所以这次可以近似理解为：</p>
+  <pre><code>报价金额 ≈ 基础数量 × 价格</code></pre>
+  <p>合法数量必须同时满足三件事：</p>
+  <ol>
+    <li><code>quantity ≥ min_base_amount</code>；</li>
+    <li><code>quantity × price × multiplier × quote_multiplier ≥ min_quote_amount</code>；</li>
+    <li>数量落在市场允许的步长上：WTI 为 <code>0.001</code>，BRENTOIL 为 <code>0.0001</code>。</li>
+  </ol>
+  <div class="callout amber">
+    <strong>常见错误</strong>
+    <p>满足 <code>min_base_amount</code> 不等于满足 <code>min_quote_amount</code>。例如 WTI 的 <code>0.100 × 74.692 = $7.4692</code>，基础数量合格，但报价金额仍低于 $10。</p>
+  </div>
+
+  <h2 id="calculator">3. 电脑练习：纸上数量计算器</h2>
+  <p>先分别选择市场和目标报价金额。计算器只使用当前课程快照，不读取账户、不连接私钥、不提交订单。</p>
+  <div class="card">
+    <label for="day3-market"><strong>市场</strong></label>
+    <select id="day3-market" data-role="market">
+      <option value="WTI">WTI · market_id=145</option>
+      <option value="BRENTOIL">BRENTOIL · market_id=159</option>
+    </select>
+    <label for="day3-target"><strong>目标报价金额（美元）</strong></label>
+    <input id="day3-target" data-role="target" type="number" min="0.01" step="0.01" value="10">
+  </div>
+  <div data-role="calculator-output" aria-live="polite"></div>
+
+  <h3>迁移：相同基础数量会发生什么？</h3>
+  <p>输入一个相同的基础数量，观察两条腿的纸上报价金额。这个练习只说明“数量”和“名义金额”不是同一个概念，不是在选择对冲比率。</p>
+  <div class="card">
+    <label for="day3-equal-quantity"><strong>两腿都使用的基础数量</strong></label>
+    <input id="day3-equal-quantity" data-role="equal-quantity" type="number" min="0" step="0.0001" value="0.650">
+  </div>
+  <div data-role="equal-quantity-output" aria-live="polite"></div>
+
+  <h2>4. 保证金字段：可以读到什么，不能读到什么？</h2>
+  <table>
+    <thead><tr><th>字段</th><th>WTI</th><th>BRENTOIL</th><th>当前能说什么</th></tr></thead>
+    <tbody>
+      <tr><td><code>default_initial_margin_fraction</code></td><td><code>500</code>（纸上约 5%）</td><td><code>666</code>（纸上约 6.66%）</td><td>公共快照中的默认初始保证金字段不同。</td></tr>
+      <tr><td><code>maintenance_margin_fraction</code></td><td><code>300</code></td><td><code>300</code></td><td>公共快照中的维护保证金字段相同。</td></tr>
+    </tbody>
+  </table>
+  <p>这些字段不能单独证明你的账户实际采用的保证金、组合保证金、可用余额、清算价格、单腿失败后的风险或交易权限。参考：<a href="https://docs.lighter.xyz/trading/contract-specifications">Contract Specifications</a> 与 <a href="https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund">Liquidations and LLP Insurance Fund</a>。</p>
+
+  <h2 id="quiz">5. 迁移验收：先闭卷，再点击检查</h2>
+  <p>不要回看上面的计算器，先填写你自己的结果。通过标准不是死记数字，而是能把目标金额、价格、步长和未知项连起来。</p>
+  <div class="card">
+    <label for="q50-wti">目标 $50 时，WTI 合法纸上数量：</label>
+    <input id="q50-wti" data-quiz-role="q50-wti" inputmode="decimal" placeholder="例如 0.000">
+    <label for="q50-brent">目标 $50 时，BRENTOIL 合法纸上数量：</label>
+    <input id="q50-brent" data-quiz-role="q50-brent" inputmode="decimal" placeholder="例如 0.000">
+    <label for="equal-notional">两腿都用基础数量 0.650 时，报价金额是否相同？</label>
+    <select id="equal-notional" data-quiz-role="equal-notional">
+      <option value="">请选择</option>
+      <option value="yes">相同</option>
+      <option value="no">不相同</option>
+    </select>
+    <label for="margin-claim">只看公共快照的初始保证金字段，能否证明账户实际需要的保证金完全相同？</label>
+    <select id="margin-claim" data-quiz-role="margin-claim">
+      <option value="">请选择</option>
+      <option value="can">可以</option>
+      <option value="cannot">不能</option>
+    </select>
+    <button type="button" data-role="quiz-submit">检查答案</button>
+  </div>
+  <div data-role="quiz-feedback" aria-live="polite"></div>
+
+  <h2>6. 电脑端证据练习</h2>
+  <p>在仓库根目录运行下面的测试。它验证的是字段和纸上数量约束，不是历史深度、成交概率或策略盈利。</p>
+  <pre><code>cd /Users/shiyang/code/monte-arb-research
+python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
+  <p>预期结果：</p>
+  <pre><code>Ran 4 tests
+OK</code></pre>
+  <p>然后打开下面三个文件，分别找出：两个市场的 <code>market_id</code>、数量步长、最小报价金额和默认保证金字段。</p>
+  <ul>
+    <li><code>lab/data/lighter_rwa_raw/145_orderBookDetails.json</code></li>
+    <li><code>lab/data/lighter_rwa_raw/159_orderBookDetails.json</code></li>
+    <li><code>lab/data/lighter_rwa_instrument_matrix.json</code></li>
+  </ul>
+
+  <div class="callout red">
+    <strong>研究边界</strong>
+    <p>本课完成不代表策略成立。当前仍缺少足够历史、价格源状态、展期影响、funding 账户账本、目标数量盘口/退出、权限和清算路径证据。</p>
+  </div>
+
+  <footer>
+    <p>参考：<a href="../notes/rwa-contract-model.md">仓库合约模型笔记</a> · <a href="../lab/data/lighter_rwa_instrument_matrix.json">真实市场字段矩阵</a> · <a href="../reference/day3-rwa-contract-model.html">Day 3 打印版参考卡</a>。</p>
+    <p>如果某个字段或计算不清楚，直接问老师；下一课会继续处理 oracle、index、mark、candle close 与可成交价格的区别。</p>
+  </footer>
+</main>
+<script src="../assets/day3-contract-model.js"></script>
+</body>
+</html>

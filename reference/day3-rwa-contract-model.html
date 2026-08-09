@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 3 参考卡｜Lighter RWA 合约模型</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference · Day 3</div>
+  <h1>Lighter WTI/BRENTOIL 合约模型参考卡</h1>
+  <p class="lede">目标：把一个目标报价金额转换为合法的纸上基础数量，并明确哪些结论仍不能由公共快照证明。</p>
+
+  <h2>一、研究对象</h2>
+  <table>
+    <thead><tr><th>市场</th><th>market_id</th><th>经济对象</th><th>产品</th></tr></thead>
+    <tbody>
+      <tr><td>WTI</td><td><code>145</code></td><td>1 桶 West Texas Intermediate Light Sweet Crude Oil</td><td><code>perp</code></td></tr>
+      <tr><td>BRENTOIL</td><td><code>159</code></td><td>1 桶 Brent Crude Oil</td><td><code>perp</code></td></tr>
+    </tbody>
+  </table>
+  <p>两个市场是不同的经济对象。不要默认 1:1 对冲、固定美元价差或固定价格比率。</p>
+
+  <h2>二、当前课程快照</h2>
+  <table>
+    <thead><tr><th>字段</th><th>WTI</th><th>BRENTOIL</th><th>检查含义</th></tr></thead>
+    <tbody>
+      <tr><td><code>min_base_amount</code></td><td><code>0.100</code></td><td><code>0.0800</code></td><td>基础数量下限。</td></tr>
+      <tr><td><code>min_quote_amount</code></td><td><code>10</code></td><td><code>10</code></td><td>报价金额下限。</td></tr>
+      <tr><td><code>size_decimals</code></td><td><code>3</code></td><td><code>4</code></td><td>数量步长：<code>0.001</code> / <code>0.0001</code>。</td></tr>
+      <tr><td><code>price_decimals</code></td><td><code>3</code></td><td><code>2</code></td><td>价格步长不同。</td></tr>
+      <tr><td><code>multiplier</code></td><td><code>1</code></td><td><code>1</code></td><td>纸上名义计算乘数。</td></tr>
+      <tr><td>课程计算用 <code>mark_price</code></td><td><code>74.692</code></td><td><code>79.03</code></td><td>动态快照；重新抓取后可能变化。</td></tr>
+      <tr><td><code>index_price</code></td><td><code>74.670</code></td><td><code>79.04</code></td><td>单独保存，不等同于成交价。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>三、合法数量公式</h2>
+  <pre><code>quote_notional
+  = base_quantity × price × multiplier × quote_multiplier
+
+quantity ≥ min_base_amount
+quote_notional ≥ min_quote_amount
+quantity 必须落在 size_decimals 对应的步长上</code></pre>
+  <p>取整时向上取整，避免纸上金额因向下取整低于最低报价金额：</p>
+  <pre><code>raw_quantity = target_quote / (price × multiplier × quote_multiplier)
+quantity = 向上取整(raw_quantity, 10^(-size_decimals))
+quantity = max(quantity, min_base_amount)</code></pre>
+
+  <h2>四、真实数字示例</h2>
+  <table>
+    <thead><tr><th>目标金额</th><th>WTI 数量</th><th>WTI 实际金额</th><th>BRENTOIL 数量</th><th>BRENTOIL 实际金额</th></tr></thead>
+    <tbody>
+      <tr><td><code>$10</code></td><td><code>0.134</code></td><td><code>$10.008728</code></td><td><code>0.1266</code></td><td><code>$10.005198</code></td></tr>
+      <tr><td><code>$50</code></td><td><code>0.670</code></td><td><code>$50.043640</code></td><td><code>0.6327</code></td><td><code>$50.002281</code></td></tr>
+      <tr><td><code>$100</code></td><td><code>1.339</code></td><td><code>$100.012588</code></td><td><code>1.2654</code></td><td><code>$100.004562</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>五、相同数量不等于相同名义</h2>
+  <p>若两腿都使用基础数量 <code>0.650</code>：</p>
+  <pre><code>WTI:      0.650 × 74.692 = $48.549800
+BRENTOIL: 0.650 × 79.03  = $51.369500</code></pre>
+  <p>所以相同基础数量不是等名义；等名义也不自动等于经济上的最佳对冲。</p>
+
+  <h2>六、保证金字段边界</h2>
+  <table>
+    <thead><tr><th>字段</th><th>WTI</th><th>BRENTOIL</th><th>可以支持的结论</th></tr></thead>
+    <tbody>
+      <tr><td><code>default_initial_margin_fraction</code></td><td><code>500</code>（纸上约 5%）</td><td><code>666</code>（纸上约 6.66%）</td><td>公共快照中的默认字段不同。</td></tr>
+      <tr><td><code>maintenance_margin_fraction</code></td><td><code>300</code></td><td><code>300</code></td><td>公共快照中的维护字段相同。</td></tr>
+    </tbody>
+  </table>
+  <p>不能仅凭这些字段确认当前账户实际保证金、组合保证金、可用余额、清算价格、单腿失败风险或权限。</p>
+
+  <h2>七、验证命令</h2>
+  <pre><code>python3 -m unittest lab.test_audit_lighter_rwa -v</code></pre>
+  <p>通过结果应为 4 个测试全部 <code>OK</code>。这个测试验证字段和纸上数量约束，不验证历史深度、连续盘口、成交概率、退出能力或策略盈利。</p>
+
+  <footer>
+    <p>完整互动课：<a href="../lessons/0002-day3-rwa-contract-model.html">Day 3 lesson</a> · 合约模型笔记：<a href="../notes/rwa-contract-model.md">notes/rwa-contract-model.md</a> · 来源：<a href="https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications">Lighter RWA Market Specifications</a>、<a href="https://docs.lighter.xyz/trading/contract-specifications">Contract Specifications</a>。</p>
+  </footer>
+</main>
+</body>
+</html>

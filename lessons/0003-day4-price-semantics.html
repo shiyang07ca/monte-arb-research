@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 4｜价格源、index、mark 和 EMA</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main data-day4-price-app>
+  <div class="eyebrow">Day 4 · Price semantics</div>
+  <h1>别把所有价格当成一个价格</h1>
+  <p class="lede">今天建立一个研究者的价格语义模型：看到一个数字，先问它的来源、用途、时间和可执行性，再决定能不能放进价差、PnL 或风险计算。</p>
+  <p class="meta">研究任务：Lighter WTI（<code>market_id=145</code>）与 BRENTOIL（<code>market_id=159</code>）相对价值研究。</p>
+
+  <div class="callout blue">
+    <strong>今天的唯一胜利</strong>
+    <p>你能把一个价格字段分类为：外部基准、指数/定价输入、估值/清算、历史观察或可执行盘口；当字段不存在时写 <code>unknown</code>，不自行补值。</p>
+  </div>
+
+  <nav class="card" aria-label="课程导航">
+    <strong>本课导航</strong>
+    <a href="#map">1. 字段地图</a> ·
+    <a href="#transition">2. stale 与 EMA</a> ·
+    <a href="#snapshot">3. 真实快照</a> ·
+    <a href="#pnl">4. PnL 反例</a> ·
+    <a href="#quiz">5. 迁移验收</a> ·
+    <a href="../reference/day4-price-semantics.html">打印版参考卡</a>
+  </nav>
+
+  <h2 id="map">1. 六个价格，六种问题</h2>
+  <p>不要从字段名字猜用途。先把“研究问题”放在左边，再选择价格语义。</p>
+  <table>
+    <thead><tr><th>字段</th><th>它更适合回答</th><th>不能直接当成</th></tr></thead>
+    <tbody>
+      <tr><td><code>oracle_price</code></td><td>外部价格源当前观察/输入是什么？</td><td>你的成交价</td></tr>
+      <tr><td><code>index_price</code></td><td>指数/基准价格机制如何定价？</td><td>目标数量的成交价</td></tr>
+      <tr><td><code>mark_price</code></td><td>保证金、清算和未实现 PnL 使用什么公平价格？</td><td>可以立即实现的现金 PnL</td></tr>
+      <tr><td><code>candle_close</code></td><td>某个固定时间窗口最后的聚合观察值是什么？</td><td>该时刻一定能成交的价格</td></tr>
+      <tr><td><code>mid_price</code></td><td>盘口中心在哪里？</td><td>买入 ask 或卖出 bid</td></tr>
+      <tr><td><code>trade_price</code></td><td>过去发生过一笔成交的价格是多少？</td><td>未来仍有同样价格和数量</td></tr>
+      <tr><td><code>bid / ask</code></td><td>此刻最优买价/卖价在哪里？</td><td>目标数量全部成交的平均价；还需深度</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <strong>一条实用规则</strong>
+    <p>立即买入先看 <code>ask</code>，立即卖出先看 <code>bid</code>；保证金和未实现 PnL 看 <code>mark</code>；历史窗口描述看 <code>candle_close</code>。<code>mid</code> 适合观察，不自动代表成交。</p>
+  </div>
+
+  <h2 id="transition">2. RWA 的特殊点：oracle stale 后价格过程会切换</h2>
+  <p>官方 RWA 定价文档说明，外部 oracle 是主要来源。当 oracle 数据变 stale，系统会逐步降低 oracle 权重、增加内部价格权重；内部价格由订单簿 impact price 经过时间加权 EMA 得到。外部价格恢复时，内部价格会即时向外部价格收敛。</p>
+  <div class="callout amber">
+    <strong>先分清两组时间常数：它们不是一回事</strong>
+    <ol>
+      <li><strong>来源权重切换：</strong>当前官方页面列出的 <code>τ_mark</code> 与 <code>τ_index</code> 都是 1 分钟。它回答“oracle stale 后，系统多快从外部 oracle 转向内部价格”。</li>
+      <li><strong>内部 EMA 平滑：</strong>index 的内部 EMA 为 <code>τ=30</code> 分钟，mark 的内部 EMA 为 <code>τ=2</code> 分钟。它回答“内部 impact price 进入计算后，数值多快跟随新订单簿信息”。</li>
+    </ol>
+    <p>一句话：第一组 <code>τ</code> 决定<strong>信谁</strong>，第二组 <code>τ</code> 决定<strong>内部价格反应多快</strong>。</p>
+  </div>
+  <pre><code>外部 oracle（主要来源）
+        │
+        ├─ 正常：参与 index / mark 定价
+        │
+        └─ stale：oracle 权重衰减，内部权重上升
+                    ↓
+             内部订单簿 impact price
+                    ↓
+               时间加权 EMA
+                    ├─ index：τ = 30 min
+                    └─ mark ：τ = 2 min</code></pre>
+  <p>简化公式：</p>
+  <pre><code>w_oracle(t) = w_oracle(t−1) × exp(−Δt / τ_source)
+w_internal(t) = 1 − w_oracle(t)
+
+EMA_t = α × impact_t + (1 − α) × EMA_(t−1)
+α = 1 − exp(−Δt / τ_ema)</code></pre>
+  <p>直觉：<code>τ</code> 越小，越快响应新的 impact；<code>τ</code> 越大，越平滑、反应越慢。用下面的计算器感受差异。</p>
+  <div class="card">
+    <label for="ema-previous"><strong>上一时刻 EMA</strong></label>
+    <input id="ema-previous" data-role="ema-previous" type="number" step="0.01" value="75">
+    <label for="ema-impact"><strong>当前 impact price</strong></label>
+    <input id="ema-impact" data-role="ema-impact" type="number" step="0.01" value="76">
+    <label for="ema-delta"><strong>经过时间 Δt（分钟）</strong></label>
+    <input id="ema-delta" data-role="ema-delta" type="number" min="0" step="0.1" value="1">
+    <label for="ema-tau"><strong>时间常数 τ（分钟）</strong></label>
+    <input id="ema-tau" data-role="ema-tau" type="number" min="0.01" step="0.1" value="30">
+  </div>
+  <div data-role="ema-output" aria-live="polite"></div>
+  <p>主要来源：<a href="https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism">Lighter RWA Pricing Mechanism</a>。</p>
+
+  <h2 id="snapshot">3. 电脑练习：查看真实快照中的价格关系</h2>
+  <p>本地 raw 快照确实同时有 <code>mark_price</code>、<code>index_price</code> 和 <code>last_trade_price</code>，但没有直接给出 oracle、bid、ask、mid 或 oracle 状态。缺失字段必须保持 unknown。</p>
+  <div class="card">
+    <label for="snapshot-market"><strong>选择市场</strong></label>
+    <select id="snapshot-market" data-role="snapshot-market">
+      <option value="WTI">WTI · market_id=145</option>
+      <option value="BRENTOIL">BRENTOIL · market_id=159</option>
+    </select>
+  </div>
+  <div data-role="snapshot-output" aria-live="polite"></div>
+  <p>证据文件：</p>
+  <ul>
+    <li><code>lab/data/lighter_rwa_raw/145_orderBookDetails.json</code></li>
+    <li><code>lab/data/lighter_rwa_raw/159_orderBookDetails.json</code></li>
+    <li><code>lab/data/day4_price_semantics_snapshot.json</code></li>
+  </ul>
+
+  <h2 id="pnl">4. 为什么 mark PnL 不是可实现现金 PnL？</h2>
+  <p>官方 PnL 文档把永续未实现 PnL 写成：</p>
+  <pre><code>unrealized PnL = (mark_price − average_entry_price) × signed_position</code></pre>
+  <p>但如果你现在平仓，方向决定你吃哪一侧盘口：</p>
+  <pre><code>多头平仓：卖出 → bid
+空头平仓：买回 → ask</code></pre>
+  <p>用下面的纸上场景对比两种结果。它不是成交回放，因为没有手续费、深度、部分成交和延迟。</p>
+  <div class="card">
+    <label for="position-direction"><strong>持仓方向</strong></label>
+    <select id="position-direction" data-role="position-direction">
+      <option value="long">多头</option>
+      <option value="short">空头</option>
+    </select>
+    <label for="position-entry"><strong>平均入场价</strong></label>
+    <input id="position-entry" data-role="position-entry" type="number" step="0.01" value="75">
+    <label for="position-mark"><strong>mark_price</strong></label>
+    <input id="position-mark" data-role="position-mark" type="number" step="0.01" value="75.03">
+    <label for="position-bid"><strong>bid</strong></label>
+    <input id="position-bid" data-role="position-bid" type="number" step="0.01" value="74.90">
+    <label for="position-ask"><strong>ask</strong></label>
+    <input id="position-ask" data-role="position-ask" type="number" step="0.01" value="75.10">
+    <label for="position-quantity"><strong>数量</strong></label>
+    <input id="position-quantity" data-role="position-quantity" type="number" min="0" step="0.001" value="1">
+  </div>
+  <div data-role="position-output" aria-live="polite"></div>
+  <p>主要来源：<a href="https://docs.lighter.xyz/trading/fair-price-marking">Fair Price Marking</a> · <a href="https://docs.lighter.xyz/trading/pnl-and-total-account-value">PnL and Total Account Value</a>。</p>
+
+  <h2 id="quiz">5. 迁移验收：先闭卷，再点击检查</h2>
+  <p>每题先问自己：“我要回答的是估值、外部基准、历史描述，还是现在能成交？”</p>
+  <div class="card">
+    <label for="q-buy">立即买入应优先使用哪一类价格？</label>
+    <select id="q-buy" data-quiz-role="q-buy">
+      <option value="">请选择</option><option value="ask">ask</option><option value="mark">mark</option><option value="mid">mid</option><option value="candleClose">candle_close</option>
+    </select>
+    <label for="q-sell">立即卖出应优先使用哪一类价格？</label>
+    <select id="q-sell" data-quiz-role="q-sell">
+      <option value="">请选择</option><option value="bid">bid</option><option value="mark">mark</option><option value="mid">mid</option><option value="candleClose">candle_close</option>
+    </select>
+    <label for="q-margin">保证金/未实现 PnL 主要使用哪一类价格？</label>
+    <select id="q-margin" data-quiz-role="q-margin">
+      <option value="">请选择</option><option value="ask">ask</option><option value="mark">mark</option><option value="mid">mid</option><option value="trade">trade_price</option>
+    </select>
+    <label for="q-missing">当前 raw 快照没有 oracle_price，最诚实的记录是什么？</label>
+    <select id="q-missing" data-quiz-role="q-missing">
+      <option value="">请选择</option><option value="zero">0</option><option value="mark">用 mark 代替</option><option value="unknown">unknown</option><option value="interpolate">插值补齐</option>
+    </select>
+    <label for="q-stale">oracle stale 后内部价格如何避免瞬间完全跳到新 impact？</label>
+    <select id="q-stale" data-quiz-role="q-stale">
+      <option value="">请选择</option><option value="lastTrade">只用 last_trade</option><option value="ema">用 impact price 的 EMA</option><option value="mid">只用 mid</option><option value="candleClose">只用 candle_close</option>
+    </select>
+    <button type="button" data-role="quiz-submit">检查答案</button>
+  </div>
+  <div data-role="quiz-feedback" aria-live="polite"></div>
+
+  <h2>6. 电脑端证据练习</h2>
+  <p>在仓库根目录运行：</p>
+  <pre><code>cd /Users/shiyang/code/monte-arb-research
+python3 lab/day4_price_semantics.py
+python3 -m unittest lab.test_day4_price_semantics -v</code></pre>
+  <p>这些测试验证价格语义的纸上规则和当前快照字段；不验证历史连续 oracle 状态、实时盘口深度或真实可实现 PnL。</p>
+
+  <div class="callout red">
+    <strong>研究边界</strong>
+    <p>当前仍缺少 oracle freshness/state、完整 bid/ask 深度、成交历史语义和连续状态数据。不要把一次 raw 快照的 mark/index 差异写成可交易价差。</p>
+  </div>
+
+  <footer>
+    <p>参考：<a href="../notes/price-semantics.md">Day 4 价格语义笔记</a> · <a href="../reference/day4-price-semantics.html">Day 4 打印版参考卡</a> · <a href="../lab/data/day4_price_semantics_snapshot.json">Day 4 快照证据</a>。</p>
+    <p>遇到任何字段不清楚，直接问老师；下一课会把价格语义和 WTI/BRENTOIL 的不同展期窗口连接起来。</p>
+  </footer>
+</main>
+<script src="../assets/day4-price-semantics.js"></script>
+</body>
+</html>

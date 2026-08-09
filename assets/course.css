@@ -89,6 +89,18 @@ li { margin: 7px 0; }
 .badge.paper { color: var(--amber); background: var(--amber-soft); }
 .badge.pass { color: var(--green); background: var(--green-soft); }
 .small { color: var(--muted); font-size: .9rem; }
+label { display: block; margin: 14px 0 6px; }
+input, select, button {
+  font: inherit;
+  border-radius: 8px;
+  border: 1px solid #b9c3ce;
+  padding: 9px 11px;
+}
+input, select { width: min(100%, 420px); background: #fff; color: var(--ink); }
+button { color: #fff; background: var(--blue); border-color: var(--blue); cursor: pointer; font-weight: 750; margin-top: 16px; }
+button:hover { filter: brightness(.92); }
+.answer-correct { border-color: var(--green); outline: 2px solid var(--green-soft); }
+.answer-wrong { border-color: var(--red); outline: 2px solid var(--red-soft); }
 footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 48px; padding-top: 18px; font-size: .9rem; }
 @media print {
   body { background: white; }

@@ -1,0 +1,60 @@
+{
+  "purpose": "Day 4 price semantics teaching snapshot; derived from raw orderBookDetails files",
+  "source_files": [
+    "lab/data/lighter_rwa_raw/145_orderBookDetails.json",
+    "lab/data/lighter_rwa_raw/159_orderBookDetails.json"
+  ],
+  "markets": {
+    "WTI": {
+      "symbol": "WTI",
+      "market_id": 145,
+      "source_file": "lab/data/lighter_rwa_raw/145_orderBookDetails.json",
+      "market_type": "perp",
+      "status": "active",
+      "mark_price": "74.692",
+      "index_price": "74.670",
+      "last_trade_price": "74.677",
+      "mark_minus_index": "0.022",
+      "last_minus_index": "0.007",
+      "mark_minus_last": "0.015",
+      "field_presence": {
+        "oracle_price": false,
+        "index_price": true,
+        "mark_price": true,
+        "last_trade_price": true
+      }
+    },
+    "BRENTOIL": {
+      "symbol": "BRENTOIL",
+      "market_id": 159,
+      "source_file": "lab/data/lighter_rwa_raw/159_orderBookDetails.json",
+      "market_type": "perp",
+      "status": "active",
+      "mark_price": "79.03",
+      "index_price": "79.04",
+      "last_trade_price": "79.01",
+      "mark_minus_index": "-0.01",
+      "last_minus_index": "-0.03",
+      "mark_minus_last": "0.02",
+      "field_presence": {
+        "oracle_price": false,
+        "index_price": true,
+        "mark_price": true,
+        "last_trade_price": true
+      }
+    }
+  },
+  "unknown_in_current_snapshot": [
+    "oracle_price",
+    "mid_price",
+    "bid",
+    "ask",
+    "trade_price_history",
+    "oracle_state",
+    "source_timestamp"
+  ],
+  "notes": [
+    "last_trade_price is a market detail snapshot field, not a guaranteed future fill",
+    "mark/index differences are descriptive snapshot facts, not executable spread PnL"
+  ]
+}
