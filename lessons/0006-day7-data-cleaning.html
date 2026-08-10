@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 7｜数据清洗与可复现规则</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main data-day7-cleaning-app>
+  <div class="eyebrow">Day 7 · Data quality & reproducibility</div>
+  <h1>让每个样本都能解释自己</h1>
+  <p class="lede">今天的胜利不是得到更漂亮的统计，而是让你知道：一行数据从哪里来、是否完整、为什么能或不能进入统计。</p>
+  <p class="meta">研究任务：清洗 Lighter WTI（<code>market_id=145</code>）与 BRENTOIL（<code>market_id=159</code>）公开快照。</p>
+
+  <div class="callout blue">
+    <strong>今天的唯一胜利</strong>
+    <p>看到一个异常时，不先删它；先给它 UTC 时间、来源路径、原因码和统计准入状态。原始 JSON 永远不覆盖。</p>
+  </div>
+
+  <nav class="card" aria-label="课程导航">
+    <strong>本课导航</strong>
+    <a href="#rules">1. 清洗规则</a> ·
+    <a href="#snapshot">2. 真实快照</a> ·
+    <a href="#classifier">3. 准入分类器</a> ·
+    <a href="#split">4. 时间切分</a> ·
+    <a href="#quiz">5. 迁移验收</a> ·
+    <a href="../reference/day7-data-cleaning.html">打印版参考卡</a>
+  </nav>
+
+  <h2 id="rules">1. 清洗规则：保留、标记、准入分离</h2>
+  <table>
+    <thead><tr><th>问题</th><th>实际动作</th><th>统计含义</th></tr></thead>
+    <tbody>
+      <tr><td>timestamp</td><td>统一为 UTC，保留 candle 毫秒 / funding 秒原值</td><td>可回溯，不猜时区</td></tr>
+      <tr><td>重复 timestamp</td><td>保留原 JSON，输出重复计数</td><td>显式复核后再准入</td></tr>
+      <tr><td>缺失小时</td><td>标记 gap</td><td>不插值，不伪造交易时点</td></tr>
+      <tr><td>非法/非正价格</td><td>保留原行和原因码</td><td>排除对应价格统计</td></tr>
+      <tr><td>close 跳点 &gt; 5%</td><td>保留并加异常 flag</td><td>不是自动删除理由</td></tr>
+    </tbody>
+  </table>
+  <pre><code>raw JSON
+  → parse UTC + source path
+  → quality flags
+  → price / funding / combined admission
+  → chronological train / validation / test</code></pre>
+  <p>Primary source：<a href="https://apidocs.lighter.xyz/reference/candles">Lighter candles API</a>。文档说明单次最多返回 500 根 candle，且零值可能从响应中省略；所以“没有字段”不能直接变成 0。</p>
+
+  <h2 id="snapshot">2. 当前本地真实快照</h2>
+  <div class="card">
+    <label for="market"><strong>选择市场</strong></label>
+    <select id="market" data-role="market">
+      <option value="WTI">WTI · market_id=145</option>
+      <option value="BRENTOIL">BRENTOIL · market_id=159</option>
+    </select>
+  </div>
+  <div data-role="snapshot-output" aria-live="polite"></div>
+  <div class="callout amber"><strong>注意 coverage</strong><p>每个市场 candle 500 行、funding 750 行；多出来的 funding 行不能凭空补 candle。Day 7 输出长表保留它们，并标记为 <code>funding_only</code>。</p></div>
+
+  <h2 id="classifier">3. 互动准入分类器</h2>
+  <p>下面模拟一条样本。改变一个字段，观察它是“可进入组合统计”“部分可用”还是“需要阻断”。</p>
+  <div class="card">
+    <label>candle 是否存在？<select data-role="candle"><option value="yes">存在</option><option value="no">缺失</option></select></label>
+    <label>funding 是否存在？<select data-role="funding"><option value="yes">存在</option><option value="no">缺失</option></select></label>
+    <label>数值和价格是否合法？<select data-role="valid"><option value="yes">合法</option><option value="no">非法或非正</option></select></label>
+    <label>是否重复 timestamp？<select data-role="duplicate"><option value="no">不重复</option><option value="yes">重复</option></select></label>
+    <label>close 是否跳动超过 5%？<select data-role="jump"><option value="no">没有</option><option value="yes">有</option></select></label>
+  </div>
+  <div data-role="classifier-output" aria-live="polite"></div>
+
+  <h2 id="split">4. 时间切分：不能让未来进入过去</h2>
+  <div class="grid">
+    <div class="card"><strong>train</strong><code>450 timestamps</code><span class="small">最早 60%</span></div>
+    <div class="card"><strong>validation</strong><code>150 timestamps</code><span class="small">中间 20%</span></div>
+    <div class="card"><strong>test</strong><code>150 timestamps</code><span class="small">最后 20%</span></div>
+  </div>
+  <p>切分按唯一 UTC timestamp 的时间顺序进行，不随机打乱。当前它只是研究纪律，不是策略回测结果。</p>
+
+  <h2 id="quiz">5. 迁移验收</h2>
+  <p>先关闭资料，凭理解回答，再点击检查。你的答案应体现“异常保留，状态明确”。</p>
+  <label>1. 缺失小时应该怎样处理？
+    <select data-quiz-role="q-missing"><option value="drop">删除缺口</option><option value="fill">向前填补</option><option value="flag">保留并标记</option></select>
+  </label>
+  <label>2. 重复 timestamp 应该怎样处理？
+    <select data-quiz-role="q-duplicate"><option value="overwrite">静默覆盖</option><option value="review">显式复核</option><option value="average">直接平均</option></select>
+  </label>
+  <label>3. close 跳点超过 5% 应该怎样处理？
+    <select data-quiz-role="q-jump"><option value="drop">自动删除</option><option value="keep">保留并标记</option><option value="smooth">平滑掉它</option></select>
+  </label>
+  <label>4. train / validation / test 应该按什么切分？
+    <select data-quiz-role="q-split"><option value="random">随机切分</option><option value="time">时间顺序</option><option value="volume">成交量顺序</option></select>
+  </label>
+  <label>5. 清洗后原始 JSON 应该怎样处理？
+    <select data-quiz-role="q-raw"><option value="replace">覆盖原文件</option><option value="preserve">保留不覆盖</option><option value="delete">删除原文件</option></select>
+  </label>
+  <button type="button" data-role="quiz-submit">检查 Day 7 验收</button>
+  <div data-role="quiz-feedback" aria-live="polite"></div>
+
+  <footer>
+    <p>如果哪里不清楚，直接追问。今天的通过标准不是得到更好的收益，而是让第三方可以从 CSV 的 source path、timestamp 和原因码重建你的准入判断。</p>
+    <p>相关材料：<a href="../notes/data-quality-report.md">数据质量报告</a> · <a href="../lessons/0005-day6-funding-ledger.html">Day 6 Funding 账本</a>。</p>
+  </footer>
+</main>
+<script src="../assets/day7-data-cleaning.js"></script>
+</body>
+</html>

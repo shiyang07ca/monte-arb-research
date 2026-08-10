@@ -1,0 +1,146 @@
+{
+  "schema": "day7-cleaning-summary-v1",
+  "cleaning_version": "day7-v1",
+  "generated_at_utc": "derived-from-source-snapshot",
+  "rules": {
+    "timestamp": "parse candle milliseconds and funding seconds into UTC; preserve raw timestamp fields",
+    "duplicates": "retain raw JSON; flag duplicate timestamps and exclude from statistics pending explicit review",
+    "missing_intervals": "flag gaps; never interpolate",
+    "invalid_values": "flag non-numeric/non-finite and non-positive prices; keep raw row",
+    "jumps": "flag abs close-to-close return > 5%; do not delete automatically",
+    "split": "chronological unique timestamps, 60% train / 20% validation / 20% test",
+    "raw_preservation": "raw source files are read-only and never overwritten"
+  },
+  "source": {
+    "WTI": {
+      "candle_file": "lab/data/lighter_rwa_raw/WTI_candles_1h.json",
+      "funding_file": "lab/data/lighter_rwa_raw/WTI_fundings_1h.json",
+      "candle_sha256": "1f70c46588e9fa25e1c8bb46b2fd9fcf5808c888a4ae51f896087fc455842941",
+      "funding_sha256": "64b9f35842181b1525d478542369b374edcd844ce610ab666754f1b26d072f9d"
+    },
+    "BRENTOIL": {
+      "candle_file": "lab/data/lighter_rwa_raw/BRENTOIL_candles_1h.json",
+      "funding_file": "lab/data/lighter_rwa_raw/BRENTOIL_fundings_1h.json",
+      "candle_sha256": "2f0a3aa8421669ac53aa18fc0abbb5e7a3f5385b4a75ff4ac8226d9b88b53cb6",
+      "funding_sha256": "f3c0fb0a4def8f0f1a364c662b0d359fa0b8491da93cc4871acfcade10e9688a"
+    }
+  },
+  "per_market": {
+    "WTI": {
+      "market_id": 145,
+      "raw_candle_rows": 500,
+      "raw_funding_rows": 750,
+      "unique_candle_timestamps": 500,
+      "unique_funding_timestamps": 750,
+      "union_rows": 750,
+      "candle_and_funding_rows": 500,
+      "funding_only_rows": 250,
+      "candle_only_rows": 0,
+      "duplicate_candle_timestamps": 0,
+      "duplicate_funding_timestamps": 0,
+      "candle_missing_interval_rows": 0,
+      "funding_missing_interval_rows": 0,
+      "invalid_source_rows": 0,
+      "close_jump_gt_5pct_rows": 1,
+      "close_jump_timestamps_utc": [
+        "2026-08-04T11:00:00+00:00"
+      ],
+      "timestamp_range_candles_utc": [
+        "2026-07-16T05:00:00+00:00",
+        "2026-08-06T00:00:00+00:00"
+      ],
+      "timestamp_range_fundings_utc": [
+        "2026-07-05T19:00:00+00:00",
+        "2026-08-06T00:00:00+00:00"
+      ],
+      "price_eligible_rows": 500,
+      "funding_eligible_rows": 750,
+      "combined_eligible_rows": 500
+    },
+    "BRENTOIL": {
+      "market_id": 159,
+      "raw_candle_rows": 500,
+      "raw_funding_rows": 750,
+      "unique_candle_timestamps": 500,
+      "unique_funding_timestamps": 750,
+      "union_rows": 750,
+      "candle_and_funding_rows": 500,
+      "funding_only_rows": 250,
+      "candle_only_rows": 0,
+      "duplicate_candle_timestamps": 0,
+      "duplicate_funding_timestamps": 0,
+      "candle_missing_interval_rows": 0,
+      "funding_missing_interval_rows": 0,
+      "invalid_source_rows": 0,
+      "close_jump_gt_5pct_rows": 0,
+      "close_jump_timestamps_utc": [],
+      "timestamp_range_candles_utc": [
+        "2026-07-16T05:00:00+00:00",
+        "2026-08-06T00:00:00+00:00"
+      ],
+      "timestamp_range_fundings_utc": [
+        "2026-07-05T19:00:00+00:00",
+        "2026-08-06T00:00:00+00:00"
+      ],
+      "price_eligible_rows": 500,
+      "funding_eligible_rows": 750,
+      "combined_eligible_rows": 500
+    }
+  },
+  "output": {
+    "rows": 1500,
+    "unique_timestamps": 750,
+    "candle_and_funding_rows": 1000,
+    "funding_only_rows": 500,
+    "candle_only_rows": 0,
+    "price_eligible_rows": 1000,
+    "funding_eligible_rows": 1500,
+    "combined_eligible_rows": 1000,
+    "eligible_with_jump_flag_rows": 1,
+    "not_eligible_rows": 0
+  },
+  "split": {
+    "method": "chronological_unique_timestamp_60_20_20",
+    "unique_timestamps": 750,
+    "ranges": {
+      "train": {
+        "timestamps": 450,
+        "range_utc": [
+          "2026-07-05T19:00:00+00:00",
+          "2026-07-24T12:00:00+00:00"
+        ]
+      },
+      "validation": {
+        "timestamps": 150,
+        "range_utc": [
+          "2026-07-24T13:00:00+00:00",
+          "2026-07-30T18:00:00+00:00"
+        ]
+      },
+      "test": {
+        "timestamps": 150,
+        "range_utc": [
+          "2026-07-30T19:00:00+00:00",
+          "2026-08-06T00:00:00+00:00"
+        ]
+      }
+    }
+  },
+  "roll_coverage": {
+    "observed_candle_range_utc": [
+      "2026-07-16T05:00:00+00:00",
+      "2026-08-06T00:00:00+00:00"
+    ],
+    "official_example_window_utc": [
+      "2026-08-07T00:00:00+00:00",
+      "2026-08-13T23:00:00+00:00"
+    ],
+    "coverage_status": "pre_roll_only; no candle reaches the official 2026-08-07..13 example window"
+  },
+  "unknowns": [
+    "candle timestamp boundary semantics (start or end of interval) remain unknown",
+    "API candle zero omission means a missing field needs source-level interpretation",
+    "funding API value/direction are not verified against an account funding ledger",
+    "one 500-candle response is capped; this is not a long-history sample"
+  ]
+}

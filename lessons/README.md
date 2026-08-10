@@ -17,12 +17,17 @@
 - `assets/day4-price-semantics.js`：Day 4 价格语义、EMA、PnL 和验收组件；
 - `assets/day5-roll-session.js`：Day 5 时区、展期阶段和迁移验收组件。
 - `assets/day6-funding-ledger.js`：Day 6 funding 方向、纸上现金流和迁移验收组件。
+- `assets/day7-data-cleaning.js`：Day 7 数据质量、准入分类和迁移验收组件。
 - `lab/day5_roll_session.py`：Day 5 时区转换、展期阶段和关闭窗口规则；
 - `lab/test_day5_roll_session.py`：Day 5 规则测试；
 - `lab/data/day5_roll_session_snapshot.json`：Day 5 官方规则与派生时区快照。
 - `lab/day6_funding_ledger.py`：Day 6 funding 公式、方向判断和纸上账本生成器。
 - `lab/test_day6_funding_ledger.py`：Day 6 funding 公式与未知边界测试。
 - `lab/data/day6_funding_ledger_snapshot.json`：Day 6 脱敏纸上账本快照。
+- `lab/day7_data_cleaning.py`：Day 7 可重复清洗、质量标记和样本准入脚本。
+- `lab/test_day7_data_cleaning.py`：Day 7 清洗边界与输出模式测试。
+- `lab/data/lighter_rwa_clean_1h.csv`：Day 7 长表清洗输出。
+- `lab/data/day7_cleaning_summary.json`：Day 7 脱敏清洗汇总。
 
 练习和课程材料绑定以下真实文件：
 

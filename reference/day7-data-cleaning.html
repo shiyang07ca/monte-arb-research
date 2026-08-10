@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 7 参考卡｜数据清洗</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Day 7 · Data quality</div>
+  <h1>数据清洗不是把异常删干净</h1>
+  <p class="lede">目标是让每条样本都能回答：来自哪里、时间是什么、为什么进入或不能进入某项统计。</p>
+
+  <h2>最小规则</h2>
+  <table>
+    <thead><tr><th>问题</th><th>处理</th><th>禁止</th></tr></thead>
+    <tbody>
+      <tr><td>时间</td><td>统一 UTC，保留原 timestamp</td><td>混用本地时区</td></tr>
+      <tr><td>重复</td><td>保留原始，标记并显式复核</td><td>静默覆盖</td></tr>
+      <tr><td>缺失小时</td><td>标记 gap</td><td>插值成“真实”数据</td></tr>
+      <tr><td>非正/非法值</td><td>保留原行，排除对应统计</td><td>填 0 或静默删除</td></tr>
+      <tr><td>异常跳点</td><td>保留并加 flag</td><td>自动当作错误删除</td></tr>
+      <tr><td>训练测试</td><td>按时间顺序切分</td><td>随机打乱未来信息</td></tr>
+    </tbody>
+  </table>
+
+  <h2>准入判定</h2>
+  <pre><code>raw row
+  → UTC + source path
+  → duplicate / gap / invalid flags
+  → price_stats_eligible
+  → funding_stats_eligible
+  → combined_pair_eligible</code></pre>
+  <p>Day 7 的“干净”不是没有异常，而是异常有原因码、原始值可回溯、统计准入可重跑。</p>
+
+  <h2>时间切分</h2>
+  <div class="grid">
+    <div class="card"><strong>train</strong><code>60%</code><span class="small">只用于描述/拟合规则</span></div>
+    <div class="card"><strong>validation</strong><code>20%</code><span class="small">用于检查规则迁移</span></div>
+    <div class="card"><strong>test</strong><code>20%</code><span class="small">冻结规则后再看</span></div>
+  </div>
+  <div class="callout amber"><strong>当前样本限制</strong><p>candle 每市场只有 500 行，API 文档说明单次最多返回 500 根；当前范围只到 2026-08-06，未覆盖 Day 5 的官方展期示例窗口。</p></div>
+
+  <h2>证据路径</h2>
+  <ul>
+    <li><code>lab/day7_data_cleaning.py</code></li>
+    <li><code>lab/data/lighter_rwa_clean_1h.csv</code></li>
+    <li><code>lab/data/day7_cleaning_summary.json</code></li>
+    <li><code>notes/data-quality-report.md</code></li>
+  </ul>
+  <p>Primary sources: <a href="https://apidocs.lighter.xyz/reference/candles">candles API</a> · <a href="https://apidocs.lighter.xyz/reference/fundings">fundings API</a></p>
+</main>
+</body>
+</html>
