@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 6｜Funding 现金流与纸上账本</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main data-day6-funding-app>
+  <div class="eyebrow">Day 6 · Funding cash flow</div>
+  <h1>Funding 不是两个 API 字符串相减</h1>
+  <p class="lede">今天只做一件事：把 funding rate、仓位方向、数量和 index 连接成一条可解释的纸上现金流。</p>
+  <p class="meta">研究任务：Lighter WTI（<code>market_id=145</code>）与 BRENTOIL（<code>market_id=159</code>）相对价值研究。</p>
+
+  <div class="callout blue">
+    <strong>今天的唯一胜利</strong>
+    <p>看到 funding 数据时，先判断谁付款、谁收款；然后知道还缺什么才能算真实账户现金流。未知字段必须保持 unknown。</p>
+  </div>
+
+  <nav class="card" aria-label="课程导航">
+    <strong>本课导航</strong>
+    <a href="#rule">1. 官方规则</a> ·
+    <a href="#fields">2. 字段分工</a> ·
+    <a href="#sample">3. 真实样本</a> ·
+    <a href="#ledger">4. 纸上账本</a> ·
+    <a href="#quiz">5. 迁移验收</a> ·
+    <a href="../reference/day6-funding-ledger.html">打印版参考卡</a>
+  </nav>
+
+  <h2 id="rule">1. Funding 的核心规则</h2>
+  <p>Lighter 官方 Funding 文档说明，永续合约没有到期日，funding payment 在每个整点发生。正 funding rate 时，多头向空头支付；负 funding rate 时，空头向多头支付。</p>
+  <pre><code>funding_cash_flow
+= − position_sign
+  × index_price
+  × funding_rate
+  × base_quantity
+  × multiplier
+
+long  position_sign = +1
+short position_sign = −1</code></pre>
+  <div class="callout amber">
+    <strong>符号先于算术</strong>
+    <p>结果为负表示这个账户付款，结果为正表示这个账户收款。先看 rate 的正负，再看仓位 sign；不要先看 API 的 <code>direction</code> 字符串。</p>
+  </div>
+  <p>主要来源：<a href="https://docs.lighter.xyz/trading/funding">Lighter Funding</a>。API 入口：<a href="https://apidocs.lighter.xyz/reference/fundings">fundings</a>。</p>
+
+  <h2 id="fields">2. API 字段与账本字段不是一回事</h2>
+  <table>
+    <thead><tr><th>字段</th><th>今天如何使用</th><th>边界</th></tr></thead>
+    <tbody>
+      <tr><td><code>rate</code></td><td>判断 payer/receiver，作为公式输入</td><td>单独不能推出金额</td></tr>
+      <tr><td><code>value</code></td><td>保留原始观察</td><td>单位和账户映射未核验，不能直接相减</td></tr>
+      <tr><td><code>direction</code></td><td>保留原始观察</td><td>不代替账户的 long/short position sign</td></tr>
+      <tr><td><code>index_price</code></td><td>官方公式的价格输入</td><td>必须与 funding 时点对齐</td></tr>
+      <tr><td><code>cash_flow</code></td><td>两腿分别记账</td><td>未取得账户 ledger 前只能 paper_only</td></tr>
+    </tbody>
+  </table>
+  <div class="card">
+    <label for="market"><strong>查看本地真实 funding 行</strong></label>
+    <select id="market" data-role="market">
+      <option value="WTI">WTI · market_id=145</option>
+      <option value="BRENTOIL">BRENTOIL · market_id=159</option>
+    </select>
+  </div>
+  <div data-role="market-output" aria-live="polite"></div>
+
+  <h2 id="sample">3. 当前本地样本告诉了什么？</h2>
+  <p>两个原始文件都包含 <code>timestamp</code>、<code>value</code>、<code>rate</code>、<code>direction</code>。在共同样本 <code>2026-08-03T00:00:00Z</code>：</p>
+  <table>
+    <thead><tr><th>市场</th><th>rate</th><th>API value</th><th>API direction</th><th>历史现金流</th></tr></thead>
+    <tbody>
+      <tr><td>WTI</td><td><code>0.0004</code></td><td><code>0.00032286</code></td><td><code>long</code></td><td><span class="badge missing">unknown</span></td></tr>
+      <tr><td>BRENTOIL</td><td><code>0.0004</code></td><td><code>0.00033548</code></td><td><code>long</code></td><td><span class="badge missing">unknown</span></td></tr>
+    </tbody>
+  </table>
+  <div class="callout red">
+    <strong>反例：不要做这个计算</strong>
+    <p><code>WTI.value − BRENTOIL.value</code> 不是某个交易者的 funding 净收益。它没有包含两腿仓位、基础数量、index、乘数、结算时点和账户真实扣款方向。</p>
+  </div>
+
+  <h2 id="ledger">4. 互动纸上账本</h2>
+  <p>下面沿用 Day 3 的 $10 纸上数量，并用当前 <code>orderBookDetails</code> 的 index 作为教学输入。注意：这个 index 与 funding timestamp 没有对齐，所以结果明确标记为 <code>paper_only</code>。</p>
+  <div class="card">
+    <label for="ledger-market"><strong>市场</strong></label>
+    <select id="ledger-market" data-role="ledger-market">
+      <option value="WTI">WTI · quantity 0.134</option>
+      <option value="BRENTOIL">BRENTOIL · quantity 0.1266</option>
+    </select>
+    <label for="position"><strong>仓位</strong></label>
+    <select id="position" data-role="position">
+      <option value="long">long · position_sign = +1</option>
+      <option value="short">short · position_sign = −1</option>
+    </select>
+    <label for="rate"><strong>funding rate（教学输入）</strong></label>
+    <input id="rate" data-role="rate" type="number" step="0.0001" value="0.0004" min="-0.01" max="0.01">
+  </div>
+  <div data-role="ledger-output" aria-live="polite"></div>
+
+  <h2 id="quiz">5. 迁移验收</h2>
+  <p>关闭资料后，先凭理解完成下面五题，再点击检查。错误答案会保留为练习反馈，不影响仓库文件。</p>
+  <label>1. 正 funding rate 下，谁通常付款？
+    <select data-quiz-role="q-positive"><option value="short-pays">空头付款</option><option value="long-pays">多头付款</option><option value="both-pay">双方付款</option></select>
+  </label>
+  <label>2. 负 funding rate 下，谁通常付款？
+    <select data-quiz-role="q-negative"><option value="long-pays">多头付款</option><option value="short-pays">空头付款</option><option value="both-pay">双方付款</option></select>
+  </label>
+  <label>3. API value 的单位和账户映射尚未核验时，应该标成什么？
+    <select data-quiz-role="q-value"><option value="cash">已验证现金流</option><option value="unknown">unknown</option><option value="zero">零</option></select>
+  </label>
+  <label>4. 什么证据能把 paper_only 推近 verified？
+    <select data-quiz-role="q-proof"><option value="correlation">价格相关性</option><option value="ledger">时间对齐数据和账户 funding ledger</option><option value="value-diff">两个 value 相减</option></select>
+  </label>
+  <label>5. 官方现金流公式使用哪一个价格语义？
+    <select data-quiz-role="q-price"><option value="mid">mid price</option><option value="mark">mark price</option><option value="index">index price</option></select>
+  </label>
+  <button type="button" data-role="quiz-submit">检查 Day 6 验收</button>
+  <div data-role="quiz-feedback" aria-live="polite"></div>
+
+  <footer>
+    <p>如果哪里不清楚，直接追问。今天的通过标准不是得到正收益，而是能把一条 funding 观察诚实地放进纸上账本，并说清它为什么还不是 verified。</p>
+    <p>相关材料：<a href="../notes/funding-ledger-model.md">Funding 现金流模型</a> · <a href="../lessons/0004-day5-roll-session.html">Day 5 展期与市场状态</a>。</p>
+  </footer>
+</main>
+<script src="../assets/day6-funding-ledger.js"></script>
+</body>
+</html>

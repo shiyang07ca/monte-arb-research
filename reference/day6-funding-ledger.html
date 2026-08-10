@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 6 参考卡｜Funding 现金流</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference · Day 6</div>
+  <h1>Funding 现金流参考卡</h1>
+  <p class="lede">先用仓位方向和 funding rate 判断付款/收款，再用 index 与数量计算一条纸上现金流。API 的 value 不能直接当成组合收益。</p>
+
+  <h2>一、官方规则</h2>
+  <ul>
+    <li>永续合约没有到期日，funding payment 在每个整点发生。</li>
+    <li>正 funding rate：多头向空头支付；负 funding rate：空头向多头支付。</li>
+    <li>官方账户资金费公式：</li>
+  </ul>
+  <pre><code>funding_cash_flow
+= − position_sign
+  × index_price
+  × funding_rate
+  × base_quantity
+  × multiplier
+
+long  position_sign = +1
+short position_sign = −1</code></pre>
+  <p>负数表示该账户付款，正数表示该账户收款。</p>
+
+  <h2>二、字段不要混用</h2>
+  <table>
+    <thead><tr><th>字段</th><th>当前可做什么</th><th>当前不能做什么</th></tr></thead>
+    <tbody>
+      <tr><td><code>rate</code></td><td>funding rate 方向和纸上公式输入</td><td>不能单独推出账户金额</td></tr>
+      <tr><td><code>index_price</code></td><td>官方公式中的价格输入</td><td>缺少历史对齐时不能伪造结算价</td></tr>
+      <tr><td><code>value</code></td><td>保留为 API 观察字段</td><td>不能直接相减称为 funding PnL</td></tr>
+      <tr><td><code>direction</code></td><td>保留为 API 观察字段</td><td>不能代替账户 long/short sign</td></tr>
+      <tr><td>账户 ledger</td><td>验证真实扣款/入账</td><td>当前公开快照中尚未取得</td></tr>
+    </tbody>
+  </table>
+
+  <h2>三、真实本地样本</h2>
+  <table>
+    <thead><tr><th>市场</th><th>时间</th><th>rate</th><th>API value</th><th>API direction</th></tr></thead>
+    <tbody>
+      <tr><td>WTI（145）</td><td><code>2026-08-03T00:00Z</code></td><td>0.0004</td><td>0.00032286</td><td>long</td></tr>
+      <tr><td>BRENTOIL（159）</td><td><code>2026-08-03T00:00Z</code></td><td>0.0004</td><td>0.00033548</td><td>long</td></tr>
+    </tbody>
+  </table>
+  <div class="callout amber"><strong>这还不是历史现金流。</strong><p>该 funding 行没有同时提供你的仓位、时间对齐的 index、实际数量和账户扣款/入账；因此 ledger 状态是 <code>paper_only</code> 或 <code>unknown</code>，不能写成 verified。</p></div>
+
+  <h2>四、纸上例子</h2>
+  <pre><code>WTI：quantity = 0.134
+index = 74.670（当前 orderBookDetails 示例输入）
+rate = 0.0004
+
+多头：−1 × 0.134 × 74.670 × 0.0004 = −$0.0040023120
+空头：+1 × 0.134 × 74.670 × 0.0004 = +$0.0040023120</code></pre>
+  <p>这里的 index 不是该 funding 时点的历史对齐值，所以只能作为教学计算，不能当作真实账户 PnL。</p>
+
+  <h2>五、验证闸门</h2>
+  <ol>
+    <li>确认 position sign 和实际 base quantity；</li>
+    <li>取得同一 funding 时点的 index / settlement price；</li>
+    <li>解释 API <code>value</code>、<code>rate</code>、<code>direction</code> 的单位和语义；</li>
+    <li>用账户 funding ledger 回读实际扣款或入账；</li>
+    <li>两腿分别记账，再合并组合现金流。</li>
+  </ol>
+
+  <h2>六、电脑验证</h2>
+  <pre><code>python3 lab/day6_funding_ledger.py
+python3 -m unittest lab.test_day6_funding_ledger -v</code></pre>
+
+  <footer>
+    <p>主要来源：<a href="https://docs.lighter.xyz/trading/funding">Lighter Funding</a>；API：<a href="https://apidocs.lighter.xyz/reference/fundings">fundings</a>。</p>
+  </footer>
+</main>
+</body>
+</html>
