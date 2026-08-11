@@ -1,0 +1,26 @@
+{
+  "name": "lighter_brent_book_ok",
+  "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders",
+  "method": "GET",
+  "params": {
+    "market_id": "159",
+    "limit": "20"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:52:35.260899+00:00",
+  "received_at": "2026-08-11T01:52:35.515567+00:00",
+  "request_latency_ms": 255.271,
+  "raw_file": "lab/data/day8_raw/lighter_brent_book_ok.json",
+  "bytes": 9096,
+  "sha256": "88c52d3441e6fe48c5d4deb2885a2efec25d78b69cf211da6bae1547d26efd7d",
+  "error": null,
+  "top_level_type": "dict",
+  "top_level_keys": [
+    "code",
+    "total_asks",
+    "asks",
+    "total_bids",
+    "bids"
+  ],
+  "rows": null
+}

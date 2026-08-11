@@ -1,0 +1,82 @@
+[
+  {
+    "concept": "price",
+    "lighter": "asks/bids[].price",
+    "binance": "asks/bids[i][0]",
+    "hyperliquid": "levels[side][i].px",
+    "equivalent": "yes_after_parse",
+    "note": "string to float; decimal places differ"
+  },
+  {
+    "concept": "size",
+    "lighter": "asks/bids[].remaining_base_amount",
+    "binance": "asks/bids[i][1]",
+    "hyperliquid": "levels[side][i].sz",
+    "equivalent": "not_equivalent",
+    "note": "lighter order-level partial fills; binance/hl aggregated levels"
+  },
+  {
+    "concept": "side",
+    "lighter": "bids/asks arrays",
+    "binance": "bids/asks arrays",
+    "hyperliquid": "levels[0]=bid levels[1]=ask",
+    "equivalent": "yes",
+    "note": "ordering by best price"
+  },
+  {
+    "concept": "source_timestamp",
+    "lighter": "none public",
+    "binance": "E or T",
+    "hyperliquid": "time",
+    "equivalent": "not_equivalent",
+    "note": "lighter snapshot has no public timestamp; must mark missing"
+  },
+  {
+    "concept": "limit",
+    "lighter": "1-250 required",
+    "binance": "5-1000 default 500",
+    "hyperliquid": "max 20 per side",
+    "equivalent": "not_equivalent",
+    "note": "different max and required semantics"
+  },
+  {
+    "concept": "price_precision",
+    "lighter": "supported_price_decimals",
+    "binance": "pricePrecision",
+    "hyperliquid": "szDecimals only (size)",
+    "equivalent": "not_equivalent",
+    "note": "field names and availability differ"
+  },
+  {
+    "concept": "size_precision",
+    "lighter": "supported_size_decimals",
+    "binance": "quantityPrecision",
+    "hyperliquid": "szDecimals",
+    "equivalent": "not_equivalent",
+    "note": "different sources"
+  },
+  {
+    "concept": "min_order",
+    "lighter": "min_base_amount/min_quote_amount",
+    "binance": "LOT_SIZE.minQty + MIN_NOTIONAL",
+    "hyperliquid": "not in meta",
+    "equivalent": "not_equivalent",
+    "note": "hyperliquid has no public min order field"
+  },
+  {
+    "concept": "funding_timestamp",
+    "lighter": "timestamp seconds",
+    "binance": "fundingTime ms",
+    "hyperliquid": "time ms",
+    "equivalent": "not_equivalent",
+    "note": "unit differs between venues"
+  },
+  {
+    "concept": "funding_rate",
+    "lighter": "rate decimal",
+    "binance": "fundingRate decimal",
+    "hyperliquid": "fundingRate decimal",
+    "equivalent": "yes_after_parse",
+    "note": "account ledger semantics not verified"
+  }
+]

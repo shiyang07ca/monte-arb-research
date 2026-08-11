@@ -1,0 +1,24 @@
+{
+  "name": "binance_exchange_info",
+  "endpoint": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+  "method": "GET",
+  "params": {},
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:45.751831+00:00",
+  "received_at": "2026-08-11T01:50:46.549290+00:00",
+  "request_latency_ms": 807.78,
+  "raw_file": "lab/data/day8_raw/binance_exchange_info.json",
+  "bytes": 1061041,
+  "sha256": "9764f64b5e34851a7e743b941adabb6d46c3f2d64d7a4e1fd394b897b1c11b9d",
+  "error": null,
+  "top_level_keys": [
+    "timezone",
+    "serverTime",
+    "futuresType",
+    "rateLimits",
+    "exchangeFilters",
+    "assets",
+    "symbols"
+  ],
+  "top_level_type": "dict"
+}

@@ -18,6 +18,7 @@
 - `assets/day5-roll-session.js`：Day 5 时区、展期阶段和迁移验收组件。
 - `assets/day6-funding-ledger.js`：Day 6 funding 方向、纸上现金流和迁移验收组件。
 - `assets/day7-data-cleaning.js`：Day 7 数据质量、准入分类和迁移验收组件。
+- `assets/day8-venue-schema.js`：Day 8 跨场所盘口对照和迁移验收组件。
 - `lab/day5_roll_session.py`：Day 5 时区转换、展期阶段和关闭窗口规则；
 - `lab/test_day5_roll_session.py`：Day 5 规则测试；
 - `lab/data/day5_roll_session_snapshot.json`：Day 5 官方规则与派生时区快照。
@@ -28,6 +29,12 @@
 - `lab/test_day7_data_cleaning.py`：Day 7 清洗边界与输出模式测试。
 - `lab/data/lighter_rwa_clean_1h.csv`：Day 7 长表清洗输出。
 - `lab/data/day7_cleaning_summary.json`：Day 7 脱敏清洗汇总。
+- `lab/venue_schema.py`：Day 8 跨场所统一 schema、字段映射和归一化脚本。
+- `lab/test_venue_schema.py`：Day 8 跨场所字段语义与输出模式测试。
+- `lab/data/day8_venue_snapshots.csv`：Day 8 统一长表（333 行）。
+- `lab/data/day8_venue_field_mapping.json`：Day 8 字段映射与 not_equivalent 清单。
+- `lab/data/day8_venue_schema_summary.json`：Day 8 schema 汇总与 unknowns。
+- `notes/venue-schema.md`：Day 8 证据笔记。
 
 练习和课程材料绑定以下真实文件：
 

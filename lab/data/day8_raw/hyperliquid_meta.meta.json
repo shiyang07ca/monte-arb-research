@@ -1,0 +1,22 @@
+{
+  "name": "hyperliquid_meta",
+  "endpoint": "https://api.hyperliquid.xyz/info",
+  "method": "POST",
+  "params": {
+    "type": "meta"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:45.993243+00:00",
+  "received_at": "2026-08-11T01:50:46.340149+00:00",
+  "request_latency_ms": 347.793,
+  "raw_file": "lab/data/day8_raw/hyperliquid_meta.json",
+  "bytes": 17527,
+  "sha256": "eb191a003d8ad2d0b52e6ff16e660c9ba105c03dade579e83abcfed9ee046a93",
+  "error": null,
+  "top_level_keys": [
+    "universe",
+    "marginTables",
+    "collateralToken"
+  ],
+  "top_level_type": "dict"
+}

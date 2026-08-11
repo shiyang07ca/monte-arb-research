@@ -1,0 +1,21 @@
+{
+  "name": "hyperliquid_funding",
+  "endpoint": "https://api.hyperliquid.xyz/info",
+  "method": "POST",
+  "params": {
+    "type": "fundingHistory",
+    "coin": "BTC",
+    "startTime": 0
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:52:35.261008+00:00",
+  "received_at": "2026-08-11T01:52:35.630162+00:00",
+  "request_latency_ms": 371.485,
+  "raw_file": "lab/data/day8_raw/hyperliquid_funding.json",
+  "bytes": 44817,
+  "sha256": "aff6213fba21d02999686abd7f69f427f67233fe856359876c1ff98815db7999",
+  "error": null,
+  "top_level_type": "list",
+  "top_level_keys": null,
+  "rows": 500
+}

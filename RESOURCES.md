@@ -31,6 +31,8 @@
 
 ### 跨场所迁移的官方接口
 
+- [Lighter orderBookOrders](https://apidocs.lighter.xyz/reference/orderbookorders)：盘口订单级视图，`market_id` + `limit`（1–250）必填。
+- [Lighter orderBooks](https://apidocs.lighter.xyz/reference/orderbooks)：市场规格（费用百分比、最小数量、小数位）。
 - [Binance USDⓈ-M Exchange Information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information)：交易规则、精度和限流字段。
 - [Binance USDⓈ-M Funding Rate History](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History)：公共 funding 历史接口。
 - [Binance USDⓈ-M Order Book](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Order-Book)：盘口快照接口。

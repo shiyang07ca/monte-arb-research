@@ -267,6 +267,8 @@ precision, quality_flags, raw_ref
 
 **通过**：能指出至少 5 个“同名但不可直接类比”的字段或限制。
 
+**当前状态**：Day 8 已于 2026-08-11 完成。真实抓取 13 个公开响应（含 2 个 400 失败样本）；`lab/venue_schema.py` 输出 333 行统一长表，7 个 not_equivalent 字段；验收 5/5、测试 29/29。用户需要完成浏览器迁移验收后进入 Day 9。
+
 ### Day 9｜盘口走档和目标数量执行成本
 
 **核心问题**：屏幕价差扣除真实双腿进出成本后还剩多少？
@@ -556,7 +558,7 @@ test → 只做一次冻结参数的样本外回放
 - 课程状态：`notes/icl-course-outline.md`、`NOTES.md`；
 - Day 1–7 lesson/reference/assets/lab：继续复用，但把每个 HTML 的唯一验收接到命令、测试和迁移任务；
 - `notes/course-redesign-primary-sources.md`：已核验的官方文档/API 与学习科学原始研究映射；
-- 下一项实际教学动作：用户重新完成 Day 7 迁移验收，随后开始 Day 8 统一跨场所 schema，而不是重复讲 Day 1–7 的定义。
+- 下一项实际教学动作：用户完成 Day 8 浏览器迁移验收（验收题 5/5）后进入 Day 9 盘口走档；不重复讲 Day 1–7 的定义。
 
 ## 10. 主要一手资料
 

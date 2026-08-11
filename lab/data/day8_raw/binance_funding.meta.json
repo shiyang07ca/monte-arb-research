@@ -1,0 +1,19 @@
+{
+  "name": "binance_funding",
+  "endpoint": "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=5",
+  "method": "GET",
+  "params": {
+    "symbol": "BTCUSDT",
+    "limit": "5"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:45.984495+00:00",
+  "received_at": "2026-08-11T01:50:46.309843+00:00",
+  "request_latency_ms": 326.114,
+  "raw_file": "lab/data/day8_raw/binance_funding.json",
+  "bytes": 631,
+  "sha256": "26d8ae69038f21b23106bcc4b1314cfe011fbb40a8d5c595afdb64672d9992d5",
+  "error": null,
+  "top_level_keys": null,
+  "top_level_type": "list"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "lighter_brent_details",
+  "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails?market_id=159",
+  "method": "GET",
+  "params": {
+    "market_id": "159"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:45.751552+00:00",
+  "received_at": "2026-08-11T01:50:46.000378+00:00",
+  "request_latency_ms": 249.006,
+  "raw_file": "lab/data/day8_raw/lighter_brent_details.json",
+  "bytes": 1432,
+  "sha256": "4506bf3c2c48adb41c1032ecc9dded4d9967813e2bdc4c9479c7223d94c975e0",
+  "error": null,
+  "top_level_keys": [
+    "code",
+    "order_book_details",
+    "spot_order_book_details"
+  ],
+  "top_level_type": "dict"
+}

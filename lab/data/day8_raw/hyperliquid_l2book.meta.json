@@ -1,0 +1,23 @@
+{
+  "name": "hyperliquid_l2book",
+  "endpoint": "https://api.hyperliquid.xyz/info",
+  "method": "POST",
+  "params": {
+    "type": "l2Book",
+    "coin": "BTC"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:46.000424+00:00",
+  "received_at": "2026-08-11T01:50:46.308683+00:00",
+  "request_latency_ms": 309.713,
+  "raw_file": "lab/data/day8_raw/hyperliquid_l2book.json",
+  "bytes": 1578,
+  "sha256": "35c7f9c03f64ffb6b468c1072d4e131f74ec68210e642c00ec2721f9ca609776",
+  "error": null,
+  "top_level_keys": [
+    "coin",
+    "time",
+    "levels"
+  ],
+  "top_level_type": "dict"
+}

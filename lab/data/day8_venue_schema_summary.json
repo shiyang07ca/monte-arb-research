@@ -1,0 +1,39 @@
+{
+  "schema": "day8-venue-snapshot-v1",
+  "rows": 333,
+  "venues": {
+    "lighter": {
+      "bid": 40,
+      "total": 80,
+      "ask": 40
+    },
+    "binance": {
+      "bid": 20,
+      "total": 45,
+      "ask": 20,
+      "funding": 5
+    },
+    "hyperliquid": {
+      "bid": 20,
+      "total": 208,
+      "ask": 20,
+      "funding": 168
+    }
+  },
+  "mapping_entries": 10,
+  "not_equivalent_fields": [
+    "size",
+    "source_timestamp",
+    "limit",
+    "price_precision",
+    "size_precision",
+    "min_order",
+    "funding_timestamp"
+  ],
+  "generated_at_utc": "2026-08-11T02:06:45.917288+00:00",
+  "unknowns": [
+    "lighter orderBookOrders snapshot has no public timestamp field",
+    "funding rate semantics not verified against account cash ledger",
+    "hyperliquid min order size not exposed in meta"
+  ]
+}

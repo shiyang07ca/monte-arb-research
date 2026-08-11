@@ -1,0 +1,25 @@
+{
+  "name": "binance_book",
+  "endpoint": "https://fapi.binance.com/fapi/v1/depth?symbol=BTCUSDT&limit=20",
+  "method": "GET",
+  "params": {
+    "symbol": "BTCUSDT",
+    "limit": "20"
+  },
+  "http_status": 200,
+  "request_started_at": "2026-08-11T01:50:45.751961+00:00",
+  "received_at": "2026-08-11T01:50:45.983331+00:00",
+  "request_latency_ms": 231.877,
+  "raw_file": "lab/data/day8_raw/binance_book.json",
+  "bytes": 926,
+  "sha256": "9628dbff732a62363f957553052fa48942966d9b40d5cbefe707c161033d15c4",
+  "error": null,
+  "top_level_keys": [
+    "lastUpdateId",
+    "E",
+    "T",
+    "bids",
+    "asks"
+  ],
+  "top_level_type": "dict"
+}
