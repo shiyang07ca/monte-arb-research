@@ -63,7 +63,7 @@
   }
 
   $("[data-role=market]").addEventListener("change", renderSnapshot);
-  ["candle", "funding", "valid", "duplicate", "jump"].forEach((role) => $("[data-role=${role}]").addEventListener("change", classify));
+  ["candle", "funding", "valid", "duplicate", "jump"].forEach((role) => $(`[data-role=${role}]`).addEventListener("change", classify));
   $("[data-role=quiz-submit]").addEventListener("click", checkQuiz);
   renderSnapshot();
   classify();
