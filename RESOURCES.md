@@ -10,8 +10,8 @@
 - [RWA 市场规格](https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications)：说明 WTI/BRENTOIL 的经济对象、Pyth Lazer 价格源和动态市场规格。[45]
 - [Funding](https://docs.lighter.xyz/trading/funding)：说明 funding rate、premium、index、方向和结算规则；不能把 API 原始字段直接当成现金收益。[46]
 - [Trading Fees](https://docs.lighter.xyz/trading/trading-fees)：说明账户层级费率和延迟；0 maker/0 taker 不代表没有 spread、冲击或排队成本。[28]
-- [Order Types & Matching](https://docs.lighter.xyz/trading/order-types-matching)：说明 market、limit、post-only、IOC、reduce-only、good-till-time 和 price-time priority。[62]
-- [Liquidations & LLP Insurance Fund](https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund)：用于理解清算和保险基金风险边界。[61]
+- [Order Types & Matching](https://docs.lighter.xyz/trading/order-types-and-matching)：说明 market、limit、post-only、IOC、reduce-only、good-till-time 和 price-time priority。[62]
+- [Liquidations & LLP Insurance Fund](https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund)：用于理解清算和保险基金风险边界。[61]
 - [Fair Price Marking](https://docs.lighter.xyz/trading/fair-price-marking)：用于区分 mark price、index price 和清算/PnL 相关价格。[75]
 - [PnL and Total Account Value](https://docs.lighter.xyz/trading/pnl-and-total-account-value)：用于区分未实现 PnL、账户价值和可实现现金结果。[76]
 - [Multi-Asset Margin](https://docs.lighter.xyz/trading/multi-asset-margin)：用于补充保证金和账户风险检查。[77]
@@ -28,6 +28,21 @@
 - [Markets](https://apidocs.lighter.xyz/reference/markets)：市场查询入口。[81]
 - [Rate Limits](https://apidocs.lighter.xyz/docs/rate-limits)：REST/API 限流约束。[29]
 - [WebSocket Reference](https://apidocs.lighter.xyz/docs/websocket-reference)：实时订阅、保活和重连研究入口。[30]
+
+### 跨场所迁移的官方接口
+
+- [Binance USDⓈ-M Exchange Information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information)：交易规则、精度和限流字段。
+- [Binance USDⓈ-M Funding Rate History](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History)：公共 funding 历史接口。
+- [Binance USDⓈ-M Order Book](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Order-Book)：盘口快照接口。
+- [Hyperliquid Info Endpoint](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint)：公开市场信息、盘口、成交和 candle 查询入口。
+- [Hyperliquid WebSocket](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket)：实时订阅与重连练习入口。
+
+### 学习科学原始研究
+
+- [Roediger & Karpicke, 2006](https://pubmed.ncbi.nlm.nih.gov/16507066/)：测试效应与延迟保持。
+- [Karpicke & Roediger, 2008](https://pubmed.ncbi.nlm.nih.gov/18276894/)：重复检索比单纯重复学习更能支持延迟回忆。
+- [Karpicke & Bauernschmidt, 2011](https://pubmed.ncbi.nlm.nih.gov/21574747/)：绝对间隔对重复检索保持的影响。
+- [Cepeda et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16719566/)：分布式练习的定量综述。
 
 ### 动态证据
 
@@ -76,8 +91,8 @@
 [46] https://docs.lighter.xyz/trading/funding — Lighter Docs: Funding
 [47] https://apidocs.lighter.xyz/reference/candles — Lighter API: Candles
 [48] https://apidocs.lighter.xyz/reference/fundings — Lighter API: Fundings
-[61] https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
-[62] https://docs.lighter.xyz/trading/order-types-matching — Lighter Docs: Order Types & Matching
+[61] https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
+[62] https://docs.lighter.xyz/trading/order-types-and-matching — Lighter Docs: Order Types & Matching
 [72] https://docs.lighter.xyz/trading/contract-specifications — Lighter Docs: Contract Specifications
 [75] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Docs: Fair Price Marking
 [76] https://docs.lighter.xyz/trading/pnl-and-total-account-value — Lighter Docs: PnL and Total Account Value

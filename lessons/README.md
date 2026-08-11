@@ -1,4 +1,4 @@
-# Day 2 教学工作区
+# Lighter WTI–BRENTOIL 研究教学工作区
 
 本目录按 `teach` skill 的结构保存课程材料：
 

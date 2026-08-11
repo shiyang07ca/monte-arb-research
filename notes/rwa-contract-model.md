@@ -162,8 +162,8 @@ REST/API 查询和 WebSocket 观测还必须保存请求时间、接收时间、
 [46] https://docs.lighter.xyz/trading/funding — Lighter Docs: Funding
 [47] https://apidocs.lighter.xyz/reference/candles — Lighter API: Candles
 [48] https://apidocs.lighter.xyz/reference/fundings — Lighter API: Fundings
-[61] https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
-[62] https://docs.lighter.xyz/trading/order-types-matching — Lighter Docs: Order Types & Matching
+[61] https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
+[62] https://docs.lighter.xyz/trading/order-types-and-matching — Lighter Docs: Order Types & Matching
 [75] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Docs: Fair Price Marking
 [76] https://docs.lighter.xyz/trading/pnl-and-total-account-value — Lighter Docs: PnL and Total Account Value
 [77] https://docs.lighter.xyz/trading/multi-asset-margin — Lighter Docs: Multi-Asset Margin

@@ -8,9 +8,10 @@
 
 ## 课程状态基线
 
-- 课程主计划：`resource/plan.md`。
-- 当前已完成材料：Day 1 学习记录和打卡、Day 2 原始数据审计 lesson、reference cheat sheet、真实数据练习。
-- 当前研究结论：关键历史、成本和退出资料仍不完整，暂时不能判断策略是否成立。
+- 课程主计划：`resource/plan.md`（v6）。
+- Day 1–7 lesson、reference、assets、lab 和 learning records 已建立；Day 7 JavaScript 交互故障已修复，提交并 push 为 `55a18c4`。
+- 用户下一步需要重新完成 Day 7 迁移验收；随后进入 Day 8 的跨场所数据字段和采集任务。
+- 当前研究结论：历史、成本、账户 funding、连续盘口/退出、权限和清算资料仍不完整，策略状态为 `Blocked / No-Go`。
 
 ## 交付约定
 

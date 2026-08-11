@@ -1,94 +1,142 @@
-# 10 天课程与第 11–21 天条件式计划（v5）
+# 21 天高密度永续套利研究课程（v6）
 
-> 版本：2026-08-06
+> 版本：2026-08-11
 >
-> 研究对象：Lighter `WTI`（`market_id=145`）与 `BRENTOIL`（`market_id=159`）。
+> 研究主线：Lighter `WTI`（`market_id=145`）与 `BRENTOIL`（`market_id=159`）RWA 永续相对价值；迁移到 Binance USDⓈ-M 和 Hyperliquid 的公共市场数据。
 >
-> 当前进度：第 2 天材料已完成，练习待验收；第 1–10 天是本阶段的详细学习与研究计划。第 11–20 天不预先承诺内容，必须由第 10 天的证据闸门选择分支；第 21 天用于总结和复盘。
+> 课程定位：不是“21 天找到盈利策略”，而是用一个深案例建立可迁移的研究、执行和风险能力，并在证据不足时能够明确拒绝交易。
 >
-> 时间预算：每天 30–90 分钟，默认 60 分钟。每一天只追求一个可以运行、解释、复查的产出。
+> 时间预算：每天 30–90 分钟，默认 60 分钟。每个学习日只要求一个可运行、可解释、可复查的研究产出；连续两天无法完成时，缩小任务，不降低验收标准。
 
-## 1. 课程目标和边界
+## 1. 为什么重排
 
-这不是“十天找到盈利策略”的计划，而是十天内建立一套能够识别伪机会、复现数据、解释代码和依据证据判断研究是否值得继续的能力。
+用户已经具备 Python、REST、WebSocket、Git、依赖管理和基本金融/衍生品知识，因此课程不再把时间花在通用编程语法上。主要补齐四类能力：
 
-WTI 与 BRENTOIL 是同一场所的不同商品 RWA 永续，不是严格的跨场所套利；不预设 1:1 对冲、固定美元价差、固定价格比率或动态 beta。官方资料显示，两者分别代表 WTI 和 Brent 桶价，使用 Pyth Lazer 价格源，并具有不同的期货展期窗口。[43][44][45]
+1. **市场机制**：永续、RWA 期货展期、oracle、index、mark、funding、保证金、清算和订单类型；
+2. **研究工程**：可复现采集、时间语义、原始证据、数据质量、限流、断线恢复和版本化；
+3. **执行经济学**：bid/ask、盘口走档、VWAP、冲击、延迟、部分成交、单腿风险和净现金账本；
+4. **跨场所迁移**：把 Lighter 的深度理解迁移到 CEX 和链上永续，而不是把 RWA 特有规则误认为所有市场都如此。
 
-研究顺序固定为：
+当前课程的问题不是内容完全错误，而是**能力出现顺序不合理**：前七天集中解释一个场所的字段，盘口、成交、延迟、持续采集和现金回放出现得太晚；选择题可以让人感觉“做过了”，却不能证明能运行、修改和迁移研究代码。
+
+因此 v6 采用：
 
 ```text
-合约语义 → 数据审计 → 统计检验 → 执行回放 → 决策
+一个深案例 + 两个迁移案例
+机制与数据并行 + 执行尽早出现 + 每 2–3 天形成可复用组件
 ```
 
-未知字段不能默认为 0。研究阶段资金为 `$0`；不认证、不连接私钥、不发真实订单、不写无人值守发单。
+## 2. 学习、研究、交易三条状态线
 
-## 2. 学习进度与研究结论分开
+三种状态必须分开记录：
 
-### 学习进度
+```text
+学习状态：能解释 → 能运行 → 能复现 → 能修改 → 能迁移
+研究状态：资料足够继续验证 / 暂时不成立 / 关键资料缺失
+交易状态：No-Go / Paper-only / Supervised experiment / Live
+```
 
-学习者能够：
+### 2.1 学习目标
 
-- 用自己的话解释经济对象、价格源、展期、funding、保证金和退出风险；
-- 从官方 API 原始响应复现审计数字；
-- 逐字段解释研究代码，修改一个小规则并重新运行；
-- 在训练/验证/测试划分下说明什么可以结论、什么只能保持未知；
-- 看到资料不足时主动说明缺什么、为什么重要，以及下一步如何补齐。
+课程结束时，用户应能：
 
-### 研究结论
+- 读官方市场规格和 API 文档，给每个字段写出语义、单位、时间戳和证据等级；
+- 从公开 API 采集并保存原始响应、参数、HTTP 状态、请求/接收时间和哈希；
+- 处理分页、窗口上限、重复、缺失、零值、异常跳点和跨源时间对齐；
+- 把盘口快照转换为目标数量的可执行价格、VWAP、滑点、余量和未对冲暴露；
+- 把成交、手续费、funding、保证金和清算准备金进入逐笔现金账本；
+- 在训练/验证/测试切分下预先写检验计划，避免全样本回看和阈值泄漏；
+- 把同一任务迁移到另一个交易场所，并指出哪些字段不能直接类比；
+- 面对正相关、正 funding 或一次漂亮回放时，仍能说明它不能证明什么。
 
-只有在以下条件全部有证据时，候选才可以继续进入纸上回放：
+### 2.2 研究目标
 
-- 价格语义和展期状态可解释；
-- 历史数据覆盖足够且没有未来信息泄漏；
-- funding 现金流可映射到账本；
-- 目标数量的开仓、持仓、平仓成本可回放；
-- 权限、保证金、清算和单腿退出路径已核验；
-- 保守样本外净现金 PnL 在压力条件下仍不被成本吞没。
+研究结论只有以下三种，不允许用“看起来不错”作为第四种：
 
-前十天不承诺满足这些条件，也不以获得正收益作为课程通过标准。
+- **资料足够继续验证**：语义、历史、执行和风险仍有可补齐路径；
+- **暂时不成立**：样本外关系不稳定，或压力成本下净现金明确为负；
+- **关键资料缺失**：无法把信号映射为可执行、可退出、可核验的净现金。
 
-## 3. 每日固定学习循环
+当前仓库的研究状态仍为 `Blocked / No-Go`。现有约 500 根 1h candle、约 750 条 funding 和描述性相关性只能支持继续审计，不能支持协整、盈利或实盘结论。
 
-每天按以下顺序进行：
+### 2.3 交易边界
 
-1. **检索**：不看答案，写出今天问题的已有理解；
-2. **输入**：只读官方来源和仓库原始证据；
-3. **动作**：运行一个脚本、查询一个字段或完成一个纸上计算；
-4. **回忆**：关闭资料后口头解释；
-5. **记录**：写入产出、证据路径、未知项和明日唯一动作。
+前 21 天：
 
-每个学习日的“通过”包含四类证据：
+- 研究资金为 `$0`；
+- 不连接私钥，不保存凭据，不签名，不发真实订单；
+- EVM 只做 RPC、ABI、事件、余额、池子状态和报价的只读练习；
+- 不把 HTML 课程完成、统计相关性、纸上 PnL 或平台打卡写成交易成果；
+- 未知字段保留 `unknown`，不默认填零、不用插值伪造成交或价格。
 
-- 口头解释；
-- 代码复现；
-- 数据审计；
-- 研究回放或纸上场景。
+## 3. 每日学习协议
 
-## 4. Day 1–10 详细计划
+每天固定执行以下五步，内容可以变，证据结构不变：
 
-### Day 1｜定义候选与拒绝规则
+1. **闭卷起点（5 分钟）**：不看资料，用自己的话回答今天要解决的问题；
+2. **一手输入（10–20 分钟）**：只读官方文档、原始 API 响应和仓库代码；
+3. **真实动作（20–40 分钟）**：运行命令、改一个参数、注入一个故障或完成一次回放；
+4. **迁移回忆（5–10 分钟）**：换市场、方向、时间状态或故障，重新解释；
+5. **留证（5 分钟）**：保存产出路径、测试结果、未知项和下一步。
 
-**问题**：研究的到底是什么，什么不算机会？
+每一天的通过证据至少包括：
 
-**输入**：`MISSION.md`、`notes/research-charter.md`、ICL 原始课程记录、Lighter RWA 总览。[42]
+- 一段闭卷解释；
+- 一个真实命令或测试输出；
+- 一个可复查文件；
+- 一个故障/边界或迁移场景；
+- 一条“不能据此得出什么”的限制说明。
+
+HTML 仅用于图示、模拟器和即时反馈。选择题不能替代命令运行、代码修改、数据审计和迁移验收。浏览器 lesson 必须同时有 DOM smoke test；Python 研究逻辑必须有单元测试。
+
+## 4. 三阶段和四道闸门
+
+```text
+Day 1–7   深案例：研究边界、合约、价格、展期、funding、数据质量
+Day 8–14  执行核心：跨场所 schema、盘口走档、成交、双腿状态、净现金、统计
+Day 15–21 广度与基础设施：CEX/链上迁移、EVM 只读、库存、风险、采集、答辩
+```
+
+### Gate A｜Day 7：数据能不能进入研究
+
+必须能回答：每一行来自哪里、代表哪个时间、为什么被保留/标记、是否可以回到原始响应。不能回答则不进入统计。
+
+### Gate B｜Day 14：信号能不能变成净现金
+
+必须能对目标规模完成双腿开仓和退出回放，包含盘口方向、手续费、funding、延迟、部分成交和单腿失败。不能回答则保持 `Paper-only / Blocked`。
+
+### Gate C｜Day 19：方法能不能迁移和持续运行
+
+必须至少在另一个 CEX 和一个链上永续场所完成只读采集，指出时间、精度、限流、market schema 和 funding 语义差异。
+
+### Gate D｜Day 21：是否值得进入下一周期
+
+只产生下一周期研究决策，不自动授权资金。决策必须附证据索引、已知未知项、压力结果和停止条件。
+
+## 5. Day 1–7：Lighter 深案例
+
+### Day 1｜把候选从“套利”改写成可证伪研究问题
+
+**核心问题**：WTI/BRENTOIL 到底是什么关系？什么观察不算机会？
+
+**输入**：`MISSION.md`、`notes/research-charter.md`、Lighter RWA 总览和市场规格。
 
 **动作**：
 
-- 写出“同场所跨品种相对价值”与“跨场所无风险套利”的区别；
-- 列出结算、经济对象、数量、权限、价格、funding、深度、退出等检查项；
-- 写清“资料足够继续验证”“暂时不成立”“资料缺失”三种研究结论。
+- 区分同场所跨品种相对价值、跨场所 basis/funding carry 和无风险套利；
+- 为两腿写出经济对象、结算、数量、价格、funding、深度、权限和退出字段；
+- 写出至少 8 个当前未知项，并为每个未知项标注“会影响信号、执行还是风险”；
+- 写下拒绝规则：历史不足、语义未知、成本未闭合、单腿无法退出时分别如何停止。
 
 **产出**：`notes/research-charter.md`、`learning-records/0001-rwa-perpetual-relative-value-boundary.md`。
 
-**通过标准**：不看资料，能说出至少 5 个未知字段；能解释为什么相关性或一次盈利不能代表策略成立。
+**通过**：不看资料能解释为什么“价格相关”不等于“可套利”；能说出一个正确信号也可能被什么成本吞掉。
 
-**依赖**：无。
+### Day 2｜先建立可复现采集，而不是先看图
 
-### Day 2｜运行现有只读采集和审计
+**核心问题**：现有数字来自哪里，窗口上限和响应缺失意味着什么？
 
-**问题**：现有数据来自哪里，覆盖了什么，哪些数字只是描述性结果？
-
-**输入**：`lab/capture_lighter_rwa.py`、`lab/audit_lighter_rwa.py`、原始 JSON、manifest、audit。
+**输入**：Lighter Candles/Fundings API、现有 `lab/capture_lighter_rwa.py`、原始 JSON。
 
 **动作**：
 
@@ -99,250 +147,445 @@ python3 -m json.tool lab/data/lighter_rwa_capture_manifest.json >/dev/null
 python3 -m json.tool lab/data/lighter_rwa_data_audit.json >/dev/null
 ```
 
-保存请求 URL、参数、HTTP 状态、请求/接收时间、延迟、原始文件和 SHA-256；不把 token 或 header 写入仓库。
+保存 URL、参数、状态码、请求/接收时间、延迟、原始文件和 SHA-256；不要保存 token/header。
 
-**产出**：`lab/data/lighter_rwa_capture_manifest.json`、`lab/data/lighter_rwa_data_audit.json`、`lab/data/lighter_rwa_aligned_1h.jsonl`、`notes/day-1.md`。
+**产出**：manifest、audit、`lab/data/lighter_rwa_aligned_1h.jsonl`、`notes/day-1.md`。
 
-**当前证据**：两腿共同 1h candles 为 500 行、约 21 天；1h funding 各 750 行、约 31 天；收益相关性约 `0.9707121232645127`。这些数字只支持“值得继续审计”，不支持协整或盈利结论。[47][48][49][50][53][54]
+**通过**：从 audit 任一数字回到原始响应和采集元数据；能解释单次 500 candle/750 funding 窗口为什么不能支持长期结论。
 
-**通过标准**：能从 audit 的一条数字回到原始 JSON 和 manifest；能指出历史资料为什么仍不足。
+### Day 3｜合同和数量模型
 
-**依赖**：Day 1。
+**核心问题**：价格接近是否意味着数量、乘数和保证金可以 1:1？
 
-### Day 3｜建立 RWA 合约模型
-
-**问题**：两腿各自代表什么，数量和保证金怎样解释？
-
-**输入**：`notes/rwa-contract-model.md`、官方 RWA 市场规格、`orderBookDetails` 原始快照。[45][72]
+**输入**：RWA Market Specifications、Contract Specifications、`orderBookDetails` 原始快照。
 
 **动作**：
 
-- 手工填写 WTI/BRENTOIL 经济对象、market id、产品类型、最小基础数量、最小报价金额、数量/价格小数位、乘数和保证金字段；
-- 用一个 `$10` 目标报价金额和各自最小数量做数量可行性检查；
-- 区分动态快照与稳定规则。
+- 做 WTI/BRENTOIL 字段字典：market id、经济对象、最小基础数量、最小报价金额、价格/数量精度、乘数、保证金字段；
+- 用 `$10/$20/$50/$100` 目标报价金额分别计算理论数量和余量；
+- 区分静态规格、动态快照、账户成交三种证据；
+- 给数量检查加测试，拒绝硬编码精度。
 
-**产出**：`notes/rwa-contract-model.md`、字段字典、一个数量检查记录；可运行 `python3 -m unittest lab.test_audit_lighter_rwa` 验证 market id、必需字段、最小名义和数量精度。
+**产出**：`notes/rwa-contract-model.md`、字段字典、数量测试。
 
-**通过标准**：不看代码解释为什么价格相近不能决定数量相等；能指出至少 3 个字段仍需账户或成交回执核验；测试通过且数量检查明确标记为纸上可行性，不被描述为历史成交能力。
+**通过**：能解释“名义金额相同”与“基础数量相同”的差别；至少指出 3 个必须通过账户/成交回执核验的字段。
 
-**依赖**：Day 2。
+### Day 4｜oracle、index、mark、mid 和成交价
 
-### Day 4｜价格源、index、mark 和 EMA
+**核心问题**：API 返回的每个价格是否代表同一过程？
 
-**问题**：一个 API 返回的价格是否都代表同一过程？
+**输入**：RWA Pricing Mechanism、Fair Price Marking、PnL 文档。
 
-**输入**：官方 RWA 定价、Fair Price Marking、PnL 文档。[43][75][76]
-
-**动作**：画出：
+**动作**：画出并在代码字段中实现：
 
 ```text
-外部 oracle → index / mark 计算
-订单簿 impact price → 内部 EMA（oracle stale 时）
-成交价 / mid / candle close → 观察数据
+外部 oracle → index / mark
+订单簿 impact price → mark / EMA
+trade price / candle close → 观察数据
+best bid / best ask / mid → 估计可执行区间
 ```
 
-为数据表设计：`trade_price`、`candle_close`、`index_price`、`mark_price`、`mid_price`、`oracle_state`、`source_timestamp`。
+增加 `source_timestamp`、`received_at`、`price_semantics`、`oracle_state`；构造 oracle stale 时的反例。
 
-**产出**：`notes/price-semantics.md`。
+**产出**：`notes/price-semantics.md`、价格字段字典和一个反例 fixture。
 
-**通过标准**：能解释 oracle stale 如何造成价格过程切换；没有字段时写 `unknown`，不插值伪造。
+**通过**：能解释 mark 用于估值/清算和 bid/ask 用于现金退出不是同一件事；缺失字段保持 `unknown`。
 
-**依赖**：Day 3。
+### Day 5｜展期、时区和市场状态
 
-### Day 5｜展期和市场状态
+**核心问题**：价差变化来自相对价值，还是来自两个底层期货的不同展期/关闭窗口？
 
-**问题**：价差变化来自相对价值，还是来自两个期货合约的不同展期？
-
-**输入**：`notes/rwa-roll-and-session-model.md`、官方展期文档。[44]
+**输入**：Futures Contract Price Rolling Mechanism、RWA 规格和现有时间数据。
 
 **动作**：
 
-- 把 UTC 时间转换为美国东部时间；
-- 给每个小时标记 `wti_roll_window`、`brentoil_roll_window`、`market_closed_window`；
-- 设计“全样本 / 排除展期 / 按展期阶段分层”的比较；
-- 不因异常直接删除样本。
+- 所有源数据内部统一 UTC，展示时转换为 America/New_York；
+- 建立 `wti_roll_window`、`brentoil_roll_window`、`market_closed_window`、`oracle_state`；
+- 比较全样本、排除展期、按展期阶段分层的结果；
+- 不因异常直接删除样本，先保留并标记来源和状态。
 
-**产出**：`notes/rwa-roll-and-session-model.md`、时间状态表。
+**产出**：`notes/rwa-roll-and-session-model.md`、状态表和时间切分测试。
 
-**通过标准**：能说出 WTI 17:30 与 BRENTOIL 19:00 的时区含义；能解释为什么时间错位会产生结构断点；缺数据时明确写展期语义资料不足。
+**通过**：能用一个具体小时解释状态标签如何改变研究含义；能指出时间错位会怎样制造结构断点。
 
-**依赖**：Day 4。
+### Day 6｜把 funding 变成现金账本
 
-### Day 6｜Funding 现金流与纸上账本
+**核心问题**：公开 funding rate 如何、以及不能如何进入个人净收益？
 
-**问题**：funding API 的字段怎样进入两腿现金流？
-
-**输入**：官方 Funding 文档、fundings 原始响应。[46][48]
+**输入**：Lighter Funding 文档、Fundings API、现有 `lab/day6_funding_ledger.py`。
 
 **动作**：
 
-- 建立 `timestamp/rate/value/direction/position_sign/quantity/settlement_price/cash_flow` 字段表；
-- 用多头 WTI、空头 WTI、多头 BRENTOIL、空头 BRENTOIL 四个场景手工判断现金流方向；
-- 明确 `value` 不能直接相减。
+- 建立 `timestamp/rate/value/direction/position_sign/quantity/multiplier/settlement_price/cash_flow`；
+- 分别演算 WTI/BRENTOIL 多空四种场景；
+- 明确 `API value`、公开市场 funding 和账户 funding ledger 的证据等级；
+- 为 `unknown` 单位、方向或结算状态写失败测试。
 
-**产出**：`notes/funding-ledger-model.md`、纸上 funding ledger。
+**产出**：`notes/funding-ledger-model.md`、纸上 ledger、测试。
 
-**通过标准**：能从仓位方向推出付款/收款方向；能说明账户资金费账本还缺哪些资料。
+**通过**：能由仓位方向推出付款/收款方向；能说明为什么不能直接相减两条 API `value` 当个人收益。
 
-**依赖**：Day 3、Day 4。
+### Day 7｜数据清洗、异常和 Gate A
 
-### Day 7｜数据清洗和可复现规则
+**核心问题**：哪些样本可以进入统计，哪些样本必须保留为异常证据？
 
-**问题**：哪些样本能进入统计，哪些只能保留为异常证据？
-
-**输入**：原始 candles/fundings、现有审计脚本、API candles/fundings 文档。[47][48]
-
-**动作**：
-
-- 统一 UTC 时间；
-- 检查重复 timestamp、缺失小时、零值、非正价格和异常跳点；
-- 保存原始值与清洗状态，不覆盖原始 JSON；
-- 设计训练/验证/测试的时间切分；
-- 若官方窗口无法扩展，记录历史资料不足。
-
-**产出**：`lab/data/lighter_rwa_clean_1h.csv`、`notes/data-quality-report.md`。
-
-**通过标准**：清洗可重新运行；每条统计样本能回溯到原始响应；异常不会被静默删除。
-
-**依赖**：Day 2、Day 5。
-
-### Day 8｜价差定义与样本外统计闸门
-
-**问题**：固定价差、价格比率和动态 beta 哪个定义有证据？
-
-**输入**：清洗数据、研究章程、统计方法资料；当前只允许把相关性作为描述性结果。
+**输入**：原始 candles/fundings、API 文档、现有 Day 7 lesson 和清洗脚本。
 
 **动作**：
 
-- 先写检验计划，再运行统计；
-- 比较固定美元差、对数差和训练集估计的 beta；
-- 只在训练集选择窗口和阈值；
-- 在验证/测试集记录触发次数、回归时间、最大偏离和结构断裂；
-- 如样本长度不够做协整或半衰期检验，就说明资料不足，不靠换公式制造结论。
+- 统一 UTC，检查重复 timestamp、缺失小时、零值、非正价格和跳点；
+- 保存原始值、清洗状态、质量标记，不覆盖原始 JSON；
+- 按时间顺序划分 train/validation/test；
+- 在浏览器中完成交互验收，再运行 Python 实验和测试；
+- 人为注入一条缺失、重复或异常记录，确认规则不会静默删除。
 
-**产出**：`notes/spread-definition-decision.md`；若实现统计模块，再增加单元测试。
+**产出**：`lab/data/lighter_rwa_clean_1h.csv`、`notes/data-quality-report.md`、Day 7 学习记录。
 
-**通过标准**：能解释相关性不等于协整；能指出任何全样本拟合回看的地方；能报告样本外限制。
+**通过**：5/5 迁移验收 + Python 测试通过；能从清洗表任意一行回到原始响应；能说明为什么“缺失=0”是危险的。
 
-**依赖**：Day 7。
+**当前状态**：Day 7 JavaScript 已修复并在浏览器回归验证；用户需要重新完成迁移验收，不能把 lesson 加载成功等同于 Day 7 学习完成。
 
-### Day 9｜目标数量开平仓回放
+## 6. Day 8–14：执行核心和样本外纪律
 
-**问题**：理论价差扣除双腿真实进出成本后还剩多少？
+### Day 8｜统一跨场所数据结构
 
-**输入**：`orderBookDetails`、`orderBookOrders`、`trades`、交易费用、订单类型和撮合文档。[28][62][68][69][78][79]
+**核心问题**：怎样把 Lighter、Binance 和 Hyperliquid 的数据放进同一研究表，而不抹掉语义差异？
+
+**输入**：Lighter API、Binance Exchange Information/Order Book、Hyperliquid Info 文档。
+
+**动作**：设计最小 schema：
+
+```text
+venue, market, instrument_type, source_timestamp, received_at,
+price_semantics, bid, ask, size, funding_rate, funding_timestamp,
+precision, quality_flags, raw_ref
+```
+
+完成一份 Lighter → Binance 字段映射，并标出 `not_equivalent` 字段；禁止把不存在的字段补成 0。
+
+**产出**：`notes/venue-schema.md`、schema 校验和两个 venue fixture。
+
+**通过**：能指出至少 5 个“同名但不可直接类比”的字段或限制。
+
+### Day 9｜盘口走档和目标数量执行成本
+
+**核心问题**：屏幕价差扣除真实双腿进出成本后还剩多少？
+
+**输入**：Order Book/Order Book Orders、Trading Fees、Order Types 文档。
+
+**动作**：对 `$10/$20/$50/$100` 分别：
+
+- 买入走 ask，卖出走 bid；
+- 多档累计，计算 VWAP、spread、冲击、余量和未对冲名义；
+- 分开开仓与平仓；
+- 比较 midpoint、top-of-book 和走档结果；
+- 将 maker/taker 显式费用和非显式排队/延迟成本分开。
+
+**产出**：`lab/orderbook_walk.py`、`notes/execution-replay.md`、fixture 和测试。
+
+**通过**：不能用 midpoint 冒充成交；能解释目标规模翻倍为何不一定只让成本翻倍。
+
+### Day 10｜成交、延迟和报价是否真的可成交
+
+**核心问题**：报价出现过，是否等于订单能以该价成交？
+
+**输入**：公开 recent trades、账户 trades 文档、WebSocket 事件文档。
+
+**动作**：将一段盘口快照和成交序列配对，记录：
+
+```text
+quote_time, receive_time, decision_time, submit_time,
+fill_time, side, requested_qty, filled_qty, remaining_qty,
+price, fee, stale_ms, reject_reason
+```
+
+对比“看见盘口”“市场发生成交”“我的订单成交”三个证据等级。
+
+**产出**：`notes/quote-vs-fill.md`、延迟/成交 fixture。
+
+**通过**：能给出一个 stale quote、部分成交和未成交的处理方式；不把 recent trades 当自己的 fill。
+
+### Day 11｜双腿执行状态机和单腿失败
+
+**核心问题**：两腿不同步时，系统的下一步是什么？
+
+**输入**：订单类型、reduce-only、订单事件/失败状态文档。
+
+**动作**：实现状态机：
+
+```text
+FLAT → LEG_A_SUBMITTED → LEG_A_FILLED
+     → LEG_B_SUBMITTED → HEDGED
+     → PARTIAL / STALE / REJECTED / EXITING
+```
+
+为每个状态写：允许动作、最大等待时间、取消/退出动作、残余暴露和日志字段。
+
+**产出**：`notes/execution-state-machine.md`、状态转换测试、故障注入结果。
+
+**通过**：模拟 B 腿拒单、A 腿部分成交、行情过期和退出失败；能说出 kill switch 触发条件。
+
+### Day 12｜净现金账本、保证金和清算压力
+
+**核心问题**：相对价值交易怎样从“价差”变成逐笔现金结果？
+
+**输入**：Funding、PnL、Liquidations/LLP、Multi-Asset Margin、交易费用文档。
+
+**动作**：建立逐事件账本：
+
+```text
+cash_pnl = trade_pnl + funding_cash - fees - slippage
+           - transfer_or_borrow_cost - risk_reserve
+```
+
+分别记录 mark-to-market、可退出现金、保证金占用、单腿暴露和清算距离；未知项不填零。
+
+**产出**：`lab/cash_ledger.py`、`notes/net-cash-model.md`、压力测试。
+
+**通过**：能解释为什么两腿名义对冲仍可能因乘数、mark、保证金、资金转移或清算而亏损。
+
+### Day 13｜价差定义：固定差、比率、log spread、beta
+
+**核心问题**：研究对象是哪个可证伪的 spread，而不是哪个公式看起来最好？
+
+**输入**：已清洗数据、研究章程、统计方法说明。
+
+**动作**：先写计划再算结果：
+
+- 固定美元差；
+- 价格比率；
+- 对数差；
+- 仅用训练集估计 beta 的动态 spread；
+- 记录每种定义的经济解释、单位、触发条件和失败条件。
+
+**产出**：`notes/spread-definition-decision.md`、统计模块测试。
+
+**通过**：能解释相关性、协整、可交易性三者的区别；不能因为一个定义结果最好就自动选它。
+
+### Day 14｜时间切分、参数冻结和 Gate B
+
+**核心问题**：怎样避免用未来信息选择过去的策略？
+
+**输入**：Day 7 清洗数据、Day 9–12 执行模块。
+
+**动作**：固定：
+
+```text
+train → 选择定义/窗口/阈值
+validation → 检查稳定性和成本敏感性
+test → 只做一次冻结参数的样本外回放
+```
+
+在测试区间只输出触发次数、持有时间、双腿成交、费用、funding、滑点、未对冲暴露和净现金，不再调参。
+
+**产出**：`notes/gate-1-execution-statistics.md`、冻结参数文件、结果表。
+
+**通过**：至少完成一个方向、一个目标规模的开仓/平仓回放；在延迟、滑点和部分成交压力下仍明确写出 `continue / reject / insufficient evidence`。
+
+## 7. Day 15–21：广度、基础设施和研究答辩
+
+### Day 15｜Binance 永续迁移
+
+**核心问题**：同一研究动作换到高流动性 CEX 后，哪些东西能复用，哪些必须重写？
+
+**输入**：Binance USDⓈ-M Exchange Information、Funding Rate History、Order Book、Recent Trades 官方文档。
 
 **动作**：
 
-- 对至少 `$10/$20/$50/$100` 目标名义分别走 bid/ask 档位；
-- 计算 WTI/BRENTOIL 数量、步长、余量和未对冲名义；
-- 分别模拟开仓和平仓；
-- 加入 spread、冲击、延迟、部分成交、单腿失败和 reduce-only 退出；
-- 不把 24h volume 或一刻盘口快照当作容量证明。
+- 只读采集 BTCUSDT 的市场规格、funding、盘口和成交；
+- 将数据适配到 Day 8 schema；
+- 比较 precision、rate limit、funding 时间、盘口字段和成交证据；
+- 用同一 `$10/$20/$50/$100` 目标名义走档。
 
-**产出**：执行回放表、`notes/execution-replay.md`；如实现模块，再增加回放测试。
+**产出**：`notes/binance-migration.md`、`lab/venue_adapters/binance_public.py` 或等价只读脚本、对比表。
 
-**通过标准**：至少一个方向在开仓和退出都使用正确方向的盘口；能给出单腿失败后的状态和停止动作；不使用 midpoint 代替成交价。
+**通过**：不改动执行核心逻辑就能替换数据源；能列出至少 3 个不能从 Lighter 直接复制的假设。
 
-**依赖**：Day 3、Day 6、Day 7。
+### Day 16｜Hyperliquid 永续迁移与 REST/WebSocket 一致性
 
-### Day 10｜证据闸门和分支选择
+**核心问题**：链上永续的公开信息接口与 CEX 接口有何不同？
 
-**问题**：我们学会了什么，策略研究下一步是什么？
+**输入**：Hyperliquid Info Endpoint、WebSocket 官方文档。
 
-**动作**：填写下表，不用“感觉”代替证据：
+**动作**：
 
-| 闸门 | 状态 | 证据路径 | 未知项 |
-|---|---|---|---|
-| 经济对象和数量 | 已确认 / 部分确认 / 资料缺失 | 规格表、原始 JSON | 账本/成交语义 |
-| 价格源和状态 | 已确认 / 部分确认 / 资料缺失 | RWA 定价、价格字段 | oracle freshness |
-| 展期和市场时段 | 已确认 / 部分确认 / 资料缺失 | 展期表 | 完整关闭/恢复记录 |
-| funding 现金流 | 已确认 / 部分确认 / 资料缺失 | 纸上 ledger | 账户账本 |
-| 历史覆盖 | 已确认 / 部分确认 / 资料缺失 | audit/manifest | 多状态样本 |
-| 目标数量进出 | 已确认 / 部分确认 / 资料缺失 | execution replay | 连续深度 |
-| 权限/保证金/清算 | 已确认 / 部分确认 / 资料缺失 | 官方规则/账户证据 | 当前账户状态 |
+- 只读获取 meta、盘口、成交、candle 或 funding 相关公开数据；
+- 用 REST 快照和 WebSocket 事件做时间/字段一致性检查；
+- 记录订阅、重连、消息顺序和数据缺口；
+- 不写签名、下单或钱包连接代码。
 
-**产出**：`notes/day-10-gate.md`、第 11–20 天分支选择。
+**产出**：`notes/hyperliquid-migration.md`、只读采集脚本、原始响应和质量报告。
 
-**通过标准**：能分别回答“我学会了什么”和“策略证据是否足够”；任何关键字段未知时说明缺口及其影响；不因为相关性高就声称策略成立。
+**通过**：能解释“链上场所”不自动等于“低风险”或“无需执行工程”；能指出数据延迟、资金、清算和跨场所转移风险。
 
-**依赖**：Day 1–9。
+### Day 17｜CEX–DEX inventory / basis 研究模型
 
-## 5. 第 11–20 天：第 10 天后选择，不预先承诺
+**核心问题**：跨场所套利的真正成本除了交易费还包括什么？
 
-### 分支 A｜历史仍不足：继续数据采集
+**输入**：前 16 天净现金账本、公开 venue 规格、用户的风险预算约束。
 
-触发：历史资料不足或无法覆盖多个展期/市场状态。
+**动作**：只做纸上场景，不转账：
 
-内容：分页或连续定时采集、原始证据哈希、缺失/重复审计、状态字段、时间窗口报告。
+- 预置库存与临时转移两种路径；
+- 加入借贷/资金占用、转账确认、充值提现暂停、链上 gas、对手方和清算风险；
+- 对“价差存在但库存位置不对”和“资金费反转”做情景树；
+- 将 gross edge、net edge、capital at risk 分开。
 
-禁止：长期协整结论、阈值优化、真实订单。
+**产出**：`notes/cex-dex-inventory-model.md`、至少两个库存场景、拒绝条件表。
 
-### 分支 B｜统计关系否定：记录否定性结果
+**通过**：能说明为什么价差扫描器上的 APY 不能直接等于个人收益；能给出资金位置和退出路径。
 
-触发：训练/验证/测试关系不稳定，或压力假设下净现金必然为负。
+### Day 18｜WebSocket 采集器的可靠性
 
-内容：保存否定性结果、分析结构断裂、比较替代定义、写替代研究问题。
+**核心问题**：持续数据系统如何在断线、限流、重复和乱序下保持可审计？
 
-禁止：反复调参直到得到正收益；把一次样本外盈利当成证明。
+**输入**：Lighter、Binance、Hyperliquid WebSocket/Rate Limits 官方文档。
 
-### 分支 C｜统计可研究但执行未知：执行与账本深化
+**动作**：实现或补齐：
 
-触发：关系有研究信号，但 funding、连续深度、退出或权限仍未知。
+- 订阅确认和心跳；
+- reconnect/backoff；
+- 原始事件 append-only 落盘；
+- source timestamp 与 received_at；
+- 去重键、乱序检测、断点、每日 manifest 和哈希；
+- 断线/限流/订阅失败故障注入。
 
-内容：连续盘口快照、目标数量走档、双腿异步、部分成交、funding paper ledger、保证金和清算压力。
+**产出**：采集器日志、事件 fixture、`notes/collector-reliability.md`、重启演练报告。
 
-禁止：真实下单；未知成本不填零。
+**通过**：人为断开后能恢复且不静默丢失；能定位一个事件来自哪次连接、何时收到、是否重复。
 
-### 分支 D｜关键字段闭合：严格纸上回放
+### Day 19｜压力回放和风险故障演练
 
-触发：价格语义、展期、funding、历史、费用、进出、权限和风险路径均有证据。
+**核心问题**：策略在最不舒服的执行条件下是否仍然可退出？
 
-内容：冻结训练参数，在完全未使用的测试区间做净现金回放；测试压力场景；人工复核后决定是否只做极小额监督实验评估。
+**输入**：Day 11–18 所有模块和风险文档。
 
-注意：本分支也不自动授权交易。真实实验需要另行确认，且必须保留 kill switch 和单腿恢复方案。
+**动作**：至少演练：
 
-## 6. Day 21｜总结和复盘
+1. bid/ask 扩大；
+2. 盘口深度骤减；
+3. B 腿拒单；
+4. 一腿部分成交；
+5. oracle stale / mark 过程切换；
+6. funding 方向反转；
+7. WebSocket 断线；
+8. 保证金接近清算。
 
-产出：
+每个场景输出残余暴露、退出动作、最大损失假设、日志证据和是否停止研究。
 
-- 学习成果清单：能解释、能复现、能审计、能回放的内容；
-- 研究结论：资料足够继续验证、暂时不成立，或资料缺失；
-- 未解决问题及证据路径；
-- 下一周期唯一研究问题；
-- 失败记录，而不是只记录正向结果。
+**产出**：`notes/risk-and-operations.md`、故障注入测试、压力结果表。
 
-通过标准：第三方只看仓库文件，就能重建当前判断；策略没有因为计划结束而被强行写成已成立。
+**通过**：每个故障都有明确状态、动作、超时和人工介入点；不存在“继续等一等”这种无界处理。
 
-## 7. 当前学习进度与研究结论
+### Day 20｜冻结参数的最终纸上回放和 Gate C/D 预审
 
-基于当前仓库快照：
+**核心问题**：在没有新增调参的前提下，证据是否足以进入下一周期？
 
-- 学习进度：Day 2 材料已完成，练习待验收；
-- 研究结论：历史、资金费账本、盘口退出和权限资料仍不完整，暂时不能判断策略是否成立。
+**动作**：
 
-现有审计指出：历史约 21 天、funding 约 31 天，且 funding 账本、目标数量退出和权限仍未闭合。`0.9707121232645127` 只是 499 个收益变化的描述性相关性，不是长期协整或净收益证明。
+- 冻结所有训练参数、成本假设和目标规模；
+- 在完全未使用的时间区间做一次最终回放；
+- 输出 gross spread、显式费用、盘口成本、funding、延迟损失、风险准备金和 net cash；
+- 对 Lighter、Binance、Hyperliquid 分别标出 `confirmed / partial / unknown`；
+- 选择下一周期唯一研究问题。
 
-## Sources
+**产出**：`notes/final-paper-replay.md`、结果 CSV、证据索引、`notes/next-cycle-decision.md`。
 
-[28] https://docs.lighter.xyz/trading/trading-fees — Lighter: Trading Fees
-[42] https://docs.lighter.xyz/trading/real-world-assets-rwas — Lighter Docs: Real World Assets (RWAs)
-[43] https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism — Lighter Docs: RWA Pricing Mechanism
-[44] https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism — Lighter Docs: Futures Contract Price Rolling Mechanism
-[45] https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications — Lighter Docs: RWA Market Specifications
-[46] https://docs.lighter.xyz/trading/funding — Lighter Docs: Funding
-[47] https://apidocs.lighter.xyz/reference/candles — Lighter API: Candles
-[48] https://apidocs.lighter.xyz/reference/fundings — Lighter API: Fundings
-[49] https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=145&resolution=1h&count_back=500 — Lighter API snapshot: WTI 1h candles
-[50] https://mainnet.zklighter.elliot.ai/api/v1/candles?market_id=159&resolution=1h&count_back=500 — Lighter API snapshot: BRENTOIL 1h candles
-[53] https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=145&resolution=1h&count_back=750 — Lighter API snapshot: WTI 1h funding
-[54] https://mainnet.zklighter.elliot.ai/api/v1/fundings?market_id=159&resolution=1h&count_back=750 — Lighter API snapshot: BRENTOIL 1h funding
-[61] https://docs.lighter.xyz/trading/liquidations-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
-[62] https://docs.lighter.xyz/trading/order-types-matching — Lighter Docs: Order Types & Matching
-[68] https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=145&limit=20 — Lighter API snapshot: WTI order book orders
-[69] https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=159&limit=20 — Lighter API snapshot: BRENTOIL order book orders
-[72] https://docs.lighter.xyz/trading/contract-specifications — Lighter Docs: Contract Specifications
-[75] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Docs: Fair Price Marking
-[76] https://docs.lighter.xyz/trading/pnl-and-total-account-value — Lighter Docs: PnL and Total Account Value
-[78] https://apidocs.lighter.xyz/reference/orderbookorders — Lighter API: Order Book Orders
-[79] https://apidocs.lighter.xyz/reference/trades — Lighter API: Trades
+**通过**：第三方只看仓库即可重建输入、参数、结果和限制；若资料缺失，结论必须是 `Blocked / insufficient evidence`，不是正收益叙事。
+
+### Day 21｜答辩、复盘和下一周期
+
+**闭卷答辩**：
+
+1. 为什么一个高相关性序列仍可能不可交易？
+2. `mark price`、`mid price`、bid/ask 和退出现金分别用于什么？
+3. 正 funding 对多空双方的现金流方向是什么？还缺什么才算个人收益？
+4. 目标规模增加时，哪些成本非线性增长？
+5. 双腿不同时成交，状态机如何处理？
+6. Lighter 的 RWA 展期规则哪些不能迁移到 Binance/Hyperliquid？
+7. 哪些证据会让你拒绝继续，哪些只会让你继续采集？
+8. 当前交易状态为什么是 `No-Go`、`Paper-only` 或其他值？
+
+**最终产出**：
+
+- 学习能力清单：能解释、运行、复现、修改、迁移的内容；
+- 研究结论：继续验证、暂时不成立或关键资料缺失；
+- 证据索引：原始文件、脚本、测试、时间范围和版本；
+- 失败记录：包括被否定的假设和未完成的路径；
+- 下一周期唯一研究问题与停止条件。
+
+**通过**：不要求得出盈利结论；要求能诚实、可复查地解释结论边界。
+
+## 8. 练习和验收的重设计
+
+### 保留的内容
+
+- Lighter WTI/BRENTOIL 作为深案例；
+- 合约规格、价格语义、展期、funding、清洗和时间切分；
+- 研究、学习和交易状态分开；
+- 真实数据、原始文件、测试和证据路径；
+- HTML 的图示和即时反馈。
+
+### 删除或降级的内容
+
+- 只识别定义的连续选择题；
+- 没有真实输入/输出的伪代码练习；
+- 在短样本上反复计算相关性并暗示策略方向；
+- 把 midpoint、24h volume、公开 funding value 或网页 APY 当作可交易收益；
+- Day 10 之后完全空白、等证据再临时设计的课程安排。
+
+### 新的验收权重
+
+每个阶段按以下证据评估，而不是按看完页面评估：
+
+| 证据 | 权重 | 说明 |
+|---|---:|---|
+| 机制解释 | 20% | 闭卷说明单位、方向、时间和限制 |
+| 代码运行/修改 | 25% | 命令、测试、参数修改或故障注入 |
+| 数据审计 | 20% | 原始响应、质量标记、时间对齐和可追溯性 |
+| 执行/现金回放 | 25% | 盘口方向、双腿状态、费用、funding、净现金 |
+| 迁移与拒绝结论 | 10% | 换场所/故障后仍能说明边界 |
+
+权重不是“刷分”规则；关键安全错误（错误方向成交、静默删除数据、把未知填零、把纸上收益写成实盘收益）直接判该任务不通过，即使其他题答对。
+
+## 9. 现有仓库映射
+
+- 主计划：本文件 `resource/plan.md`；
+- 研究依据：`notes/course-redesign-primary-sources.md`；
+- 资源索引：`RESOURCES.md`；
+- 课程状态：`notes/icl-course-outline.md`、`NOTES.md`；
+- Day 1–7 lesson/reference/assets/lab：继续复用，但把每个 HTML 的唯一验收接到命令、测试和迁移任务；
+- `notes/course-redesign-primary-sources.md`：已核验的官方文档/API 与学习科学原始研究映射；
+- 下一项实际教学动作：用户重新完成 Day 7 迁移验收，随后开始 Day 8 统一跨场所 schema，而不是重复讲 Day 1–7 的定义。
+
+## 10. 主要一手资料
+
+交易所和协议机制以其官方文档/API 为准：
+
+- [Lighter RWA 总览](https://docs.lighter.xyz/trading/real-world-assets-rwas)
+- [Lighter RWA Pricing Mechanism](https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism)
+- [Lighter Futures Contract Price Rolling Mechanism](https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism)
+- [Lighter RWA Market Specifications](https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications)
+- [Lighter Funding](https://docs.lighter.xyz/trading/funding)
+- [Lighter Trading Fees](https://docs.lighter.xyz/trading/trading-fees)
+- [Lighter Fair Price Marking](https://docs.lighter.xyz/trading/fair-price-marking)
+- [Lighter Order Types and Matching](https://docs.lighter.xyz/trading/order-types-and-matching)
+- [Lighter Liquidations and LLP Insurance Fund](https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund)
+- [Lighter Candles API](https://apidocs.lighter.xyz/reference/candles)
+- [Lighter Fundings API](https://apidocs.lighter.xyz/reference/fundings)
+- [Lighter Order Book Orders API](https://apidocs.lighter.xyz/reference/orderbookorders)
+- [Lighter Trades API](https://apidocs.lighter.xyz/reference/trades)
+- [Binance USDⓈ-M Exchange Information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information)
+- [Binance USDⓈ-M Funding Rate History](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History)
+- [Binance USDⓈ-M Order Book](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Order-Book)
+- [Hyperliquid Info Endpoint](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint)
+- [Hyperliquid WebSocket](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket)
+
+学习方法依据原始研究记录：
+
+- [Roediger & Karpicke, 2006, PubMed PMID 16507066](https://pubmed.ncbi.nlm.nih.gov/16507066/)
+- [Karpicke & Roediger, 2008, PubMed PMID 18276894](https://pubmed.ncbi.nlm.nih.gov/18276894/)
+- [Karpicke & Bauernschmidt, 2011, PubMed PMID 21574747](https://pubmed.ncbi.nlm.nih.gov/21574747/)
+- [Cepeda et al., 2006, PubMed PMID 16719566](https://pubmed.ncbi.nlm.nih.gov/16719566/)
+
+资料、事实与课程设计的逐项映射见 `notes/course-redesign-primary-sources.md`。动态行情数字必须附抓取时间和原始文件，不能写成稳定规则。
