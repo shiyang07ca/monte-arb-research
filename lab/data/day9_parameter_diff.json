@@ -1,0 +1,266 @@
+{
+  "schema": "day9-parameter-diff-v1",
+  "generated_at": "2026-08-12T02:07:56.517000+00:00",
+  "markets": {
+    "WTI": {
+      "market_id": 145,
+      "changed_fields": [
+        {
+          "field": "daily_base_token_volume",
+          "category": "state",
+          "old_value": 92855.104,
+          "new_value": 202051.517
+        },
+        {
+          "field": "daily_price_change",
+          "category": "state",
+          "old_value": -1.8350794631472402,
+          "new_value": 1.669954299856651
+        },
+        {
+          "field": "daily_price_high",
+          "category": "state",
+          "old_value": 76.73,
+          "new_value": 83.982
+        },
+        {
+          "field": "daily_price_low",
+          "category": "state",
+          "old_value": 74.263,
+          "new_value": 80.694
+        },
+        {
+          "field": "daily_quote_token_volume",
+          "category": "state",
+          "old_value": 6998416.036009,
+          "new_value": 16683935.102497
+        },
+        {
+          "field": "daily_trades_count",
+          "category": "state",
+          "old_value": 9100,
+          "new_value": 19587
+        },
+        {
+          "field": "index_price",
+          "category": "state",
+          "old_value": "74.670",
+          "new_value": "83.065"
+        },
+        {
+          "field": "last_trade_price",
+          "category": "state",
+          "old_value": 74.677,
+          "new_value": 82.992
+        },
+        {
+          "field": "mark_price",
+          "category": "state",
+          "old_value": "74.692",
+          "new_value": "82.999"
+        },
+        {
+          "field": "open_interest",
+          "category": "state",
+          "old_value": 74515.239,
+          "new_value": 65172.429
+        }
+      ],
+      "contract_changed": [],
+      "state_changed": [
+        {
+          "field": "daily_base_token_volume",
+          "category": "state",
+          "old_value": 92855.104,
+          "new_value": 202051.517
+        },
+        {
+          "field": "daily_price_change",
+          "category": "state",
+          "old_value": -1.8350794631472402,
+          "new_value": 1.669954299856651
+        },
+        {
+          "field": "daily_price_high",
+          "category": "state",
+          "old_value": 76.73,
+          "new_value": 83.982
+        },
+        {
+          "field": "daily_price_low",
+          "category": "state",
+          "old_value": 74.263,
+          "new_value": 80.694
+        },
+        {
+          "field": "daily_quote_token_volume",
+          "category": "state",
+          "old_value": 6998416.036009,
+          "new_value": 16683935.102497
+        },
+        {
+          "field": "daily_trades_count",
+          "category": "state",
+          "old_value": 9100,
+          "new_value": 19587
+        },
+        {
+          "field": "index_price",
+          "category": "state",
+          "old_value": "74.670",
+          "new_value": "83.065"
+        },
+        {
+          "field": "last_trade_price",
+          "category": "state",
+          "old_value": 74.677,
+          "new_value": 82.992
+        },
+        {
+          "field": "mark_price",
+          "category": "state",
+          "old_value": "74.692",
+          "new_value": "82.999"
+        },
+        {
+          "field": "open_interest",
+          "category": "state",
+          "old_value": 74515.239,
+          "new_value": 65172.429
+        }
+      ],
+      "old_snapshot_file": "lab/data/lighter_rwa_raw/145_orderBookDetails.json",
+      "new_snapshot_file": "lab/data/day9_raw/orderBookDetails_145.json"
+    },
+    "BRENTOIL": {
+      "market_id": 159,
+      "changed_fields": [
+        {
+          "field": "daily_base_token_volume",
+          "category": "state",
+          "old_value": 17373.0029,
+          "new_value": 71951.3973
+        },
+        {
+          "field": "daily_price_change",
+          "category": "state",
+          "old_value": -0.9030477862786905,
+          "new_value": 1.3717579250720462
+        },
+        {
+          "field": "daily_price_high",
+          "category": "state",
+          "old_value": 80.91,
+          "new_value": 88.89
+        },
+        {
+          "field": "daily_price_low",
+          "category": "state",
+          "old_value": 78.13,
+          "new_value": 85.74
+        },
+        {
+          "field": "daily_quote_token_volume",
+          "category": "state",
+          "old_value": 1383836.051365,
+          "new_value": 6292401.914808
+        },
+        {
+          "field": "daily_trades_count",
+          "category": "state",
+          "old_value": 8188,
+          "new_value": 8273
+        },
+        {
+          "field": "index_price",
+          "category": "state",
+          "old_value": "79.04",
+          "new_value": "88.12"
+        },
+        {
+          "field": "last_trade_price",
+          "category": "state",
+          "old_value": 79.01,
+          "new_value": 87.94
+        },
+        {
+          "field": "mark_price",
+          "category": "state",
+          "old_value": "79.03",
+          "new_value": "87.96"
+        },
+        {
+          "field": "open_interest",
+          "category": "state",
+          "old_value": 12390.4923,
+          "new_value": 62873.987
+        }
+      ],
+      "contract_changed": [],
+      "state_changed": [
+        {
+          "field": "daily_base_token_volume",
+          "category": "state",
+          "old_value": 17373.0029,
+          "new_value": 71951.3973
+        },
+        {
+          "field": "daily_price_change",
+          "category": "state",
+          "old_value": -0.9030477862786905,
+          "new_value": 1.3717579250720462
+        },
+        {
+          "field": "daily_price_high",
+          "category": "state",
+          "old_value": 80.91,
+          "new_value": 88.89
+        },
+        {
+          "field": "daily_price_low",
+          "category": "state",
+          "old_value": 78.13,
+          "new_value": 85.74
+        },
+        {
+          "field": "daily_quote_token_volume",
+          "category": "state",
+          "old_value": 1383836.051365,
+          "new_value": 6292401.914808
+        },
+        {
+          "field": "daily_trades_count",
+          "category": "state",
+          "old_value": 8188,
+          "new_value": 8273
+        },
+        {
+          "field": "index_price",
+          "category": "state",
+          "old_value": "79.04",
+          "new_value": "88.12"
+        },
+        {
+          "field": "last_trade_price",
+          "category": "state",
+          "old_value": 79.01,
+          "new_value": 87.94
+        },
+        {
+          "field": "mark_price",
+          "category": "state",
+          "old_value": "79.03",
+          "new_value": "87.96"
+        },
+        {
+          "field": "open_interest",
+          "category": "state",
+          "old_value": 12390.4923,
+          "new_value": 62873.987
+        }
+      ],
+      "old_snapshot_file": "lab/data/lighter_rwa_raw/159_orderBookDetails.json",
+      "new_snapshot_file": "lab/data/day9_raw/orderBookDetails_159.json"
+    }
+  }
+}

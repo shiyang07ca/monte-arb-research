@@ -1,0 +1,53 @@
+{
+  "schema": "day9-parameter-capture-v1",
+  "captured_at": "2026-08-12T02:05:46.147000+00:00",
+  "read_only": true,
+  "records": [
+    {
+      "name": "orderBooks",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBooks?",
+      "path": "/api/v1/orderBooks",
+      "params": {},
+      "http_status": 200,
+      "error": null,
+      "request_started_at": "2026-08-12T02:05:44.581000+00:00",
+      "received_at": "2026-08-12T02:05:45.289000+00:00",
+      "latency_ms": 708,
+      "bytes": 110670,
+      "sha256": "55a0c8c13420a7fef4009085e1bf73d5ef916810c337975893ae111cfe5f4131",
+      "raw_file": "lab/data/day9_raw/orderBooks.json"
+    },
+    {
+      "name": "orderBookDetails_145",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails?market_id=145",
+      "path": "/api/v1/orderBookDetails",
+      "params": {
+        "market_id": 145
+      },
+      "http_status": 200,
+      "error": null,
+      "request_started_at": "2026-08-12T02:05:45.290000+00:00",
+      "received_at": "2026-08-12T02:05:45.811000+00:00",
+      "latency_ms": 521,
+      "bytes": 1434,
+      "sha256": "3ac9945e0597ba62dab87232dc98dd2d107969cd0f5e5c32b0b086e170cc65d2",
+      "raw_file": "lab/data/day9_raw/orderBookDetails_145.json"
+    },
+    {
+      "name": "orderBookDetails_159",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails?market_id=159",
+      "path": "/api/v1/orderBookDetails",
+      "params": {
+        "market_id": 159
+      },
+      "http_status": 200,
+      "error": null,
+      "request_started_at": "2026-08-12T02:05:45.811000+00:00",
+      "received_at": "2026-08-12T02:05:46.146000+00:00",
+      "latency_ms": 335,
+      "bytes": 1434,
+      "sha256": "2a69bd2194bf6815ba1155a049ac47992f177cc49e1e0e6ea241300beeec8153",
+      "raw_file": "lab/data/day9_raw/orderBookDetails_159.json"
+    }
+  ]
+}

@@ -30,7 +30,7 @@
     "min_order",
     "funding_timestamp"
   ],
-  "generated_at_utc": "2026-08-12T00:10:57.441795+00:00",
+  "generated_at_utc": "2026-08-12T02:07:56.524288+00:00",
   "unknowns": [
     "lighter orderBookOrders snapshot has no public timestamp field",
     "funding rate semantics not verified against account cash ledger",
