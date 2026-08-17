@@ -1,0 +1,17 @@
+{
+  "code": 200,
+  "order_books": [
+    {
+      "symbol": "WTI",
+      "market_id": 145,
+      "market_type": "perp",
+      "status": "active"
+    },
+    {
+      "symbol": "BRENTOIL",
+      "market_id": 159,
+      "market_type": "perp",
+      "status": "active"
+    }
+  ]
+}

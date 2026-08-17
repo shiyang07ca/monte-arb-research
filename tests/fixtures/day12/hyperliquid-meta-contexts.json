@@ -1,0 +1,14 @@
+[
+  {
+    "universe": [
+      {"name": "xyz:OLD", "szDecimals": 2, "isDelisted": true},
+      {"name": "xyz:CL", "szDecimals": 3},
+      {"name": "xyz:BRENTOIL", "szDecimals": 2}
+    ]
+  },
+  [
+    {"markPx": "10.0", "midPx": null, "openInterest": "0.0"},
+    {"markPx": "81.15", "midPx": "81.15", "openInterest": "100.0"},
+    {"markPx": "86.20", "midPx": "86.20", "openInterest": "200.0"}
+  ]
+]

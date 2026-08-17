@@ -1,0 +1,114 @@
+{
+  "schema": "day12-universe-v1",
+  "read_only": true,
+  "captures": [
+    {
+      "name": "lighter-order-books",
+      "method": "GET",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBooks",
+      "request": {
+        "params": {}
+      },
+      "received_at": "2026-08-17T13:22:48.176390Z",
+      "http_status": 200,
+      "sha256": "e161c367a29dee89498190513b04e9c29d397055aa111a71954b807e97fca78b",
+      "bytes": 113079,
+      "raw_file": "research/raw/day12/lighter-order-books-e161c367a29dee89498190513b04e9c29d397055aa111a71954b807e97fca78b.json"
+    },
+    {
+      "name": "hyperliquid-perp-dexs",
+      "method": "POST",
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "request": {
+        "json": {
+          "type": "perpDexs"
+        }
+      },
+      "received_at": "2026-08-17T13:22:48.646494Z",
+      "http_status": 200,
+      "sha256": "f6ca13a97990585fa1b4481d7bd903d79300625f44034a3d657c8306ba58b07f",
+      "bytes": 17367,
+      "raw_file": "research/raw/day12/hyperliquid-perp-dexs-f6ca13a97990585fa1b4481d7bd903d79300625f44034a3d657c8306ba58b07f.json"
+    },
+    {
+      "name": "hyperliquid-meta-contexts-xyz",
+      "method": "POST",
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "request": {
+        "json": {
+          "type": "metaAndAssetCtxs",
+          "dex": "xyz"
+        }
+      },
+      "received_at": "2026-08-17T13:22:48.920843Z",
+      "http_status": 200,
+      "sha256": "d20d933e4248533c8d3ed3b6e0821acc1d3f95241ff1cbae6248f8a6594cc7ae",
+      "bytes": 50795,
+      "raw_file": "research/raw/day12/hyperliquid-meta-contexts-xyz-d20d933e4248533c8d3ed3b6e0821acc1d3f95241ff1cbae6248f8a6594cc7ae.json"
+    },
+    {
+      "name": "lighter-book-145",
+      "method": "GET",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=145&limit=20",
+      "request": {
+        "params": {
+          "market_id": "145",
+          "limit": 20
+        }
+      },
+      "received_at": "2026-08-17T13:22:49.193992Z",
+      "http_status": 200,
+      "sha256": "b284b52eccdb39ba79e295956437105ea236da8879361d7de8d448b0b401e61b",
+      "bytes": 9078,
+      "raw_file": "research/raw/day12/lighter-book-145-b284b52eccdb39ba79e295956437105ea236da8879361d7de8d448b0b401e61b.json"
+    },
+    {
+      "name": "lighter-book-159",
+      "method": "GET",
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders?market_id=159&limit=20",
+      "request": {
+        "params": {
+          "market_id": "159",
+          "limit": 20
+        }
+      },
+      "received_at": "2026-08-17T13:22:49.471875Z",
+      "http_status": 200,
+      "sha256": "02136f4e3587d5821f2413711c5a3f7f3e47b703eea242dddf16c907eda22b12",
+      "bytes": 9118,
+      "raw_file": "research/raw/day12/lighter-book-159-02136f4e3587d5821f2413711c5a3f7f3e47b703eea242dddf16c907eda22b12.json"
+    },
+    {
+      "name": "hyperliquid-book-xyz-CL",
+      "method": "POST",
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "request": {
+        "json": {
+          "type": "l2Book",
+          "coin": "xyz:CL"
+        }
+      },
+      "received_at": "2026-08-17T13:22:49.732144Z",
+      "http_status": 200,
+      "sha256": "60a37895cfef656c45fdf385e57174e1fa977b455080cdbe994951729deff900",
+      "bytes": 1474,
+      "raw_file": "research/raw/day12/hyperliquid-book-xyz-CL-60a37895cfef656c45fdf385e57174e1fa977b455080cdbe994951729deff900.json"
+    },
+    {
+      "name": "hyperliquid-book-xyz-BRENTOIL",
+      "method": "POST",
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "request": {
+        "json": {
+          "type": "l2Book",
+          "coin": "xyz:BRENTOIL"
+        }
+      },
+      "received_at": "2026-08-17T13:22:49.995523Z",
+      "http_status": 200,
+      "sha256": "d3ec38e9d2838da7e7734caa0288b588d66b893d37e18eda56b28fbb94c3b4df",
+      "bytes": 1460,
+      "raw_file": "research/raw/day12/hyperliquid-book-xyz-BRENTOIL-d3ec38e9d2838da7e7734caa0288b588d66b893d37e18eda56b28fbb94c3b4df.json"
+    }
+  ]
+}

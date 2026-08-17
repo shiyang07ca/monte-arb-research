@@ -1,0 +1,11 @@
+{
+  "code": 200,
+  "total_asks": 1,
+  "asks": [
+    {"remaining_base_amount": "2.000", "price": "81.20"}
+  ],
+  "total_bids": 1,
+  "bids": [
+    {"remaining_base_amount": "3.000", "price": "81.10"}
+  ]
+}

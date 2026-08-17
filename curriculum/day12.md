@@ -18,7 +18,7 @@
 
 ## 当前市场现象
 
-在 `2026-08-17T12:32:01Z` 的一次只读查询中，四个原油市场返回了以下结果。[4][5][7]
+在 `2026-08-17T13:22:49Z` 完成的已保存只读扫描中，四个原油市场返回了以下结果。[4][5][7]
 
 | 场所 | 完整交易标识 | 本地编号 | 目录状态 | 返回买盘条目 | 返回卖盘条目 |
 |---|---|---:|---|---:|---:|
@@ -47,6 +47,8 @@ POST https://api.hyperliquid.xyz/info {"type":"l2Book","coin":"xyz:BRENTOIL"}
 - 两个 `BRENTOIL` 的单位、到期月份、价格来源和结算规则相同；
 - 返回的盘口条目能成交目标数量；
 - 任何方向扣除成本后有正收益。
+
+同一次运行从 Lighter 永续目录和 Hyperliquid `xyz` 命名空间发现 341 个市场：300 个仅保存目录身份，37 个因目录状态停止，下面四个市场因双边盘口非空进入 Day13；请求错误为 0。结果见 `research/runs/day12-scan.json`，请求和原始响应见 `research/manifests/day12-universe.json`。其他 Hyperliquid 永续命名空间不在本课扫描范围内。
 
 因此 Day12 的成功结果不是“发现两个机会”，而是“得到四个身份明确、可以继续核对的市场记录”。
 
@@ -120,7 +122,7 @@ contexts = response[1]
 if len(universe) != len(contexts):
     raise SourceShapeError("meta/context length mismatch")
 
-for index, (meta, context) in enumerate(zip(universe, contexts, strict=True)):
+for index, (meta, context) in enumerate(zip(universe, contexts)):
     record = normalize(meta=meta, context=context, index_in_meta=index)
 ```
 
@@ -156,7 +158,10 @@ Day12 的处理规则：
 | 请求与响应中的完整交易标识不同 | `invalid` | `IDENTITY_MISMATCH` |
 | `universe` 与 contexts 长度不同 | `invalid` | `SOURCE_SHAPE_MISMATCH` |
 | 用户指定的完整交易标识不存在 | `invalid` | `UNKNOWN_SYMBOL` |
-| 本地编号或完整身份重复 | `invalid` | `DUPLICATE_IDENTITY` |
+| 完整身份重复 | `invalid` | `DUPLICATE_IDENTITY` |
+| 同一场所、产品类型和命名空间内的本地编号重复 | `invalid` | `DUPLICATE_LOCAL_ID` |
+| 同一场所、产品类型和命名空间内的完整交易标识重复 | `invalid` | `DUPLICATE_SYMBOL` |
+| 盘口结构不属于该场所或档位字段无效 | `invalid` | `BOOK_INVALID` |
 
 “可进入 Day13”只是允许继续检查经济对象，不是交易建议，也不是候选排名。
 
@@ -171,12 +176,12 @@ src/monte_arb/
   cli.py          # scan 命令
 ```
 
-程序先取得两家场所的完整目录，再只为调用者明确指定的市场请求盘口。目录扫描不应默认为几百个市场逐一请求盘口；这既浪费请求额度，也不能替代 Day13 的经济对象筛选。
+程序先取得 Lighter 永续目录和调用者指定的 Hyperliquid 永续命名空间，再只为明确指定的市场请求盘口。目录扫描不应默认为几百个市场逐一请求盘口；这既浪费请求额度，也不能替代 Day13 的经济对象筛选。
 
 外部调用只需要一个主要入口：
 
 ```python
-report = scan_markets(adapters, inspect_books_for=market_identities)
+report = scan_markets(catalog, books, requested=market_identities)
 ```
 
 复杂的场所差异留在两个解析器中，不把每家接口的字段散落到命令行和后续成本模块。
@@ -187,14 +192,14 @@ report = scan_markets(adapters, inspect_books_for=market_identities)
 PYTHONPATH=src python3 -m monte_arb.cli scan \
   --venue lighter \
   --venue hyperliquid:xyz \
-  --inspect-book lighter/perp/default/WTI \
-  --inspect-book lighter/perp/default/BRENTOIL \
-  --inspect-book hyperliquid/perp/xyz/xyz:CL \
-  --inspect-book hyperliquid/perp/xyz/xyz:BRENTOIL \
+  --inspect-book lighter/perp/default/WTI/145 \
+  --inspect-book lighter/perp/default/BRENTOIL/159 \
+  --inspect-book hyperliquid/perp/xyz/xyz:CL/110029 \
+  --inspect-book hyperliquid/perp/xyz/xyz:BRENTOIL/110049 \
   --output research/runs/day12-scan.json
 ```
 
-`--inspect-book` 只能引用本次目录中实际发现的完整身份；不存在或重复时显式失败。它选择要检查的单个市场，不声明这些市场可以彼此对冲。
+`--inspect-book` 使用 `场所/产品类型/场所命名空间/完整交易标识/本地编号`，并且只能引用本次目录中实际发现的完整身份；不存在或重复时显式失败。它选择要检查的单个市场，不声明这些市场可以彼此对冲。
 
 输出至少包含：
 
@@ -221,7 +226,7 @@ PYTHONPATH=src python3 -m monte_arb.cli scan \
 
 未请求盘口的活跃目录记录保留为 `catalog_only`，不会被误标为 `ready_for_market_mapping`。
 
-原始响应和内容哈希用于以后复现扫描结果，但它们是研究辅助信息，不是今天的学习目标。
+原始响应使用内容哈希命名，保存到 `research/raw/day12/`；清单记录请求、接收时间、HTTP 状态、哈希和原始文件路径。这样后续可以从同一输入重算扫描结果。哈希和清单服务于复现，不是今天需要背诵的学习内容。
 
 ## 5. 测试只覆盖会制造错误决定的行为
 
@@ -229,9 +234,12 @@ PYTHONPATH=src python3 -m monte_arb.cli scan \
 
 1. Lighter 的 `market_id` 与请求身份一起进入结果；裸盘口不会自行获得一个猜测的 symbol。
 2. Hyperliquid 在原始顺序上配对元数据和上下文；长度不一致立即失败。
-3. 未知完整交易标识返回 `UNKNOWN_SYMBOL`，不会落到列表第一项或默认市场。
-4. 空盘口和单边盘口不能进入 Day13；未检查盘口的目录记录保持 `catalog_only`。
-5. 同一冻结输入重复扫描，市场身份、状态和原因代码相同。
+3. 未知完整交易标识返回 `UNKNOWN_SYMBOL`，不会落到列表第一项或默认市场；完整身份、本地编号和完整交易标识重复分别显式失败。
+4. Hyperliquid 盘口返回的 `coin` 与请求身份不同时返回 `IDENTITY_MISMATCH`。
+5. 盘口解析按场所选择结构；结构错误或档位字段无效时返回 `BOOK_INVALID`，而不是把响应长相当成场所身份。
+6. 空盘口和单边盘口不能进入 Day13；未检查盘口的目录记录保持 `catalog_only`。
+7. 同一冻结输入重复扫描，市场身份、状态和原因代码相同。
+8. 即使两个请求返回相同字节，清单也分别指向包含各自请求名称的原始响应文件。
 
 运行方式：
 
@@ -257,7 +265,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 
 Day12 完成时应同时满足：
 
-- `scan` 能从当前官方目录发现全部市场，不依赖硬编码候选列表；
+- `scan` 能从当前 Lighter 永续目录和指定的 Hyperliquid 永续命名空间发现全部市场，不依赖硬编码候选列表；
 - 只为明确指定且确实存在的完整市场身份请求盘口；
 - 输出保留场所、产品类型、场所命名空间、完整交易标识和本地编号；
 - 两家响应各自最危险的身份错误有测试；
@@ -273,6 +281,7 @@ src/monte_arb/cli.py
 tests/fixtures/day12/
 tests/test_day12_scan.py
 research/manifests/day12-universe.json
+research/raw/day12/*.json
 research/runs/day12-scan.json
 ```
 
