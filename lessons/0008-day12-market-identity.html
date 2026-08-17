@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 12 · 从请求身份到可信盘口</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Monte Arb Research · Day 12</div>
+  <h1>从请求身份到可信盘口</h1>
+  <p class="lede">用已经真实运行的 Lighter 与 Hyperliquid 扫描结果，学会证明“目录记录、请求参数和盘口响应属于同一个市场”。今天不判断两个原油市场是不是同一经济对象，也不计算价差或收益。</p>
+  <div class="meta">
+    <span class="pill">30–45 分钟</span>
+    <span class="pill">公开只读接口</span>
+    <span class="pill">不发送订单</span>
+    <span class="pill" id="completion">本页关键迁移：未完成</span>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>课程位置</h2>
+    <div class="grid">
+      <div class="card third"><div class="eyebrow">当前目标</div><p>保存完整市场身份，并正确绑定目录、请求和盘口响应。</p></div>
+      <div class="card third"><div class="eyebrow">当前进度</div><p>Day 12：可运行扫描器与真实证据已完成，现在进行理解和迁移。</p></div>
+      <div class="card third"><div class="eyebrow">下一步</div><p>Day 13 才核对单位、基准、合约月份、价格来源与结算方式。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">真实市场现象</div>
+    <h2>341 个市场里，只有 4 个被明确请求盘口</h2>
+    <p>下面是仓库中已保存扫描的真实结果，完成时间为 <code>2026-08-17T13:22:49.995523Z</code>。</p>
+    <div class="grid">
+      <div class="card third"><div class="muted">发现市场</div><div class="metric">341</div></div>
+      <div class="card third"><div class="muted">仅目录身份</div><div class="metric">300</div></div>
+      <div class="card third"><div class="muted">进入 Day 13</div><div class="metric ok">4</div></div>
+    </div>
+    <table>
+      <thead><tr><th>场所</th><th>完整交易标识</th><th>本地编号</th><th>目录</th><th>盘口</th><th>决定</th></tr></thead>
+      <tbody>
+        <tr><td>Lighter</td><td><code>WTI</code></td><td><code>145</code></td><td>active</td><td>two_sided</td><td>进入市场映射</td></tr>
+        <tr><td>Lighter</td><td><code>BRENTOIL</code></td><td><code>159</code></td><td>active</td><td>two_sided</td><td>进入市场映射</td></tr>
+        <tr><td>Hyperliquid / xyz</td><td><code>xyz:CL</code></td><td><code>110029</code></td><td>active</td><td>two_sided</td><td>进入市场映射</td></tr>
+        <tr><td>Hyperliquid / xyz</td><td><code>xyz:BRENTOIL</code></td><td><code>110049</code></td><td>active</td><td>two_sided</td><td>进入市场映射</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><strong>边界：</strong>双边盘口只证明数据入口当前可用。它不证明两场所合约相同、目标数量可成交，或扣除成本后有利润。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">关键代码 1</div>
+    <h2>市场身份不是一个 ticker</h2>
+    <pre><code>@dataclass(frozen=True, order=True)
+class MarketIdentity:
+    venue: str
+    product_type: str
+    venue_namespace: str
+    symbol: str
+    local_id: str</code></pre>
+    <p>你刚才说“需要 ticker 和 market_id 的映射关系”，方向正确。更精确地说，需要保存<strong>完整市场身份与本地编号的绑定</strong>。原因是相同 ticker 可能出现在不同场所、产品类型或命名空间中。</p>
+    <div class="scenario">
+      <strong>Lighter 返回两份没有 symbol 的盘口，程序应该怎样绑定？</strong>
+      <div class="controls">
+        <button data-scenario="request-identity">保存请求时的完整身份</button>
+        <button class="secondary" data-scenario="response-order">按照响应完成顺序</button>
+        <button class="secondary" data-scenario="symbol-only">只保存 ticker</button>
+      </div>
+      <div id="identity-feedback" class="response">选择一种方案，查看它能否阻止静默串市场。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">关键代码 2</div>
+    <h2>Hyperliquid 的两个数组必须先按原始位置配对</h2>
+    <pre><code>universe = response[0]["universe"]
+contexts = response[1]
+
+if len(universe) != len(contexts):
+    raise SourceShapeError("meta/context length mismatch")
+
+for index, (meta, context) in enumerate(zip(universe, contexts)):
+    record = normalize(meta, context, index_in_meta=index)</code></pre>
+    <p>如果只过滤 <code>universe</code> 中的下架市场，再与未过滤的 contexts 重新 <code>zip</code>，后面的市场都会拿到相邻市场的数据。这种错误尤其危险，因为价格仍可能看起来合理。</p>
+    <button id="run-pairing-demo">运行三行错配演示</button>
+    <div id="pairing-output" class="response">点击后比较“先过滤”和“先配对”的结果。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">状态决定</div>
+    <h2>Day 12 只决定能否进入下一项研究</h2>
+    <table>
+      <thead><tr><th>输入状态</th><th>输出</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td>active，但未请求盘口</td><td><code>catalog_only</code></td><td><code>BOOK_NOT_INSPECTED</code></td></tr>
+        <tr><td>空盘口</td><td><code>stopped</code></td><td><code>BOOK_EMPTY</code></td></tr>
+        <tr><td>单边盘口</td><td><code>stopped</code></td><td><code>BOOK_ONE_SIDED</code></td></tr>
+        <tr><td>身份或结构错误</td><td><code>invalid</code></td><td><code>IDENTITY_MISMATCH</code> / <code>BOOK_INVALID</code></td></tr>
+        <tr><td>active 且双边盘口</td><td><code>ready_for_market_mapping</code></td><td>允许进入 Day 13</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">真实仓库操作</div>
+    <h2>你可以直接重跑，而不是相信页面截图</h2>
+    <ol class="steps">
+      <li>在仓库根目录运行扫描命令：
+        <pre><code>PYTHONPATH=src python3 -m monte_arb.cli scan \
+  --venue lighter \
+  --venue hyperliquid:xyz \
+  --inspect-book lighter/perp/default/WTI/145 \
+  --inspect-book lighter/perp/default/BRENTOIL/159 \
+  --inspect-book hyperliquid/perp/xyz/xyz:CL/110029 \
+  --inspect-book hyperliquid/perp/xyz/xyz:BRENTOIL/110049 \
+  --output research/runs/day12-scan.json</code></pre>
+      </li>
+      <li>运行冻结响应测试：<pre><code>PYTHONPATH=src python3 -m unittest discover -s tests -v</code></pre></li>
+      <li>查看结果：<code>research/runs/day12-scan.json</code>；查看请求与原始文件：<code>research/manifests/day12-universe.json</code>。</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">新场景迁移</div>
+    <h2>换成两个未见过的 Lighter 市场</h2>
+    <p>目录发现市场 A（<code>market_id=201</code>）和市场 B（<code>market_id=202</code>）。两个盘口请求并发发出，B 先返回；两份响应都没有 symbol。哪种实现仍能证明每份响应属于哪个市场？</p>
+    <div class="controls">
+      <select id="transfer-answer">
+        <option value="">选择处理方式</option>
+        <option value="arrival-order">按到达顺序依次赋给 A、B</option>
+        <option value="price-nearness">按价格与昨日收盘的接近程度猜</option>
+        <option value="bind-request">请求前构造完整身份，并与参数和响应绑定</option>
+      </select>
+      <button id="check-transfer">检查迁移</button>
+    </div>
+    <div id="transfer-feedback" class="response">这是本页唯一的完成判断。它验证你能否把身份规则迁移到新市场，不是选择题分数。</div>
+  </section>
+
+  <section class="card">
+    <h2>Day 12 还剩什么？</h2>
+    <p><strong>只剩两件：</strong>完成上面的身份绑定与数组配对理解；再把规则迁移到新市场。价差、费用、资金费、合约月份、单位和经济对象比较都不属于今天，其中经济对象比较从 Day 13 开始。</p>
+    <p>不清楚的地方直接回到 Agent 提问。建议优先阅读：<a href="https://apidocs.lighter.xyz/reference/orderbooks">Lighter Order Books</a>、<a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals">Hyperliquid Perpetuals API</a> 和 <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/asset-ids">Hyperliquid Asset IDs</a>。</p>
+  </section>
+</main>
+
+<footer>
+  <strong>Day 12 边界：</strong>可信市场身份和盘口入口。下一课才判断跨场所市场是否为同一经济对象。
+</footer>
+<script src="../assets/day12-market-identity.js"></script>
+</body>
+</html>

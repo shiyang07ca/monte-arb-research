@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 12 参考卡 · 市场身份与盘口入口</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Reference · Day 12</div>
+  <h1>市场身份与盘口入口</h1>
+  <p class="lede">以后写任何场所适配器时，用这一页快速检查是否可能串市场。</p>
+</header>
+<main>
+  <section class="card">
+    <h2>最低完整身份</h2>
+    <pre><code>venue
++ product_type
++ venue_namespace
++ full_symbol
++ venue_local_id</code></pre>
+    <p><code>ticker</code> 或 <code>symbol</code> 单独都不是跨场所主键。</p>
+  </section>
+  <div class="grid">
+    <section class="card half">
+      <h2>Lighter</h2>
+      <ul>
+        <li>目录建立 <code>symbol ↔ market_id</code>。</li>
+        <li>请求前构造完整 <code>MarketIdentity</code>。</li>
+        <li>将身份、请求参数和裸盘口响应一起保存。</li>
+        <li>绝不根据并发响应完成顺序赋 symbol。</li>
+      </ul>
+    </section>
+    <section class="card half">
+      <h2>Hyperliquid HIP-3</h2>
+      <ul>
+        <li>保留命名空间，例如 <code>xyz:CL</code>。</li>
+        <li>先验证 <code>len(universe) == len(contexts)</code>。</li>
+        <li>先按原始 index 配对，再过滤。</li>
+        <li><code>asset_id = 100000 + dex_index × 10000 + index_in_meta</code>。</li>
+      </ul>
+    </section>
+  </div>
+  <section class="card">
+    <h2>状态表</h2>
+    <table>
+      <thead><tr><th>条件</th><th>结果</th><th>原因代码</th></tr></thead>
+      <tbody>
+        <tr><td>未查盘口</td><td>catalog_only</td><td>BOOK_NOT_INSPECTED</td></tr>
+        <tr><td>空盘口</td><td>stopped</td><td>BOOK_EMPTY</td></tr>
+        <tr><td>单边盘口</td><td>stopped</td><td>BOOK_ONE_SIDED</td></tr>
+        <tr><td>响应身份不同</td><td>invalid</td><td>IDENTITY_MISMATCH</td></tr>
+        <tr><td>结构或档位无效</td><td>invalid</td><td>BOOK_INVALID</td></tr>
+        <tr><td>活跃且双边</td><td>ready_for_market_mapping</td><td>进入 Day 13，不代表机会</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>三条禁令</h2>
+    <ol>
+      <li>不按响应顺序绑定市场。</li>
+      <li>不只过滤一组位置数组后重新配对。</li>
+      <li>不把双边盘口解释为可比合约或可交易利润。</li>
+    </ol>
+  </section>
+</main>
+<footer><a href="../lessons/0008-day12-market-identity.html">返回 Day 12 互动课程</a></footer>
+</body>
+</html>

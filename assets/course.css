@@ -1,0 +1,74 @@
+/* Shared course surface: quiet, readable, printable. */
+:root {
+  color-scheme: light;
+  --ink: #172126;
+  --muted: #5e6a70;
+  --paper: #f6f3ed;
+  --panel: #fffdf8;
+  --line: #d8d2c7;
+  --accent: #006d77;
+  --accent-soft: #dff3f1;
+  --warn: #9b5d00;
+  --warn-soft: #fff1d6;
+  --danger: #a33232;
+  --danger-soft: #fbe5e5;
+  --ok: #2c7047;
+  --ok-soft: #e5f3e9;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  line-height: 1.65;
+}
+a { color: var(--accent); }
+header, main, footer { width: min(1080px, calc(100% - 32px)); margin-inline: auto; }
+header { padding: 54px 0 22px; }
+main { padding-bottom: 80px; }
+footer { padding: 28px 0 48px; color: var(--muted); border-top: 1px solid var(--line); }
+h1 { margin: 6px 0 10px; max-width: 850px; font: 700 clamp(2rem, 5vw, 4.1rem)/1.05 Georgia, serif; letter-spacing: -.035em; }
+h2 { margin: 0 0 12px; font: 700 clamp(1.4rem, 3vw, 2rem)/1.2 Georgia, serif; }
+h3 { margin: 22px 0 8px; }
+p { max-width: 78ch; }
+.eyebrow { color: var(--accent); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; }
+.lede { max-width: 790px; color: var(--muted); font-size: 1.08rem; }
+.meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.pill { border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: var(--panel); font-size: .85rem; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.card { grid-column: span 12; padding: 24px; margin: 16px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); box-shadow: 0 8px 24px rgba(20,30,35,.04); }
+.card.half { grid-column: span 6; }
+.card.third { grid-column: span 4; }
+.metric { font: 700 2rem/1 var(--mono); margin-top: 8px; }
+.muted { color: var(--muted); }
+.ok { color: var(--ok); }
+.warn { color: var(--warn); }
+.danger { color: var(--danger); }
+.callout { padding: 16px 18px; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
+.callout.warn { border-color: var(--warn); background: var(--warn-soft); color: var(--ink); }
+pre, code { font-family: var(--mono); }
+code { background: #eeece5; padding: .12em .35em; border-radius: 4px; }
+pre { overflow-x: auto; padding: 18px; background: #152126; color: #eaf5f2; border-radius: 10px; line-height: 1.5; font-size: .9rem; }
+pre code { background: transparent; padding: 0; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+button, select { font: inherit; }
+button { border: 0; border-radius: 8px; padding: 10px 14px; color: white; background: var(--accent); cursor: pointer; font-weight: 700; }
+button.secondary { color: var(--ink); background: #e9e5dc; }
+button:hover { filter: brightness(.96); }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0; }
+.scenario { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: white; }
+.response { margin-top: 12px; min-height: 58px; padding: 12px; border-radius: 8px; background: #f0eee8; }
+.response.good { background: var(--ok-soft); }
+.response.bad { background: var(--danger-soft); }
+.steps { counter-reset: steps; list-style: none; padding: 0; }
+.steps li { counter-increment: steps; position: relative; padding: 2px 0 16px 44px; }
+.steps li::before { content: counter(steps); position: absolute; left: 0; top: 0; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--accent); font-weight: 800; }
+@media (max-width: 760px) { .card.half, .card.third { grid-column: span 12; } header { padding-top: 32px; } }
+@media print { body { background: white; } .card { box-shadow: none; break-inside: avoid; } button, .no-print { display: none; } a { color: inherit; text-decoration: none; } }

@@ -5,6 +5,8 @@
 > 学习时间：30–45 分钟；助手实现和运行测试不占用户学习时间
 >
 > 当日成果：一个只读 `scan` 命令；它保留两家场所各自的完整市场身份，并判断当前目录与双边盘口是否足以进入 Day13。
+>
+> 互动学习入口：`lessons/0008-day12-market-identity.html`；打印参考卡：`reference/day12-market-identity.html`。
 
 ## 今天真正要学什么
 
@@ -275,6 +277,10 @@ Day12 完成时应同时满足：
 ## 当日文件
 
 ```text
+lessons/0008-day12-market-identity.html
+reference/day12-market-identity.html
+assets/course.css
+assets/day12-market-identity.js
 src/monte_arb/market.py
 src/monte_arb/adapters.py
 src/monte_arb/cli.py
