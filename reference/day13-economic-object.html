@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 13 参考卡 · 经济对象与价格状态</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Reference · Day 13</div>
+  <h1>经济对象与价格状态</h1>
+  <p class="lede">跨场所 RWA 在进入价差计算前的失败关闭检查。</p>
+</header>
+<main>
+  <section class="card">
+    <h2>两个独立问题</h2>
+    <ol>
+      <li><strong>静态定义：</strong>两边是否为同一基准、单位、报价/结算币和完整合约月份？</li>
+      <li><strong>动态状态：</strong>报价时刻两边是否处于相同 external/internal/roll 状态？</li>
+    </ol>
+    <p>静态定义通过，不代表动态状态通过；任一未知都不能进入收益样本。</p>
+  </section>
+  <div class="grid">
+    <section class="card half">
+      <h2>经济对象字段</h2>
+      <ul>
+        <li>完整市场身份</li>
+        <li>资产类别与基准</li>
+        <li>单位与乘数</li>
+        <li>报价币与结算币</li>
+        <li>合约月份代码与年份</li>
+        <li>外部时段与定价规则</li>
+        <li>每个字段的证据来源</li>
+      </ul>
+    </section>
+    <section class="card half">
+      <h2>价格状态证据</h2>
+      <ul>
+        <li>外部市场是否开放</li>
+        <li>external price 是否可用</li>
+        <li>oracle 是否 fresh</li>
+        <li>是否正在展期切换</li>
+        <li>当前/次月权重</li>
+        <li>来源时间，不只接收时间</li>
+      </ul>
+    </section>
+  </div>
+  <section class="card">
+    <h2>决定顺序</h2>
+    <pre><code>已有字段冲突  → not_comparable
+无冲突但缺字段 → unknown
+全部静态字段相同 → comparable_definition
+再检查同一时刻价格状态
+状态不同或未知 → 不进入价差样本</code></pre>
+  </section>
+  <section class="card">
+    <h2>原油当前结论</h2>
+    <table>
+      <thead><tr><th>配对</th><th>当前决定</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td>WTI ↔ xyz:CL</td><td>unknown</td><td>完整合约年份/页面时间语义仍需核验</td></tr>
+        <tr><td>BRENTOIL ↔ xyz:BRENTOIL</td><td>unknown</td><td>完整合约年份/页面时间语义仍需核验</td></tr>
+        <tr><td>WTI ↔ xyz:BRENTOIL</td><td>not_comparable</td><td>WTI 与 Brent 基准不同</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>禁止的捷径</h2>
+    <ul>
+      <li>不能按 symbol 相似度自动配对。</li>
+      <li>不能把“一桶”解释为同一基准。</li>
+      <li>不能只看时钟推断 oracle 状态。</li>
+      <li>不能把“盘口仍在动”解释为外部价格仍可用。</li>
+      <li>不能自行选择互相矛盾的官网月份文字。</li>
+    </ul>
+  </section>
+</main>
+<footer><a href="../lessons/0009-day13-economic-object.html">返回 Day 13 互动课程</a></footer>
+</body>
+</html>

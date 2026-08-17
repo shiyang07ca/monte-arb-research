@@ -1,0 +1,76 @@
+{
+  "schema": "day13-economic-specifications-v1",
+  "observed_at": "2026-08-17",
+  "records": [
+    {
+      "identity": ["lighter", "perp", "default", "WTI", "145"],
+      "asset_class": "commodity",
+      "benchmark": "WTI_LIGHT_SWEET_CRUDE",
+      "unit": "barrel",
+      "quote_currency": "USD",
+      "settlement_currency": "USDC",
+      "contract_month_code": "U",
+      "contract_year": "2026",
+      "external_session": "SUN_1800_TO_FRI_1700_ET_DAILY_1700_1800_GAP",
+      "pricing_rule": "LIGHTER_EXTERNAL_TO_INTERNAL_WITH_FIVE_DAY_FUTURES_ROLL",
+      "evidence": [
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications",
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism",
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism"
+      ]
+    },
+    {
+      "identity": ["lighter", "perp", "default", "BRENTOIL", "159"],
+      "asset_class": "commodity",
+      "benchmark": "BRENT_CRUDE",
+      "unit": "barrel",
+      "quote_currency": "USD",
+      "settlement_currency": "USDC",
+      "contract_month_code": "V",
+      "contract_year": "2026",
+      "external_session": "SUN_1800_TO_FRI_1800_ET_DAILY_1800_2000_GAP",
+      "pricing_rule": "LIGHTER_EXTERNAL_TO_INTERNAL_WITH_FIVE_DAY_FUTURES_ROLL",
+      "evidence": [
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications",
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism",
+        "https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism"
+      ]
+    },
+    {
+      "identity": ["hyperliquid", "perp", "xyz", "xyz:CL", "110029"],
+      "asset_class": "commodity",
+      "benchmark": "WTI_LIGHT_SWEET_CRUDE",
+      "unit": "barrel",
+      "quote_currency": "USD",
+      "settlement_currency": "USDC",
+      "contract_month_code": "U",
+      "contract_year": null,
+      "external_session": "SUN_1800_TO_FRI_1700_ET_DAILY_1700_1800_GAP",
+      "pricing_rule": "TRADE_XYZ_EXTERNAL_OR_INTERNAL_ORACLE_WITH_FUTURES_ROLL",
+      "evidence": [
+        "https://docs.trade.xyz/asset-directory/commodities",
+        "https://docs.trade.xyz/consolidated-resources/specification-index",
+        "https://docs.trade.xyz/consolidated-resources/roll-schedules",
+        "https://docs.trade.xyz/perp-mechanics/oracle-price"
+      ]
+    },
+    {
+      "identity": ["hyperliquid", "perp", "xyz", "xyz:BRENTOIL", "110049"],
+      "asset_class": "commodity",
+      "benchmark": "BRENT_CRUDE",
+      "unit": "barrel",
+      "quote_currency": "USD",
+      "settlement_currency": "USDC",
+      "contract_month_code": "V",
+      "contract_year": null,
+      "external_session": "SUN_1800_TO_FRI_1800_ET_DAILY_1700_1800_GAP",
+      "pricing_rule": "TRADE_XYZ_EXTERNAL_OR_INTERNAL_ORACLE_WITH_FUTURES_ROLL",
+      "evidence": [
+        "https://docs.trade.xyz/asset-directory/commodities",
+        "https://docs.trade.xyz/consolidated-resources/specification-index",
+        "https://docs.trade.xyz/consolidated-resources/roll-schedules",
+        "https://docs.trade.xyz/perp-mechanics/oracle-price"
+      ]
+    }
+  ]
+}

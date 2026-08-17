@@ -56,6 +56,8 @@ code { background: #eeece5; padding: .12em .35em; border-radius: 4px; }
 pre { overflow-x: auto; padding: 18px; background: #152126; color: #eaf5f2; border-radius: 10px; line-height: 1.5; font-size: .9rem; }
 pre code { background: transparent; padding: 0; }
 table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.table-scroll { width: 100%; overflow-x: auto; }
+.table-scroll table { min-width: 760px; }
 th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 th { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
 button, select { font: inherit; }

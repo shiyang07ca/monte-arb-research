@@ -39,7 +39,7 @@
 - 学习目标：`MISSION.md`
 - 当前唯一计划：`resource/plan.md`
 - 每日任务：`curriculum/day12.md` 至 `curriculum/day21.md`
-- 下一课：`curriculum/day12.md`
+- 下一课：`curriculum/day13.md`
 
 ## 旧材料处理决定
 

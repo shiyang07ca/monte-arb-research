@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 13 · 同名原油是否真能比较</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Monte Arb Research · Day 13</div>
+  <h1>同名原油是否真能比较</h1>
+  <p class="lede">Day 12 证明了行情属于哪个市场。今天用 Lighter 与 trade.xyz 的当前官方规则，判断这些市场究竟代表什么，以及报价当时是否处于同一种价格来源和展期状态。</p>
+  <div class="meta">
+    <span class="pill">30–45 分钟</span>
+    <span class="pill">原油主线</span>
+    <span class="pill">官方规则 + 可运行映射器</span>
+    <span class="pill">不算收益、不下单</span>
+  </div>
+</header>
+<main>
+  <section class="card">
+    <h2>课程位置</h2>
+    <div class="grid">
+      <div class="card third"><div class="eyebrow">当前目标</div><p>判断两个市场是否为同一经济对象，并识别价格来源和展期状态。</p></div>
+      <div class="card third"><div class="eyebrow">当前进度</div><p>Day 12 已解决市场身份；四个原油盘口入口都真实可用。</p></div>
+      <div class="card third"><div class="eyebrow">后续规划</div><p>定义和状态通过后，Day 14–15 才连续采集并构造同步报价窗口。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">真实官方现象</div>
+    <h2>“一桶原油”仍然不够</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>市场</th><th>基准与单位</th><th>官网当前合约文字</th><th>展期/时段边界</th></tr></thead>
+      <tbody>
+        <tr><td>Lighter <code>WTI</code></td><td>1 barrel WTI Light Sweet Crude</td><td><code>WTIQ6/USD</code>；8 月表为 <code>U6 → V6</code></td><td>17:30 ET 调权；底层 17:00–18:00 ET 关闭</td></tr>
+        <tr><td>trade.xyz <code>xyz:CL</code></td><td>1 barrel WTI Light Sweet Crude</td><td>规格索引 <code>Q6/USD</code>；roll 页示例 <code>U6 → V6</code></td><td>外部 23/5；17:00–18:00 ET 日维护</td></tr>
+        <tr><td>Lighter <code>BRENTOIL</code></td><td>1 barrel Brent Crude</td><td><code>BRENTU6/USD</code>；8 月表为 <code>V6 → X6</code></td><td>19:00 ET 调权；底层 18:00–20:00 ET 关闭</td></tr>
+        <tr><td>trade.xyz <code>xyz:BRENTOIL</code></td><td>1 barrel Brent Crude</td><td>规格索引 <code>U6/USD</code>；roll 页示例 <code>V6 → X6</code></td><td>外部至周五 18:00 ET；17:00–18:00 ET 日维护</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><strong>先不要替官网消除矛盾：</strong>不同页面可能描述页面更新时刻、月初起始合约或展期示例。没有明确时间语义和完整年份前，程序应保留 <code>unknown</code>，而不是挑一个看起来顺眼的月份。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">关键模型</div>
+    <h2>经济对象是一组字段，不是 symbol</h2>
+    <pre><code>EconomicSpecification(
+    identity,
+    asset_class,
+    benchmark,              # WTI 或 Brent
+    unit,                   # barrel
+    quote_currency,
+    settlement_currency,
+    contract_month_code,
+    contract_year,
+    external_session,
+    pricing_rule,
+    evidence,
+)</code></pre>
+    <p>单位相同只解决数量解释；基准、月份和价格机制仍可能不同。程序先检查已知冲突，再检查未知字段。</p>
+    <button id="reveal-map">运行当前映射决定</button>
+    <div id="map-output" class="response">点击查看映射器对三组配对的真实输出。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">价格状态</div>
+    <h2>盘口在动，不代表外部基准在动</h2>
+    <p>Lighter 和 trade.xyz 都能在外部价格不可用时使用订单簿衍生的内部价格。trade.xyz 还单独保存 external price：外部休市后它冻结在收盘价，而 oracle 可继续内部更新。因此“有盘口”和“oracle 在变”都不能证明两边正跟踪同一外部合约。</p>
+    <div class="controls">
+      <label>价格源证据
+        <select id="source-evidence">
+          <option value="unknown">未知</option>
+          <option value="external">外部价格可用且 oracle fresh</option>
+          <option value="internal">外部价格不可用且 oracle internal</option>
+        </select>
+      </label>
+      <label>展期证据
+        <select id="roll-evidence">
+          <option value="unknown">未知</option>
+          <option value="no">不在展期切换</option>
+          <option value="yes">正在展期切换</option>
+        </select>
+      </label>
+      <button id="run-state-demo">分类</button>
+    </div>
+    <div id="state-output" class="response">只知道墙上时钟时，结果保持 unknown。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">可运行仓库</div>
+    <h2>程序当前不会制造“可比较”结论</h2>
+    <pre><code>PYTHONPATH=src python3 -m monte_arb.cli map-economics \
+  --specifications tests/fixtures/day13/economic-specifications.json \
+  --output research/runs/day13-economic-map.json
+
+PYTHONPATH=src python3 -m unittest tests.test_day13_economic -v</code></pre>
+    <p>当前真实输出：两个同基准配对因完整合约年份证据不足保持 <code>unknown</code>；WTI 与 Brent 的交叉配对明确为 <code>not_comparable</code>；实时报价状态因尚未采集状态字段保持 <code>unknown</code>。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">今天的实质验收</div>
+    <h2>17:40 ET 的 8 bps 能进入样本吗？</h2>
+    <div class="scenario">
+      <ul>
+        <li>Lighter WTI：当天 17:30 ET 的展期权重更新已经发生。</li>
+        <li>trade.xyz <code>xyz:CL</code>：外部市场处于 17:00–18:00 ET 日维护窗口。</li>
+        <li>两边仍有 bid/ask，表面差异为 8 bps。</li>
+      </ul>
+      <div class="controls">
+        <select id="case-answer">
+          <option value="">先判断</option>
+          <option value="include">纳入：两边有盘口且差异很小</option>
+          <option value="include-oracle">纳入：两边都有 oraclePx</option>
+          <option value="exclude">排除：价格来源/展期状态尚未证明相同</option>
+        </select>
+        <button id="check-case">检查判断</button>
+      </div>
+      <div id="case-feedback" class="response">页面给即时反馈；随后在 Telegram 用自己的话解释还需要哪些证据。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>今天完成到哪里</h2>
+    <p>完成本页后，你需要能说清：同一个单位为什么仍不足以配对；`unknown` 与 `not_comparable` 有什么区别；外部休市时为什么盘口价差不能直接解释成相对价值。今天不进入费用、资金费或 PnL。</p>
+    <p>优先一手资料：
+      <a href="https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism">Lighter 展期机制</a>、
+      <a href="https://docs.trade.xyz/asset-directory/commodities">trade.xyz Commodities</a>、
+      <a href="https://docs.trade.xyz/perp-mechanics/oracle-price">trade.xyz Oracle Price</a>。
+    </p>
+    <p>有任何字段不清楚，直接回到 Agent 提问；不要猜。</p>
+  </section>
+</main>
+<footer><a href="../lessons/0008-day12-market-identity.html">上一课：Day 12 市场身份</a> · <a href="../reference/day13-economic-object.html">Day 13 打印参考卡</a></footer>
+<script src="../assets/day13-economic-object.js"></script>
+</body>
+</html>

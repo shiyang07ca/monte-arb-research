@@ -21,6 +21,7 @@ from .market import (
     RequestError,
     scan_markets,
 )
+from .economic import build_day13_report, load_day13_specifications
 
 
 def _parse_venue(value: str) -> tuple[str, str]:
@@ -153,6 +154,26 @@ def run_scan(args: argparse.Namespace) -> int:
     return 2 if report.request_errors else 0
 
 
+def run_map_economics(args: argparse.Namespace) -> int:
+    payload = json.loads(args.specifications.read_text())
+    specifications = load_day13_specifications(payload)
+    report = build_day13_report(specifications)
+    _write_json(args.output, report)
+    print(
+        json.dumps(
+            {
+                "output": str(args.output),
+                "market_count": len(report["markets"]),
+                "pair_assessments": report["pair_assessments"],
+                "price_state": report["price_state_boundary"]["status"],
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python3 -m monte_arb.cli",
@@ -189,6 +210,22 @@ def build_parser() -> argparse.ArgumentParser:
     scan.add_argument("--raw-dir", type=Path, default=Path("research/raw/day12"))
     scan.add_argument("--timeout", type=float, default=20.0)
     scan.set_defaults(handler=run_scan)
+
+    economics = subparsers.add_parser(
+        "map-economics",
+        help="assess sourced economic definitions without calculating spreads",
+    )
+    economics.add_argument(
+        "--specifications",
+        type=Path,
+        default=Path("tests/fixtures/day13/economic-specifications.json"),
+    )
+    economics.add_argument(
+        "--output",
+        type=Path,
+        default=Path("research/runs/day13-economic-map.json"),
+    )
+    economics.set_defaults(handler=run_map_economics)
     return parser
 
 
@@ -197,8 +234,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
     try:
         return int(args.handler(args))
-    except (SourceRequestError, SourceShapeError) as exc:
-        print(f"scan failed: {exc}", file=sys.stderr)
+    except (
+        SourceRequestError,
+        SourceShapeError,
+        ValueError,
+        json.JSONDecodeError,
+    ) as exc:
+        print(f"command failed: {exc}", file=sys.stderr)
         return 1
 
 
