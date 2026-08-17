@@ -9,11 +9,11 @@
       "request": {
         "params": {}
       },
-      "received_at": "2026-08-17T13:22:48.176390Z",
+      "received_at": "2026-08-17T14:12:05.610494Z",
       "http_status": 200,
-      "sha256": "e161c367a29dee89498190513b04e9c29d397055aa111a71954b807e97fca78b",
+      "sha256": "38013257c08777bcb021054b5cd8e21ea7b708c8cca50d8566ff17dbfffde248",
       "bytes": 113079,
-      "raw_file": "research/raw/day12/lighter-order-books-e161c367a29dee89498190513b04e9c29d397055aa111a71954b807e97fca78b.json"
+      "raw_file": "research/raw/day12/lighter-order-books-38013257c08777bcb021054b5cd8e21ea7b708c8cca50d8566ff17dbfffde248.json"
     },
     {
       "name": "hyperliquid-perp-dexs",
@@ -24,11 +24,11 @@
           "type": "perpDexs"
         }
       },
-      "received_at": "2026-08-17T13:22:48.646494Z",
+      "received_at": "2026-08-17T14:12:05.864732Z",
       "http_status": 200,
-      "sha256": "f6ca13a97990585fa1b4481d7bd903d79300625f44034a3d657c8306ba58b07f",
-      "bytes": 17367,
-      "raw_file": "research/raw/day12/hyperliquid-perp-dexs-f6ca13a97990585fa1b4481d7bd903d79300625f44034a3d657c8306ba58b07f.json"
+      "sha256": "27d0fc4d9a70b6c60bf0a6b3129e517f09f24d928c1a02374f3298b63d3982bf",
+      "bytes": 17590,
+      "raw_file": "research/raw/day12/hyperliquid-perp-dexs-27d0fc4d9a70b6c60bf0a6b3129e517f09f24d928c1a02374f3298b63d3982bf.json"
     },
     {
       "name": "hyperliquid-meta-contexts-xyz",
@@ -40,11 +40,11 @@
           "dex": "xyz"
         }
       },
-      "received_at": "2026-08-17T13:22:48.920843Z",
+      "received_at": "2026-08-17T14:12:06.152740Z",
       "http_status": 200,
-      "sha256": "d20d933e4248533c8d3ed3b6e0821acc1d3f95241ff1cbae6248f8a6594cc7ae",
-      "bytes": 50795,
-      "raw_file": "research/raw/day12/hyperliquid-meta-contexts-xyz-d20d933e4248533c8d3ed3b6e0821acc1d3f95241ff1cbae6248f8a6594cc7ae.json"
+      "sha256": "a34029c56963c03ab781e673dca2ac4d66fd3a1f2cf9407ec368378c13bcb4d0",
+      "bytes": 50832,
+      "raw_file": "research/raw/day12/hyperliquid-meta-contexts-xyz-a34029c56963c03ab781e673dca2ac4d66fd3a1f2cf9407ec368378c13bcb4d0.json"
     },
     {
       "name": "lighter-book-145",
@@ -56,11 +56,11 @@
           "limit": 20
         }
       },
-      "received_at": "2026-08-17T13:22:49.193992Z",
+      "received_at": "2026-08-17T14:12:06.408227Z",
       "http_status": 200,
-      "sha256": "b284b52eccdb39ba79e295956437105ea236da8879361d7de8d448b0b401e61b",
-      "bytes": 9078,
-      "raw_file": "research/raw/day12/lighter-book-145-b284b52eccdb39ba79e295956437105ea236da8879361d7de8d448b0b401e61b.json"
+      "sha256": "ea0b7c3fde55287ab27ad81b921debcac7e2f8279667140ab707065cad45d7be",
+      "bytes": 9084,
+      "raw_file": "research/raw/day12/lighter-book-145-ea0b7c3fde55287ab27ad81b921debcac7e2f8279667140ab707065cad45d7be.json"
     },
     {
       "name": "lighter-book-159",
@@ -72,11 +72,11 @@
           "limit": 20
         }
       },
-      "received_at": "2026-08-17T13:22:49.471875Z",
+      "received_at": "2026-08-17T14:12:06.644526Z",
       "http_status": 200,
-      "sha256": "02136f4e3587d5821f2413711c5a3f7f3e47b703eea242dddf16c907eda22b12",
-      "bytes": 9118,
-      "raw_file": "research/raw/day12/lighter-book-159-02136f4e3587d5821f2413711c5a3f7f3e47b703eea242dddf16c907eda22b12.json"
+      "sha256": "1b1561413ba29d8197afdd4187793451e67f8b02e5435e9895290136e541061c",
+      "bytes": 9194,
+      "raw_file": "research/raw/day12/lighter-book-159-1b1561413ba29d8197afdd4187793451e67f8b02e5435e9895290136e541061c.json"
     },
     {
       "name": "hyperliquid-book-xyz-CL",
@@ -88,11 +88,11 @@
           "coin": "xyz:CL"
         }
       },
-      "received_at": "2026-08-17T13:22:49.732144Z",
+      "received_at": "2026-08-17T14:12:06.873452Z",
       "http_status": 200,
-      "sha256": "60a37895cfef656c45fdf385e57174e1fa977b455080cdbe994951729deff900",
-      "bytes": 1474,
-      "raw_file": "research/raw/day12/hyperliquid-book-xyz-CL-60a37895cfef656c45fdf385e57174e1fa977b455080cdbe994951729deff900.json"
+      "sha256": "b66155bff07b789afaee07b946f3cdb33385ea970127ae5c8e258d533014ea1d",
+      "bytes": 1494,
+      "raw_file": "research/raw/day12/hyperliquid-book-xyz-CL-b66155bff07b789afaee07b946f3cdb33385ea970127ae5c8e258d533014ea1d.json"
     },
     {
       "name": "hyperliquid-book-xyz-BRENTOIL",
@@ -104,11 +104,11 @@
           "coin": "xyz:BRENTOIL"
         }
       },
-      "received_at": "2026-08-17T13:22:49.995523Z",
+      "received_at": "2026-08-17T14:12:07.099900Z",
       "http_status": 200,
-      "sha256": "d3ec38e9d2838da7e7734caa0288b588d66b893d37e18eda56b28fbb94c3b4df",
-      "bytes": 1460,
-      "raw_file": "research/raw/day12/hyperliquid-book-xyz-BRENTOIL-d3ec38e9d2838da7e7734caa0288b588d66b893d37e18eda56b28fbb94c3b4df.json"
+      "sha256": "663153f088d56b153fea921ab962e954ba6d23cf56486751e37c1d2488207fed",
+      "bytes": 1450,
+      "raw_file": "research/raw/day12/hyperliquid-book-xyz-BRENTOIL-663153f088d56b153fea921ab962e954ba6d23cf56486751e37c1d2488207fed.json"
     }
   ]
 }

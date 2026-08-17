@@ -1,1369 +1,6 @@
 {
-  "observed_at": "2026-08-17T13:22:49.995523Z",
+  "observed_at": "2026-08-17T14:12:07.099900Z",
   "markets": [
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WEN",
-        "local_id": "214"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "KRCOMP",
-        "local_id": "142"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "KIOXIA",
-        "local_id": "225"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "QCOM",
-        "local_id": "209"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AVNT",
-        "local_id": "82"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PYTH",
-        "local_id": "78"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "JUP",
-        "local_id": "26"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "IWM",
-        "local_id": "153"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XMR",
-        "local_id": "77"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NEAR",
-        "local_id": "10"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "LINK",
-        "local_id": "8"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ARB",
-        "local_id": "50"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "QNT",
-        "local_id": "190"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "FOGO",
-        "local_id": "124"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "1000PEPE",
-        "local_id": "4"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BMNR",
-        "local_id": "123"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "OPENAI",
-        "local_id": "192"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CBRS",
-        "local_id": "175"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WHEAT",
-        "local_id": "170"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SPCX",
-        "local_id": "194"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ICP",
-        "local_id": "102"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PUMP",
-        "local_id": "45"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DOT",
-        "local_id": "11"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "1000TOSHI",
-        "local_id": "81"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BRENTOIL",
-        "local_id": "159"
-      },
-      "catalog_status": "active",
-      "book_status": "two_sided",
-      "scan_status": "ready_for_market_mapping",
-      "reason_codes": []
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AAOI",
-        "local_id": "207"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AZTEC",
-        "local_id": "144"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TSM",
-        "local_id": "168"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AMZN",
-        "local_id": "114"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XAU",
-        "local_id": "92"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SKHYNIX",
-        "local_id": "143"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AXTI",
-        "local_id": "224"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WLD",
-        "local_id": "6"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NZDUSD",
-        "local_id": "107"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ZEC",
-        "local_id": "90"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SMIC",
-        "local_id": "202"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MKR",
-        "local_id": "28"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "VIRTUAL",
-        "local_id": "41"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "RKLB",
-        "local_id": "186"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "1000FLOKI",
-        "local_id": "19"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AERO",
-        "local_id": "65"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ZHIPU",
-        "local_id": "205"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AI16Z",
-        "local_id": "22"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ASML",
-        "local_id": "151"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SPACEX",
-        "local_id": "173"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MYX",
-        "local_id": "80"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "YZY",
-        "local_id": "70"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "USDCHF",
-        "local_id": "99"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NMR",
-        "local_id": "74"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "HANMI",
-        "local_id": "148"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WDC",
-        "local_id": "223"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "US500",
-        "local_id": "180"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "USDCAD",
-        "local_id": "100"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TRX",
-        "local_id": "43"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "FF",
-        "local_id": "87"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SAMSUNG",
-        "local_id": "140"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "GMX",
-        "local_id": "61"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DOGE",
-        "local_id": "3"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BCH",
-        "local_id": "58"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "LIT",
-        "local_id": "120"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "POPCAT",
-        "local_id": "23"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BERA",
-        "local_id": "20"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SPY",
-        "local_id": "128"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BNB",
-        "local_id": "25"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TENCENT",
-        "local_id": "201"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SAMSUNGUSD",
-        "local_id": "162"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CHIP",
-        "local_id": "163"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MON",
-        "local_id": "91"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ETH",
-        "local_id": "0"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ZRO",
-        "local_id": "60"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ARC",
-        "local_id": "132"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "S",
-        "local_id": "40"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ADI",
-        "local_id": "213"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "STABLE",
-        "local_id": "118"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "GRASS",
-        "local_id": "52"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "STRK",
-        "local_id": "104"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NATGAS",
-        "local_id": "158"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "INTC",
-        "local_id": "137"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WIF",
-        "local_id": "5"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "GBPUSD",
-        "local_id": "97"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ARM",
-        "local_id": "206"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PENGU",
-        "local_id": "47"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ONDO",
-        "local_id": "38"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "EWY",
-        "local_id": "166"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CTR",
-        "local_id": "183"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NBIS",
-        "local_id": "189"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SKY",
-        "local_id": "79"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "STRC",
-        "local_id": "156"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XPL",
-        "local_id": "71"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "APEX",
-        "local_id": "86"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TIA",
-        "local_id": "67"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
     {
       "identity": {
         "venue": "lighter",
@@ -1384,413 +21,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "LITE",
-        "local_id": "178"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SUI",
-        "local_id": "16"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DELL",
-        "local_id": "187"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MAGS",
-        "local_id": "155"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CRV",
-        "local_id": "36"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TTWO",
-        "local_id": "179"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "APT",
-        "local_id": "31"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "HYUNDAIUSD",
-        "local_id": "160"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SOXS",
-        "local_id": "222"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SYRUP",
-        "local_id": "44"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BB",
-        "local_id": "211"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "EDGE",
-        "local_id": "157"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AUDUSD",
-        "local_id": "106"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "1000BONK",
-        "local_id": "18"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "LTC",
-        "local_id": "35"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ORCL",
-        "local_id": "165"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XLM",
-        "local_id": "119"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "RIVER",
-        "local_id": "126"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "H100",
-        "local_id": "182"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TRUMP",
-        "local_id": "15"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BYD",
-        "local_id": "200"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "LAUNCHCOIN",
-        "local_id": "54"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PENDLE",
-        "local_id": "37"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SOXL",
-        "local_id": "197"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DASH",
-        "local_id": "127"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "STBL",
-        "local_id": "85"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BOT",
-        "local_id": "185"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MNT",
-        "local_id": "63"
+        "symbol": "NOW",
+        "local_id": "191"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -1819,8 +51,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "BOTZ",
-        "local_id": "154"
+        "symbol": "PENDLE",
+        "local_id": "37"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -1834,8 +66,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "AAVE",
-        "local_id": "27"
+        "symbol": "FF",
+        "local_id": "87"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -1849,201 +81,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "PLTR",
-        "local_id": "111"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WTI",
-        "local_id": "145"
-      },
-      "catalog_status": "active",
-      "book_status": "two_sided",
-      "scan_status": "ready_for_market_mapping",
-      "reason_codes": []
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "WLFI",
-        "local_id": "72"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "POL",
-        "local_id": "14"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MSTR",
-        "local_id": "122"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "JTO",
-        "local_id": "134"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "USELESS",
-        "local_id": "66"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ROBO",
-        "local_id": "149"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "FOLKS",
-        "local_id": "215"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "LINEA",
-        "local_id": "76"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "HOOD",
-        "local_id": "108"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DATA",
-        "local_id": "34"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AMD",
-        "local_id": "138"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DUSK",
-        "local_id": "125"
+        "symbol": "YZY",
+        "local_id": "70"
       },
       "catalog_status": "inactive",
       "book_status": "not_inspected",
@@ -2057,8 +96,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "EURUSD",
-        "local_id": "96"
+        "symbol": "BB",
+        "local_id": "211"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2072,8 +111,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "AVAX",
-        "local_id": "9"
+        "symbol": "CTR",
+        "local_id": "183"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2087,53 +126,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "TSLA",
-        "local_id": "112"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "UNITREE",
-        "local_id": "220"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CAP",
-        "local_id": "212"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ADA",
-        "local_id": "39"
+        "symbol": "AUDUSD",
+        "local_id": "106"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2162,8 +156,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "VVV",
-        "local_id": "69"
+        "symbol": "DELL",
+        "local_id": "187"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2177,8 +171,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "EDEN",
-        "local_id": "89"
+        "symbol": "POL",
+        "local_id": "14"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2192,233 +186,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "META",
-        "local_id": "117"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NOK",
-        "local_id": "208"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CXMT",
-        "local_id": "217"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "IBM",
-        "local_id": "188"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CRCL",
-        "local_id": "121"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SKHYNIXUSD",
-        "local_id": "161"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CRWV",
-        "local_id": "167"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XPT",
-        "local_id": "147"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ENA",
-        "local_id": "29"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "2Z",
-        "local_id": "88"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ZORA",
-        "local_id": "53"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "POPMART",
-        "local_id": "204"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ANTHROPIC",
-        "local_id": "193"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "XAG",
-        "local_id": "93"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DRAM",
-        "local_id": "195"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PIPPIN",
-        "local_id": "135"
+        "symbol": "LAUNCHCOIN",
+        "local_id": "54"
       },
       "catalog_status": "inactive",
       "book_status": "not_inspected",
@@ -2432,8 +201,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "GRAM",
-        "local_id": "12"
+        "symbol": "PYTH",
+        "local_id": "78"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2447,23 +216,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "SOXX",
-        "local_id": "169"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MRVL",
-        "local_id": "174"
+        "symbol": "ETH",
+        "local_id": "0"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2477,8 +231,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "QQQ",
-        "local_id": "129"
+        "symbol": "WLFI",
+        "local_id": "72"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2492,83 +246,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "GME",
-        "local_id": "176"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MEGA",
-        "local_id": "94"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BE",
-        "local_id": "196"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MSFT",
-        "local_id": "115"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SOL",
-        "local_id": "2"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "USDHKD",
-        "local_id": "198"
+        "symbol": "KAITO",
+        "local_id": "33"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2612,6 +291,469 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
+        "symbol": "S",
+        "local_id": "40"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GRASS",
+        "local_id": "52"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AAOI",
+        "local_id": "207"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NEAR",
+        "local_id": "10"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ZEC",
+        "local_id": "90"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WIF",
+        "local_id": "5"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MYX",
+        "local_id": "80"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DIA",
+        "local_id": "152"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "HYPE",
+        "local_id": "24"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NVDA",
+        "local_id": "110"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XLM",
+        "local_id": "119"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ENA",
+        "local_id": "29"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DYDX",
+        "local_id": "62"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "PUMP",
+        "local_id": "45"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MORPHO",
+        "local_id": "68"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "1000FLOKI",
+        "local_id": "19"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AAPL",
+        "local_id": "113"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CRV",
+        "local_id": "36"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ANSEM",
+        "local_id": "219"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SPY",
+        "local_id": "128"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "RESOLV",
+        "local_id": "51"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "FOLKS",
+        "local_id": "215"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "POPMART",
+        "local_id": "204"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ONDO",
+        "local_id": "38"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XAU",
+        "local_id": "92"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MEGA",
+        "local_id": "94"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "1000TOSHI",
+        "local_id": "81"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BRENTOIL",
+        "local_id": "159"
+      },
+      "catalog_status": "active",
+      "book_status": "two_sided",
+      "scan_status": "ready_for_market_mapping",
+      "reason_codes": []
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "RKLB",
+        "local_id": "186"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ARC",
+        "local_id": "132"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DOGE",
+        "local_id": "3"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
         "symbol": "SEI",
         "local_id": "32"
       },
@@ -2627,8 +769,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "XIAOMI",
-        "local_id": "203"
+        "symbol": "APT",
+        "local_id": "31"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2642,8 +784,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "LDO",
-        "local_id": "46"
+        "symbol": "XMR",
+        "local_id": "77"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2657,188 +799,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "AXS",
-        "local_id": "131"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BABA",
-        "local_id": "177"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "URA",
-        "local_id": "150"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "PAXG",
-        "local_id": "48"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "1000SHIB",
-        "local_id": "17"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "FARTCOIN",
-        "local_id": "21"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AVGO",
-        "local_id": "210"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "TAO",
-        "local_id": "13"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BTC",
-        "local_id": "1"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "USDJPY",
-        "local_id": "98"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "KAITO",
-        "local_id": "33"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MET",
-        "local_id": "95"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NOW",
-        "local_id": "191"
+        "symbol": "JUP",
+        "local_id": "26"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2882,21 +844,6 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "SPX",
-        "local_id": "42"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
         "symbol": "XCU",
         "local_id": "136"
       },
@@ -2912,8 +859,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "ASTER",
-        "local_id": "83"
+        "symbol": "1000PEPE",
+        "local_id": "4"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -2927,128 +874,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "EIGEN",
-        "local_id": "49"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "GEV",
-        "local_id": "218"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "COIN",
-        "local_id": "109"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "AAPL",
-        "local_id": "113"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SKR",
-        "local_id": "130"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "NVDA",
-        "local_id": "110"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "ANSEM",
-        "local_id": "219"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "SKHY",
-        "local_id": "216"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "HYUNDAI",
-        "local_id": "141"
+        "symbol": "SOXX",
+        "local_id": "169"
       },
       "catalog_status": "inactive",
       "book_status": "not_inspected",
@@ -3062,8 +889,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "CRO",
-        "local_id": "73"
+        "symbol": "EWY",
+        "local_id": "166"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3077,23 +904,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "DIA",
-        "local_id": "152"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "KORU",
-        "local_id": "226"
+        "symbol": "STRK",
+        "local_id": "104"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3107,8 +919,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "XPD",
-        "local_id": "146"
+        "symbol": "MSFT",
+        "local_id": "115"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3122,8 +934,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "OP",
-        "local_id": "55"
+        "symbol": "ARB",
+        "local_id": "50"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3137,8 +949,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "0G",
-        "local_id": "84"
+        "symbol": "MRVL",
+        "local_id": "174"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3152,128 +964,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "USDKRW",
-        "local_id": "105"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "CASHCAT",
-        "local_id": "221"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "MORPHO",
-        "local_id": "68"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BIRB",
-        "local_id": "133"
-      },
-      "catalog_status": "inactive",
-      "book_status": "not_inspected",
-      "scan_status": "stopped",
-      "reason_codes": [
-        "MARKET_NOT_ACTIVE"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "RESOLV",
-        "local_id": "51"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "BIO",
-        "local_id": "171"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "HYPE",
-        "local_id": "24"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "US100",
-        "local_id": "181"
-      },
-      "catalog_status": "active",
-      "book_status": "not_inspected",
-      "scan_status": "catalog_only",
-      "reason_codes": [
-        "BOOK_NOT_INSPECTED"
-      ]
-    },
-    {
-      "identity": {
-        "venue": "lighter",
-        "product_type": "perp",
-        "venue_namespace": "default",
-        "symbol": "DYDX",
-        "local_id": "62"
+        "symbol": "CRCL",
+        "local_id": "121"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3302,8 +994,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "SNDK",
-        "local_id": "139"
+        "symbol": "MON",
+        "local_id": "91"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3317,8 +1009,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "CC",
-        "local_id": "101"
+        "symbol": "MET",
+        "local_id": "95"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3332,8 +1024,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "ETHFI",
-        "local_id": "64"
+        "symbol": "IBM",
+        "local_id": "188"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3347,8 +1039,8 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
-        "symbol": "DOLO",
-        "local_id": "75"
+        "symbol": "FARTCOIN",
+        "local_id": "21"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
@@ -3377,6 +1069,336 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
+        "symbol": "EDGE",
+        "local_id": "157"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MKR",
+        "local_id": "28"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "RIVER",
+        "local_id": "126"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "STBL",
+        "local_id": "85"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BABA",
+        "local_id": "177"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NMR",
+        "local_id": "74"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WEN",
+        "local_id": "214"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "STRC",
+        "local_id": "156"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "EDEN",
+        "local_id": "89"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SPX",
+        "local_id": "42"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MSTR",
+        "local_id": "122"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DASH",
+        "local_id": "127"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DUSK",
+        "local_id": "125"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NBIS",
+        "local_id": "189"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TENCENT",
+        "local_id": "201"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CXMT",
+        "local_id": "217"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SKHYNIX",
+        "local_id": "143"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "FOGO",
+        "local_id": "124"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SAMSUNGUSD",
+        "local_id": "162"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "META",
+        "local_id": "117"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XPL",
+        "local_id": "71"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SNDK",
+        "local_id": "139"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
         "symbol": "XRP",
         "local_id": "7"
       },
@@ -3392,8 +1414,1986 @@
         "venue": "lighter",
         "product_type": "perp",
         "venue_namespace": "default",
+        "symbol": "AVGO",
+        "local_id": "210"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "QNT",
+        "local_id": "190"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "HANMI",
+        "local_id": "148"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LIT",
+        "local_id": "120"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ASTER",
+        "local_id": "83"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XPT",
+        "local_id": "147"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AMD",
+        "local_id": "138"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BIO",
+        "local_id": "171"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CRO",
+        "local_id": "73"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LINK",
+        "local_id": "8"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WLD",
+        "local_id": "6"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LTC",
+        "local_id": "35"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LITE",
+        "local_id": "178"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "QQQ",
+        "local_id": "129"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "COIN",
+        "local_id": "109"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SKHY",
+        "local_id": "216"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XIAOMI",
+        "local_id": "203"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SPACEX",
+        "local_id": "173"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AXS",
+        "local_id": "131"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "HYUNDAIUSD",
+        "local_id": "160"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SKHYNIXUSD",
+        "local_id": "161"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BERA",
+        "local_id": "20"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SPCX",
+        "local_id": "194"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LDO",
+        "local_id": "46"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DOT",
+        "local_id": "11"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ETHFI",
+        "local_id": "64"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BOT",
+        "local_id": "185"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AMZN",
+        "local_id": "114"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CAP",
+        "local_id": "212"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ORCL",
+        "local_id": "165"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "US500",
+        "local_id": "180"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "OPENAI",
+        "local_id": "192"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USELESS",
+        "local_id": "66"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "HYUNDAI",
+        "local_id": "141"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "UNITREE",
+        "local_id": "220"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BTC",
+        "local_id": "1"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SKY",
+        "local_id": "79"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "EURUSD",
+        "local_id": "96"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WHEAT",
+        "local_id": "170"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ASML",
+        "local_id": "151"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "KIOXIA",
+        "local_id": "225"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BMNR",
+        "local_id": "123"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "VVV",
+        "local_id": "69"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USDCHF",
+        "local_id": "99"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "US100",
+        "local_id": "181"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MAGS",
+        "local_id": "155"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SOL",
+        "local_id": "2"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TSLA",
+        "local_id": "112"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AERO",
+        "local_id": "65"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DATA",
+        "local_id": "34"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BOTZ",
+        "local_id": "154"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "OP",
+        "local_id": "55"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ROBO",
+        "local_id": "149"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USDJPY",
+        "local_id": "98"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "STABLE",
+        "local_id": "118"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "KORU",
+        "local_id": "226"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "APEX",
+        "local_id": "86"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AVNT",
+        "local_id": "82"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "JTO",
+        "local_id": "134"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TRX",
+        "local_id": "43"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "LINEA",
+        "local_id": "76"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ICP",
+        "local_id": "102"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "EIGEN",
+        "local_id": "49"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CHIP",
+        "local_id": "163"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ADA",
+        "local_id": "39"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ARM",
+        "local_id": "206"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "PENGU",
+        "local_id": "47"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "0G",
+        "local_id": "84"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XAG",
+        "local_id": "93"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ANTHROPIC",
+        "local_id": "193"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AAVE",
+        "local_id": "27"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TRUMP",
+        "local_id": "15"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TTWO",
+        "local_id": "179"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "1000BONK",
+        "local_id": "18"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CBRS",
+        "local_id": "175"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "XPD",
+        "local_id": "146"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SKR",
+        "local_id": "130"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "2Z",
+        "local_id": "88"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BCH",
+        "local_id": "58"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "QCOM",
+        "local_id": "209"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GMX",
+        "local_id": "61"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USDKRW",
+        "local_id": "105"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BE",
+        "local_id": "196"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BNB",
+        "local_id": "25"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NOK",
+        "local_id": "208"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AZTEC",
+        "local_id": "144"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WDC",
+        "local_id": "223"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "POPCAT",
+        "local_id": "23"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ZORA",
+        "local_id": "53"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SYRUP",
+        "local_id": "44"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CC",
+        "local_id": "101"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TIA",
+        "local_id": "67"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DRAM",
+        "local_id": "195"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AI16Z",
+        "local_id": "22"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BYD",
+        "local_id": "200"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ZHIPU",
+        "local_id": "205"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SOXL",
+        "local_id": "197"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CRWV",
+        "local_id": "167"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NATGAS",
+        "local_id": "158"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ADI",
+        "local_id": "213"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SMIC",
+        "local_id": "202"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "KRCOMP",
+        "local_id": "142"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GRAM",
+        "local_id": "12"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "WTI",
+        "local_id": "145"
+      },
+      "catalog_status": "active",
+      "book_status": "two_sided",
+      "scan_status": "ready_for_market_mapping",
+      "reason_codes": []
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "IWM",
+        "local_id": "153"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "NZDUSD",
+        "local_id": "107"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "1000SHIB",
+        "local_id": "17"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USDCAD",
+        "local_id": "100"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TSM",
+        "local_id": "168"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "URA",
+        "local_id": "150"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "USDHKD",
+        "local_id": "198"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
         "symbol": "GOOGL",
         "local_id": "116"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SOXS",
+        "local_id": "222"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "H100",
+        "local_id": "182"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "ZRO",
+        "local_id": "60"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "BIRB",
+        "local_id": "133"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AXTI",
+        "local_id": "224"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SAMSUNG",
+        "local_id": "140"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GBPUSD",
+        "local_id": "97"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "PLTR",
+        "local_id": "111"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "MNT",
+        "local_id": "63"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GEV",
+        "local_id": "218"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "CASHCAT",
+        "local_id": "221"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "AVAX",
+        "local_id": "9"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "SUI",
+        "local_id": "16"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "VIRTUAL",
+        "local_id": "41"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "HOOD",
+        "local_id": "108"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "PIPPIN",
+        "local_id": "135"
+      },
+      "catalog_status": "inactive",
+      "book_status": "not_inspected",
+      "scan_status": "stopped",
+      "reason_codes": [
+        "MARKET_NOT_ACTIVE"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "INTC",
+        "local_id": "137"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "PAXG",
+        "local_id": "48"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "GME",
+        "local_id": "176"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "TAO",
+        "local_id": "13"
+      },
+      "catalog_status": "active",
+      "book_status": "not_inspected",
+      "scan_status": "catalog_only",
+      "reason_codes": [
+        "BOOK_NOT_INSPECTED"
+      ]
+    },
+    {
+      "identity": {
+        "venue": "lighter",
+        "product_type": "perp",
+        "venue_namespace": "default",
+        "symbol": "DOLO",
+        "local_id": "75"
       },
       "catalog_status": "active",
       "book_status": "not_inspected",
