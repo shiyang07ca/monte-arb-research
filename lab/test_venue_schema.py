@@ -2,12 +2,12 @@
 """Tests for Day 8 venue schema normalization."""
 from __future__ import annotations
 
+import tempfile
 import unittest
 from pathlib import Path
 
 try:
     from venue_schema import (
-        SNAPSHOT_CSV,
         build_mapping,
         build_rows,
         binance_rows,
@@ -17,7 +17,6 @@ try:
     )
 except ModuleNotFoundError:
     from lab.venue_schema import (
-        SNAPSHOT_CSV,
         build_mapping,
         build_rows,
         binance_rows,
@@ -64,10 +63,19 @@ class VenueSchemaTests(unittest.TestCase):
 
     def test_unknowns_are_explicit_in_summary(self) -> None:
         rows = build_rows()
-        summary = write_outputs(rows, build_mapping())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            snapshot_csv = root / "snapshot.csv"
+            summary = write_outputs(
+                rows,
+                build_mapping(),
+                snapshot_csv=snapshot_csv,
+                mapping_json=root / "mapping.json",
+                summary_json=root / "summary.json",
+            )
+            self.assertTrue(snapshot_csv.exists())
         self.assertGreaterEqual(len(summary["not_equivalent_fields"]), 5)
         self.assertIn("lighter orderBookOrders snapshot has no public timestamp field", summary["unknowns"])
-        self.assertTrue(SNAPSHOT_CSV.exists())
 
     def test_mapping_has_at_least_five_not_equivalent_fields(self) -> None:
         mapping = build_mapping()

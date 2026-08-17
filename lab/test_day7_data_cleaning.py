@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import csv
+import tempfile
 import unittest
 from pathlib import Path
 
 try:
     from day7_data_cleaning import (
-        CLEAN_CSV,
         JUMP_THRESHOLD,
         build_records,
         interval_flags,
@@ -18,7 +18,6 @@ try:
     )
 except ModuleNotFoundError:
     from lab.day7_data_cleaning import (
-        CLEAN_CSV,
         JUMP_THRESHOLD,
         build_records,
         interval_flags,
@@ -72,9 +71,18 @@ class Day7CleaningTests(unittest.TestCase):
         self.assertEqual(flags[3 * 60 * 60 * 1000], (True, 2))
 
     def test_output_schema_can_be_written_and_reloaded(self) -> None:
-        write_outputs(self.records, self.summary)
-        with CLEAN_CSV.open(newline="") as handle:
-            rows = list(csv.DictReader(handle))
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            clean_csv = root / "clean.csv"
+            write_outputs(
+                self.records,
+                self.summary,
+                clean_csv=clean_csv,
+                summary_json=root / "summary.json",
+                report_md=root / "report.md",
+            )
+            with clean_csv.open(newline="") as handle:
+                rows = list(csv.DictReader(handle))
         self.assertEqual(len(rows), len(self.records))
         self.assertIn("combined_pair_eligible", rows[0])
         self.assertIn("source_candle_file", rows[0])

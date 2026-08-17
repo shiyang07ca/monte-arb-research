@@ -2,7 +2,7 @@
 
 ## Status
 
-active
+superseded by LR-0009
 
 ## Lesson
 

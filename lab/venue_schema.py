@@ -183,13 +183,22 @@ def build_mapping() -> list[dict[str, str]]:
     ]
 
 
-def write_outputs(rows: list[dict[str, str]], mapping: list[dict[str, str]]) -> dict[str, Any]:
-    DATA.mkdir(parents=True, exist_ok=True)
-    with SNAPSHOT_CSV.open("w", newline="", encoding="utf-8") as handle:
+def write_outputs(
+    rows: list[dict[str, str]],
+    mapping: list[dict[str, str]],
+    *,
+    snapshot_csv: Path = SNAPSHOT_CSV,
+    mapping_json: Path = MAPPING_JSON,
+    summary_json: Path = SUMMARY_JSON,
+) -> dict[str, Any]:
+    snapshot_csv.parent.mkdir(parents=True, exist_ok=True)
+    mapping_json.parent.mkdir(parents=True, exist_ok=True)
+    summary_json.parent.mkdir(parents=True, exist_ok=True)
+    with snapshot_csv.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=SCHEMA_FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
-    MAPPING_JSON.write_text(json.dumps(mapping, indent=2, ensure_ascii=False) + "\n")
+    mapping_json.write_text(json.dumps(mapping, indent=2, ensure_ascii=False) + "\n")
     counts: dict[str, dict[str, int]] = {}
     for row in rows:
         bucket = counts.setdefault(row["venue"], {})
@@ -208,7 +217,7 @@ def write_outputs(rows: list[dict[str, str]], mapping: list[dict[str, str]]) -> 
             "hyperliquid min order size not exposed in meta",
         ],
     }
-    SUMMARY_JSON.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    summary_json.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
     return summary
 
 

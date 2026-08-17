@@ -1,5 +1,7 @@
 # WTI–Brent 与替代研究方向评估
 
+> **状态：历史候选评估。** 当前系统扫描全部可映射永续市场，不预先指定盈利候选；BTC/ETH 用于工程验证，RWA 用于价格状态研究。见 [`MISSION.md`](../MISSION.md) 与 [`resource/plan.md`](../resource/plan.md)。
+
 - 研究日期：2026-08-05
 - 研究对象：Lighter `WTI`（`market_id=145`）与 `BRENTOIL`（`market_id=159`）
 - 研究性质：只读研究，不构成交易建议；所有动态数字均是带抓取时间的快照

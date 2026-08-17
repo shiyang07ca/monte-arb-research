@@ -1,5 +1,7 @@
 # Day 6 学习记录 / Funding 现金流与纸上账本
 
+> **已退役（2026-08-17）**：本记录中的 `index_price` 现金流公式与当前 Lighter Funding 文档不一致；当前规则使用 mark。相关程序、测试、快照和网页课程已删除。本记录只保留错误历史，不能作为资金费公式或现金账本依据。
+
 ## 学习目标
 
 把 WTI/BRENTOIL 的 funding 观察放入两腿纸上现金流账本，区分 funding rate 的付款方向、API 原始字段和账户真实 PnL。

@@ -60,7 +60,6 @@ API candles 文档说明单次最多返回 500 根 candle，且零值字段可�
 - 清洗输出：`lab/data/lighter_rwa_clean_1h.csv`
 - 脱敏汇总：`lab/data/day7_cleaning_summary.json`
 - 测试：`lab/test_day7_data_cleaning.py`
-- 课程：`lessons/0006-day7-data-cleaning.html`
 
 ## Primary source
 

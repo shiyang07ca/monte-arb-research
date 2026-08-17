@@ -117,7 +117,7 @@ def load_details(path: Path) -> dict[str, object]:
     return data
 
 
-def diff_parameters() -> dict[str, Any]:
+def diff_parameters(output_path: Path = DIFF_OUT) -> dict[str, Any]:
     diff: dict[str, Any] = {}
     for market_id, old_path in OLD_DETAILS.items():
         symbol = MARKETS[market_id]
@@ -151,7 +151,8 @@ def diff_parameters() -> dict[str, Any]:
         "generated_at": iso_ms(int(time.time() * 1000)),
         "markets": diff,
     }
-    DIFF_OUT.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
     return summary
 
 

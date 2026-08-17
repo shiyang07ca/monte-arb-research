@@ -9,13 +9,13 @@ point-in-time observation, not a fact sheet.
 from __future__ import annotations
 
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
 try:
     from day9_parameter_recheck import (
         CONTRACT_FIELDS,
-        DIFF_OUT,
         MARKETS,
         STATE_FIELDS,
         diff_parameters,
@@ -23,7 +23,6 @@ try:
 except ModuleNotFoundError:
     from lab.day9_parameter_recheck import (
         CONTRACT_FIELDS,
-        DIFF_OUT,
         MARKETS,
         STATE_FIELDS,
         diff_parameters,
@@ -33,7 +32,10 @@ except ModuleNotFoundError:
 class Day9ParameterRecheckTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.diff = diff_parameters()
+        cls._temp_dir = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._temp_dir.cleanup)
+        cls.diff_path = Path(cls._temp_dir.name) / "day9_parameter_diff.json"
+        cls.diff = diff_parameters(output_path=cls.diff_path)
         cls.markets: dict = cls.diff["markets"]
 
     def test_diff_covers_both_markets(self) -> None:
@@ -81,8 +83,8 @@ class Day9ParameterRecheckTests(unittest.TestCase):
         self.assertEqual(CONTRACT_FIELDS & STATE_FIELDS, set())
 
     def test_diff_file_is_written_and_readable(self) -> None:
-        self.assertTrue(DIFF_OUT.exists())
-        data = json.loads(DIFF_OUT.read_text(encoding="utf-8"))
+        self.assertTrue(self.diff_path.exists())
+        data = json.loads(self.diff_path.read_text(encoding="utf-8"))
         self.assertEqual(data["schema"], "day9-parameter-diff-v1")
         self.assertEqual(set(data["markets"]), set(MARKETS.values()))
 

@@ -1,17 +1,29 @@
-# Lighter WTI–BRENTOIL 研究代码
+# 历史研究代码与公开数据
 
-当前目录的研究代码分为两类：
+`lab/` 保存 Day2–9 中仍可复现的市场规则、数据质量和字段语义实验。它不是 Day12 起的新系统实现目录；新的正式代码进入 `src/monte_arb/`。
 
-- `lab/capture_lighter_rwa.py`：只读采集官方 candles、fundings 和 `orderBookDetails`，保存原始响应、请求元数据和 SHA-256；
-- `lab/audit_lighter_rwa.py`：读取原始响应，输出覆盖、重复时间戳、描述性统计和共同小时 JSONL；
+## 保留的代码
 
-现有代码明确不认证、不发单、不提交交易。统计审计输出的 `research_conclusion` 表示：当前资料不足以判断策略是否成立。
+- `capture_lighter_rwa.py`：公开 Lighter 历史数据采集。
+- `day4_price_semantics.py`：成交价、指数价和标记价的用途差异。
+- `day5_roll_session.py`：原油展期与交易时段规则。
+- `day7_data_cleaning.py`：保留异常、按时间切分和可复现清洗。
+- `venue_schema.py`：不同场所公开盘口字段的语义差异。
+- `day9_parameter_recheck.py`：当前参数与历史快照比较。
 
-后续实现统计或执行回放时必须先补测试，并遵循：
+相应测试只读取仓库固定测试数据，并将临时输出写入系统临时目录，不再修改已跟踪研究产物。
 
-1. 原始响应不可覆盖；
-2. 时间统一为 UTC；
-3. 训练集才能确定参数；
-4. funding、费用、退出未知时不填零；
-5. 结果必须带 reason code；
-6. 研究代码不包含私钥、API secret、Authorization header 或无人值守下单。
+## 已删除
+
+- 会把未知交易标识静默映射到 BRENTOIL 的旧审计程序。
+- 使用错误 funding 结算价格的 Day6 程序、测试与输出。
+- 打卡 API 请求和响应。
+
+这些文件可从 Git 历史恢复，但不得用于当前研究。
+
+## 数据规则
+
+- `lab/data/lighter_rwa_raw/`、`lab/data/day8_raw/` 和 `lab/data/day9_raw/` 是带来源的历史公开响应。
+- 所有历史快照只描述取得时刻，不代表当前市场状态。
+- 原始响应不可覆盖；派生结果必须能从指定输入重新生成。
+- 任何程序都不得包含账户密钥、Authorization header 或下单调用。

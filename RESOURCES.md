@@ -1,105 +1,134 @@
-# Lighter WTI–BRENTOIL 相对价值研究资源
+# 永续套利研究与 NautilusTrader 资源
 
-## Knowledge
+> 最近核验：2026-08-17。动态市场规则和 API 响应必须在使用当天重新获取。
 
-### Lighter 官方机制
+## 一手知识资料
 
-- [RWA 总览](https://docs.lighter.xyz/trading/real-world-assets-rwas)：说明 RWA 市场类别和基本市场结构。[42]
-- [RWA 定价机制](https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism)：说明外部 oracle、内部订单簿 impact price、EMA，以及 oracle 失效时的价格过渡。[43]
-- [期货价格展期机制](https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism)：说明 WTI 与 BRENTOIL 使用期货价格、不同展期窗口，以及每日 20% 的当前月到下一月迁移。[44]
-- [RWA 市场规格](https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications)：说明 WTI/BRENTOIL 的经济对象、Pyth Lazer 价格源和动态市场规格。[45]
-- [Funding](https://docs.lighter.xyz/trading/funding)：说明 funding rate、premium、index、方向和结算规则；不能把 API 原始字段直接当成现金收益。[46]
-- [Trading Fees](https://docs.lighter.xyz/trading/trading-fees)：说明账户层级费率和延迟；0 maker/0 taker 不代表没有 spread、冲击或排队成本。[28]
-- [Order Types & Matching](https://docs.lighter.xyz/trading/order-types-and-matching)：说明 market、limit、post-only、IOC、reduce-only、good-till-time 和 price-time priority。[62]
-- [Liquidations & LLP Insurance Fund](https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund)：用于理解清算和保险基金风险边界。[61]
-- [Fair Price Marking](https://docs.lighter.xyz/trading/fair-price-marking)：用于区分 mark price、index price 和清算/PnL 相关价格。[75]
-- [PnL and Total Account Value](https://docs.lighter.xyz/trading/pnl-and-total-account-value)：用于区分未实现 PnL、账户价值和可实现现金结果。[76]
-- [Multi-Asset Margin](https://docs.lighter.xyz/trading/multi-asset-margin)：用于补充保证金和账户风险检查。[77]
-- [Contract Specifications](https://docs.lighter.xyz/trading/contract-specifications)：用于核对合约参数和保证金语义。[72]
+### 课程背景
 
-### Lighter 官方 API
+- [链上套利残酷共学主页](https://intensivecolearn.ing/programs/b43d2e97-ed88-4ca3-b12f-7ef672b01205)
+  用于理解 21 天共学的范围和提交节奏。课程提纲不是交易规则，也不决定本仓库的毕业标准。
+- [ICL Agent API OpenAPI](https://intensivecolearn.ing/api/v1/openapi.json)
+  用于取得当前参与者有权访问的课程提交。原始群友内容不写入仓库，只保存去标识化研究摘要。
 
-- [Candles](https://apidocs.lighter.xyz/reference/candles)：K 线接口、时间周期和单次最多 500 根的限制。[47]
-- [Fundings](https://apidocs.lighter.xyz/reference/fundings)：funding 接口、1h/1d 周期和单次最多 750 条的限制。[48]
-- [Order Book Details](https://apidocs.lighter.xyz/reference/orderbookdetails)：市场详情端点。[16]
-- [Order Book Orders](https://apidocs.lighter.xyz/reference/orderbookorders)：盘口档位端点；用于目标数量走档，而不是仅使用中间价。[78]
-- [Trades](https://apidocs.lighter.xyz/reference/trades)：成交查询和过滤字段；账户相关查询可能需要认证。[79]
-- [Asset Details](https://apidocs.lighter.xyz/reference/assetdetails)：资产/市场详情字段。[80]
-- [Markets](https://apidocs.lighter.xyz/reference/markets)：市场查询入口。[81]
-- [Rate Limits](https://apidocs.lighter.xyz/docs/rate-limits)：REST/API 限流约束。[29]
-- [WebSocket Reference](https://apidocs.lighter.xyz/docs/websocket-reference)：实时订阅、保活和重连研究入口。[30]
+### Lighter 官方资料
 
-### 跨场所迁移的官方接口
+- [RWA 市场规格](https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications)
+  用于核对经济对象、oracle 和当前市场说明。页面明确参数可能变更；原油月份文字需要与实时响应和公告再次验证。
+- [RWA 定价机制](https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism)
+  用于实现外部价格失效后的内部价格、EMA 和来源切换状态。
+- [Funding](https://docs.lighter.xyz/trading/funding)
+  用于计算当前资金费公式、方向和支付价格；账户现金结果仍需账户记录验证。
+- [交易费用](https://docs.lighter.xyz/trading/trading-fees)
+  用于读取账户层级的费用和延迟；零显式费用不代表零买卖价差、冲击或等待成本。
+- [Order Books](https://apidocs.lighter.xyz/reference/orderbooks)
+  用于核对 symbol、market id、最小基础数量、最小报价金额与价格/数量精度；这些字段必须共同验证。
+- [WebSocket Reference](https://apidocs.lighter.xyz/docs/websocket-reference)
+  用于订单簿快照/增量、nonce 连续性、heartbeat 和重连测试。
+- [Order Book Orders](https://apidocs.lighter.xyz/reference/orderbookorders)
+  用于 REST 盘口快照和目标数量走档；返回没有足够事件时间信息，不能代替持续 WebSocket 采集。
+- [Rate Limits](https://apidocs.lighter.xyz/docs/rate-limits)
+  用于设置读取和交易请求上限、退避与恢复测试。
 
-- [Lighter orderBookOrders](https://apidocs.lighter.xyz/reference/orderbookorders)：盘口订单级视图，`market_id` + `limit`（1–250）必填。
-- [Lighter orderBooks](https://apidocs.lighter.xyz/reference/orderbooks)：市场规格（费用百分比、最小数量、小数位）。
-- [Binance USDⓈ-M Exchange Information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information)：交易规则、精度和限流字段。
-- [Binance USDⓈ-M Funding Rate History](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History)：公共 funding 历史接口。
-- [Binance USDⓈ-M Order Book](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Order-Book)：盘口快照接口。
-- [Hyperliquid Info Endpoint](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint)：公开市场信息、盘口、成交和 candle 查询入口。
-- [Hyperliquid WebSocket](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket)：实时订阅与重连练习入口。
+### Hyperliquid 与 trade.xyz 官方资料
 
-### 学习科学原始研究
+- [HIP-3 builder-deployed perpetuals](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals)
+  用于理解独立 DEX、部署者管理的市场定义和 oracle、隔离保证金及 HIP-3 费用差异。
+- [Hyperliquid Info API](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint)
+  用于获取 perp DEX 列表、instrument、L2、candle、funding 和持仓状态。
+- [Hyperliquid Perpetuals Info API](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals)
+  用于分别获取标准永续与指定 HIP-3 DEX 的 `metaAndAssetCtxs`；HIP-3 查询必须保留 DEX 命名空间。
+- [Hyperliquid Asset IDs](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/asset-ids)
+  用于按当前 `perpDexs` 顺序和 `index_in_meta` 计算 HIP-3 资产编号，并保留 `{dex}:{coin}` 完整名称。
+- [Hyperliquid 费用](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees)
+  用于按账户等级和 HIP-3 附加费用计算交易成本，不使用硬编码费率。
+- [Hyperliquid 订单错误](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/error-responses)
+  用于最小 `$10` 名义、保证金、reduce-only、流动性和持仓上限失败测试。
+- [trade.xyz 商品规格](https://docs.trade.xyz/asset-directory/commodities)
+  用于区分贵金属现货价格与能源商品期货价格，并核对外部交易时段。
+- [trade.xyz Specification Index](https://docs.trade.xyz/consolidated-resources/specification-index)
+  用于在同一张当前规格表中核对 GOLD、SILVER、CL 与 BRENTOIL 的单位、底层、时段、杠杆和价格发现边界。
+- [trade.xyz Oracle Price](https://docs.trade.xyz/perp-mechanics/oracle-price)
+  用于实现外部和内部价格状态及内部价格更新公式。
+- [trade.xyz External Price](https://docs.trade.xyz/perp-mechanics/external-price)
+  用于理解外部市场关闭后的固定外部价格、内部价格和 discovery bounds。
+- [trade.xyz Roll Schedules](https://docs.trade.xyz/consolidated-resources/roll-schedules)
+  用于原油等期货型候选的合约月份和展期权重。静态页面目前仍含旧月份，不能单独证明当前底层合约。
 
-- [Roediger & Karpicke, 2006](https://pubmed.ncbi.nlm.nih.gov/16507066/)：测试效应与延迟保持。
-- [Karpicke & Roediger, 2008](https://pubmed.ncbi.nlm.nih.gov/18276894/)：重复检索比单纯重复学习更能支持延迟回忆。
-- [Karpicke & Bauernschmidt, 2011](https://pubmed.ncbi.nlm.nih.gov/21574747/)：绝对间隔对重复检索保持的影响。
-- [Cepeda et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16719566/)：分布式练习的定量综述。
+### NautilusTrader 官方资料
 
-### 动态证据
+- [NautilusTrader PyPI](https://pypi.org/project/nautilus-trader/)
+  用于核验稳定版本、Python 版本范围和发布产物；课程固定精确版本，不使用未锁定的 nightly/develop wheel。
+- [Hyperliquid 集成](https://nautilustrader.io/docs/latest/integrations/hyperliquid/)
+  用于 HIP-3 instrument、L2、funding、订单、账户状态、重连和对账实现。
+- [Lighter 集成](https://nautilustrader.io/docs/latest/integrations/lighter/)
+  用于 L2、bar、mark/index/funding、订单和账户状态；先运行官方 data tester，再接入课程代码。
+- [Data](https://nautilustrader.io/docs/latest/concepts/data/)
+  用于 `ParquetDataCatalog`、自定义数据和历史/实时数据语义。
+- [Backtesting](https://nautilustrader.io/docs/latest/concepts/backtesting/)
+  用于确定性历史重放和避免未来数据进入 Strategy。
+- [Live trading](https://nautilustrader.io/docs/latest/concepts/live/)
+  用于实时节点、缓存、启动与持续对账、重连和恢复。
+- [Execution](https://nautilustrader.io/docs/latest/concepts/execution/)
+  用于订单事件、风险检查和 `ACTIVE/HALTED/REDUCING` 运行状态。
+- [AX Exchange 集成](https://nautilustrader.io/docs/latest/integrations/architect_ax/)
+  用于 Day21 后的第三场所迁移评估。它覆盖黄金、白银、能源和股票等 RWA 永续，但使用整数合约，个人生产账户存在准入限制；当前课程不接入。
 
-本仓库保存的动态快照只描述抓取时刻，不代表长期规则：
+### 开源实现
 
-- `lab/data/lighter_rwa_raw/WTI_candles_1h.json`
-- `lab/data/lighter_rwa_raw/BRENTOIL_candles_1h.json`
-- `lab/data/lighter_rwa_raw/WTI_candles_1d.json`
-- `lab/data/lighter_rwa_raw/BRENTOIL_candles_1d.json`
-- `lab/data/lighter_rwa_raw/WTI_fundings_1h.json`
-- `lab/data/lighter_rwa_raw/BRENTOIL_fundings_1h.json`
-- `lab/data/lighter_rwa_raw/145_orderBookDetails.json`
-- `lab/data/lighter_rwa_raw/159_orderBookDetails.json`
+- [NautilusTrader v1.231.0 Lighter adapter](https://github.com/nautechsystems/nautilus_trader/tree/v1.231.0/crates/adapters/lighter)
+  用于核验课程锁定版本中实际存在的 Lighter 数据与执行实现；开发分支示例不能替代稳定标签检查。
+- [NautilusTrader Hyperliquid data tester](https://github.com/nautechsystems/nautilus_trader/blob/v1.231.0/examples/live/hyperliquid/hyperliquid_data_tester.py)
+  用于建立只读数据 smoke test；课程不配置 execution client。
+- [Lighter 官方 Python SDK paper client](https://github.com/elliottech/lighter-python/tree/main/lighter/paper_client)
+  用于审查本地撮合、账户和风险模拟的边界；不直接复制为跨场所执行模型。
+- [Hummingbot cross-exchange market making](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/strategy/cross_exchange_market_making/cross_exchange_market_making.py)
+  用于参考成熟项目如何分离 maker 与 hedge 市场、订单追踪和未对冲风险；具体规则必须在本仓库用当前场所数据验证。
+- [Hyperliquid 官方 Python SDK](https://github.com/hyperliquid-dex/hyperliquid-python-sdk)
+  用于对照资产查询和请求编码；市场定义以 Info API 当前响应为准。
+- [LI.FI SDK](https://github.com/lifinance/sdk)
+  用于后续跨链 quote、transaction 和 status 的 dry-run 研究，不在当前 perp 主线中接入。
+
+### 统计研究原始资料
+
+- [Engle & Granger, 1987](https://doi.org/10.2307/1913236)
+  协整与误差修正的原始论文。用于理解检验假设，不用于直接宣称可交易收益。
+- [Gatev, Goetzmann & Rouwenhorst：Pairs Trading](https://www.nber.org/papers/w7032)
+  经典 pairs trading 研究。用于比较研究设计、组合形成期和交易期，不照搬阈值。
+- [White, 2000：Reality Check for Data Snooping](https://doi.org/10.1111/1468-0262.00152)
+  用于处理多次尝试后只报告最好结果的问题。
+- [Bailey et al.：Probability of Backtest Overfitting](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253)
+  用于理解短样本、多参数和模型选择带来的回测过拟合风险。
+
+### 学习方法原始资料
+
+- [Roediger & Karpicke, 2006](https://pubmed.ncbi.nlm.nih.gov/16507066/)
+  支持用延迟主动回忆检验保持，而不是把重复阅读产生的熟悉感当作掌握。
+- [Cepeda et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16719566/)
+  支持把关键概念分散到后续执行、统计和迁移任务中重复使用。
+
+## 社区经验
+
+- [共学课程群组](https://intensivecolearn.ing/programs/b43d2e97-ed88-4ca3-b12f-7ef672b01205)
+  用于收集其他学习者的失败经验、候选和实测问题。群友结论先记录为待验证假设，再用官方规则与可复现实验检查。
+- [NautilusTrader GitHub Discussions](https://github.com/nautechsystems/nautilus_trader/discussions)
+  用于确认适配器实践问题和运行经验；具体行为最终以当前版本代码、官方文档和本地测试为准。
+
+## 动态证据
+
+仓库中的 API 文件只描述抓取时刻：
+
 - `lab/data/lighter_rwa_capture_manifest.json`
-- `lab/data/lighter_rwa_data_audit.json`
+- `lab/data/day8_capture_manifest.json`
+- `lab/data/day9_raw/day9_capture_manifest.json`
+- `lab/data/day9_parameter_diff.json`
 
-## Wisdom
+后续 XAU/GOLD、XAG/SILVER 与 BTC/ETH 数据必须保存获取时间、参数、HTTP/WS 状态、原始引用和内容哈希。
 
-暂不把社群观点作为策略证据。若未来收集交易者执行经验，必须与官方规则和可复现实测分开记录。
+## 当前缺口
 
-## Gaps
-
-- 当前共同 1h 样本约 21 天，不足以证明长期协整；
-- 需要明确 candle close、index、mark、oracle freshness 的对应关系；
-- funding `value/rate/direction` 到个人账户现金账本的映射尚未验证；
-- 目标数量连续盘口、部分成交、退出滑点和异常恢复尚未完成；
-- 账户、地区、产品权限和保证金状态不是公开只读审计能够证明的；
-- 展期和底层市场关闭/恢复的完整历史状态仍可能未知。
-
-## 研究边界
-
-当前研究结论：关键历史、展期、资金费账本、目标数量退出和权限资料仍不完整，不能据此判断策略是否成立。
-
-未知字段不能默认为 0。本仓库只做只读研究和纸上验证，不连接私钥、不保存认证凭据、不发送真实订单。
-
-## Sources
-
-[16] https://apidocs.lighter.xyz/reference/orderbookdetails — Lighter API: Order Book Details
-[28] https://docs.lighter.xyz/trading/trading-fees — Lighter: Trading Fees
-[29] https://apidocs.lighter.xyz/docs/rate-limits — Lighter API: Rate Limits
-[30] https://apidocs.lighter.xyz/docs/websocket-reference — Lighter API: WebSocket
-[42] https://docs.lighter.xyz/trading/real-world-assets-rwas — Lighter Docs: Real World Assets (RWAs)
-[43] https://docs.lighter.xyz/trading/real-world-assets-rwas/rwa-pricing-mechanism — Lighter Docs: RWA Pricing Mechanism
-[44] https://docs.lighter.xyz/trading/real-world-assets-rwas/futures-contract-price-rolling-mechanism — Lighter Docs: Futures Contract Price Rolling Mechanism
-[45] https://docs.lighter.xyz/trading/real-world-assets-rwas/market-specifications — Lighter Docs: RWA Market Specifications
-[46] https://docs.lighter.xyz/trading/funding — Lighter Docs: Funding
-[47] https://apidocs.lighter.xyz/reference/candles — Lighter API: Candles
-[48] https://apidocs.lighter.xyz/reference/fundings — Lighter API: Fundings
-[61] https://docs.lighter.xyz/trading/liquidations-and-llp-insurance-fund — Lighter Docs: Liquidations and LLP Insurance Fund
-[62] https://docs.lighter.xyz/trading/order-types-and-matching — Lighter Docs: Order Types & Matching
-[72] https://docs.lighter.xyz/trading/contract-specifications — Lighter Docs: Contract Specifications
-[75] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Docs: Fair Price Marking
-[76] https://docs.lighter.xyz/trading/pnl-and-total-account-value — Lighter Docs: PnL and Total Account Value
-[77] https://docs.lighter.xyz/trading/multi-asset-margin — Lighter Docs: Multi-Asset Margin
-[78] https://apidocs.lighter.xyz/reference/orderbookorders — Lighter API: Order Book Orders
-[79] https://apidocs.lighter.xyz/reference/trades — Lighter API: Trades
-[80] https://apidocs.lighter.xyz/reference/assetdetails — Lighter API: Asset Details
-[81] https://apidocs.lighter.xyz/reference/markets — Lighter API: Markets
+- 已审查最新 40 条群友笔记并写入去标识化摘要；这是短时间便利样本，原始内容不保存，群友结论仍需独立复现。
+- Lighter 与 trade.xyz 的静态原油页面不足以证明当前合约月份和展期权重，原油候选暂不进入主研究。
+- 两个平台没有可直接取得的长周期历史 L2 数据；执行研究依赖从 Day 13 开始的自建采集。
+- 尚未验证当前账户费率、限流、保证金设置和真实 funding 账本。
+- 尚未完成 NautilusTrader 两个适配器在本仓库锁定版本上的数据、重连和状态恢复测试。

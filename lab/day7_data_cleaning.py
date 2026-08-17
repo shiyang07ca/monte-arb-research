@@ -448,20 +448,29 @@ def render_report(summary: dict[str, Any]) -> str:
         "- funding `value` / `direction` 仍未与账户 funding ledger 核验；清洗完成不等于 funding PnL 已验证。",
         "- 当前输出适合教学和可复现审计，不足以证明 WTI–BRENTOIL 策略成立或可交易。", "",
         "## 证据路径", "",
-        "- 原始输入：`lab/data/lighter_rwa_raw/`", "- 清洗脚本：`lab/day7_data_cleaning.py`", "- 清洗输出：`lab/data/lighter_rwa_clean_1h.csv`", "- 脱敏汇总：`lab/data/day7_cleaning_summary.json`", "- 测试：`lab/test_day7_data_cleaning.py`", "- 课程：`lessons/0006-day7-data-cleaning.html`", "",
+        "- 原始输入：`lab/data/lighter_rwa_raw/`", "- 清洗脚本：`lab/day7_data_cleaning.py`", "- 清洗输出：`lab/data/lighter_rwa_clean_1h.csv`", "- 脱敏汇总：`lab/data/day7_cleaning_summary.json`", "- 测试：`lab/test_day7_data_cleaning.py`", "",
         "## Primary source", "", "- [Lighter API candles](https://apidocs.lighter.xyz/reference/candles)", "- [Lighter API fundings](https://apidocs.lighter.xyz/reference/fundings)", "",
     ]
     return "\n".join(lines)
 
 
-def write_outputs(records: list[dict[str, str]], summary: dict[str, Any]) -> None:
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with CLEAN_CSV.open("w", newline="") as handle:
+def write_outputs(
+    records: list[dict[str, str]],
+    summary: dict[str, Any],
+    *,
+    clean_csv: Path = CLEAN_CSV,
+    summary_json: Path = SUMMARY_JSON,
+    report_md: Path = REPORT_MD,
+) -> None:
+    clean_csv.parent.mkdir(parents=True, exist_ok=True)
+    summary_json.parent.mkdir(parents=True, exist_ok=True)
+    report_md.parent.mkdir(parents=True, exist_ok=True)
+    with clean_csv.open("w", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
         writer.writeheader()
         writer.writerows(records)
-    SUMMARY_JSON.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
-    REPORT_MD.write_text(render_report(summary))
+    summary_json.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    report_md.write_text(render_report(summary))
 
 
 def main() -> int:
