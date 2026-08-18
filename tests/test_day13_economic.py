@@ -27,13 +27,14 @@ class Day13EconomicTests(unittest.TestCase):
         self.assertEqual(result.status, "not_comparable")
         self.assertIn("BENCHMARK_MISMATCH", result.reason_codes)
 
-    def test_current_wti_pair_remains_unknown_when_contract_year_is_not_explicit(
+    def test_current_wti_pair_remains_unknown_when_contract_reference_conflicts(
         self,
     ) -> None:
         result = assess_pair(self.by_symbol["WTI"], self.by_symbol["xyz:CL"])
 
         self.assertEqual(result.status, "unknown")
-        self.assertIn("CONTRACT_YEAR_UNKNOWN", result.reason_codes)
+        self.assertIn("CONTRACT_REFERENCE_STATUS_UNKNOWN", result.reason_codes)
+        self.assertNotIn("CONTRACT_YEAR_UNKNOWN", result.reason_codes)
         self.assertNotIn("UNIT_MISMATCH", result.reason_codes)
 
     def test_same_unit_does_not_override_different_benchmark(self) -> None:
@@ -46,6 +47,7 @@ class Day13EconomicTests(unittest.TestCase):
             settlement_currency="USDC",
             contract_month_code="U",
             contract_year="2026",
+            contract_reference_status="confirmed_at_observation",
             external_session="23x5",
             pricing_rule="futures_roll",
             evidence=("source-a",),
@@ -59,6 +61,7 @@ class Day13EconomicTests(unittest.TestCase):
             settlement_currency="USDC",
             contract_month_code="U",
             contract_year="2026",
+            contract_reference_status="confirmed_at_observation",
             external_session="23x5",
             pricing_rule="futures_roll",
             evidence=("source-b",),
@@ -90,10 +93,12 @@ class Day13EconomicTests(unittest.TestCase):
         self.assertEqual(internal.status, "internal")
         self.assertEqual(roll.status, "roll_transition")
 
-    def test_pair_is_comparable_only_after_all_required_fields_are_known(self) -> None:
+    def test_pair_is_comparable_only_after_contract_reference_is_confirmed(
+        self,
+    ) -> None:
         left = self.by_symbol["WTI"]
         right = self.by_symbol["xyz:CL"]
-        right_with_year = EconomicSpecification(
+        right_with_confirmed_reference = EconomicSpecification(
             identity=right.identity,
             asset_class=right.asset_class,
             benchmark=right.benchmark,
@@ -101,13 +106,14 @@ class Day13EconomicTests(unittest.TestCase):
             quote_currency=right.quote_currency,
             settlement_currency=right.settlement_currency,
             contract_month_code=right.contract_month_code,
-            contract_year="2026",
+            contract_year=right.contract_year,
+            contract_reference_status="confirmed_at_observation",
             external_session=right.external_session,
             pricing_rule=right.pricing_rule,
             evidence=right.evidence,
         )
 
-        result = assess_pair(left, right_with_year)
+        result = assess_pair(left, right_with_confirmed_reference)
 
         self.assertEqual(result.status, "comparable_definition")
         self.assertEqual(result.reason_codes, ())

@@ -12,11 +12,11 @@
       show(
         "map-output",
         `<table><thead><tr><th>配对</th><th>程序决定</th><th>原因</th></tr></thead><tbody>
-          <tr><td>WTI ↔ xyz:CL</td><td><code>unknown</code></td><td><code>CONTRACT_YEAR_UNKNOWN</code></td></tr>
-          <tr><td>BRENTOIL ↔ xyz:BRENTOIL</td><td><code>unknown</code></td><td><code>CONTRACT_YEAR_UNKNOWN</code></td></tr>
+          <tr><td>WTI ↔ xyz:CL</td><td><code>unknown</code></td><td><code>CONTRACT_REFERENCE_STATUS_UNKNOWN</code></td></tr>
+          <tr><td>BRENTOIL ↔ xyz:BRENTOIL</td><td><code>unknown</code></td><td><code>CONTRACT_REFERENCE_STATUS_UNKNOWN</code></td></tr>
           <tr><td>WTI ↔ xyz:BRENTOIL</td><td><code>not_comparable</code></td><td><code>BENCHMARK_MISMATCH</code></td></tr>
         </tbody></table>
-        <p>前两对不是“配对失败”，而是完整合约身份仍缺证据。第三对已有 WTI/Brent 基准冲突，明确不能配对。</p>`,
+        <p>前两对不是“配对失败”，而是官网静态规格与展期表冲突，观察时刻实际合约权重仍缺证据。第三对已有 WTI/Brent 基准冲突，明确不能配对。</p>`,
         true,
       );
     });

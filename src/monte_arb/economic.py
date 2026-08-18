@@ -18,6 +18,7 @@ class EconomicSpecification:
     settlement_currency: Optional[str]
     contract_month_code: Optional[str]
     contract_year: Optional[str]
+    contract_reference_status: Optional[str]
     external_session: Optional[str]
     pricing_rule: Optional[str]
     evidence: Tuple[str, ...]
@@ -32,6 +33,7 @@ class EconomicSpecification:
             "settlement_currency": self.settlement_currency,
             "contract_month_code": self.contract_month_code,
             "contract_year": self.contract_year,
+            "contract_reference_status": self.contract_reference_status,
             "external_session": self.external_session,
             "pricing_rule": self.pricing_rule,
             "evidence": list(self.evidence),
@@ -76,6 +78,11 @@ _REQUIRED_FIELDS = (
     ),
     ("contract_month_code", "CONTRACT_MONTH_UNKNOWN", "CONTRACT_MONTH_MISMATCH"),
     ("contract_year", "CONTRACT_YEAR_UNKNOWN", "CONTRACT_YEAR_MISMATCH"),
+    (
+        "contract_reference_status",
+        "CONTRACT_REFERENCE_STATUS_UNKNOWN",
+        "CONTRACT_REFERENCE_STATUS_MISMATCH",
+    ),
 )
 
 
@@ -163,6 +170,9 @@ def load_day13_specifications(payload: Any) -> Tuple[EconomicSpecification, ...]
                 settlement_currency=_optional_text(row, "settlement_currency"),
                 contract_month_code=_optional_text(row, "contract_month_code"),
                 contract_year=_optional_text(row, "contract_year"),
+                contract_reference_status=_optional_text(
+                    row, "contract_reference_status"
+                ),
                 external_session=_optional_text(row, "external_session"),
                 pricing_rule=_optional_text(row, "pricing_rule"),
                 evidence=tuple(evidence),

@@ -40,7 +40,7 @@
         <tr><td>trade.xyz <code>xyz:BRENTOIL</code></td><td>1 barrel Brent Crude</td><td>规格索引 <code>U6/USD</code>；roll 页示例 <code>V6 → X6</code></td><td>外部至周五 18:00 ET；17:00–18:00 ET 日维护</td></tr>
       </tbody>
     </table></div>
-    <div class="callout warn"><strong>先不要替官网消除矛盾：</strong>不同页面可能描述页面更新时刻、月初起始合约或展期示例。没有明确时间语义和完整年份前，程序应保留 <code>unknown</code>，而不是挑一个看起来顺眼的月份。</div>
+    <div class="callout warn"><strong>先不要替官网消除矛盾：</strong><code>Q6/U6/V6/X6</code> 已经分别表示 2026 年 8/9/10/11 月。真正的问题是静态规格表仍写 <code>Q6/U6</code>，而带日期的 8 月展期表写 <code>U6→V6 / V6→X6</code>。没有观察时刻的实际合约权重前，程序保留 <code>unknown</code>。</div>
   </section>
 
   <section class="card">
@@ -55,6 +55,7 @@
     settlement_currency,
     contract_month_code,
     contract_year,
+    contract_reference_status,  # 观察时刻是否确认
     external_session,
     pricing_rule,
     evidence,
@@ -96,7 +97,7 @@
   --output research/runs/day13-economic-map.json
 
 PYTHONPATH=src python3 -m unittest tests.test_day13_economic -v</code></pre>
-    <p>当前真实输出：两个同基准配对因完整合约年份证据不足保持 <code>unknown</code>；WTI 与 Brent 的交叉配对明确为 <code>not_comparable</code>；实时报价状态因尚未采集状态字段保持 <code>unknown</code>。</p>
+    <p>当前真实输出：两个同基准配对因静态规格与展期表冲突、且缺少观察时刻的实际合约权重而保持 <code>unknown</code>；WTI 与 Brent 的交叉配对明确为 <code>not_comparable</code>；实时报价状态因尚未采集状态字段保持 <code>unknown</code>。</p>
   </section>
 
   <section class="card">

@@ -29,7 +29,7 @@
         <li>资产类别与基准</li>
         <li>单位与乘数</li>
         <li>报价币与结算币</li>
-        <li>合约月份代码与年份</li>
+        <li>合约月份代码、年份与观察时刻实际权重</li>
         <li>外部时段与定价规则</li>
         <li>每个字段的证据来源</li>
       </ul>
@@ -59,8 +59,8 @@
     <table>
       <thead><tr><th>配对</th><th>当前决定</th><th>原因</th></tr></thead>
       <tbody>
-        <tr><td>WTI ↔ xyz:CL</td><td>unknown</td><td>完整合约年份/页面时间语义仍需核验</td></tr>
-        <tr><td>BRENTOIL ↔ xyz:BRENTOIL</td><td>unknown</td><td>完整合约年份/页面时间语义仍需核验</td></tr>
+        <tr><td>WTI ↔ xyz:CL</td><td>unknown</td><td>静态规格与展期表冲突，缺观察时刻实际权重</td></tr>
+        <tr><td>BRENTOIL ↔ xyz:BRENTOIL</td><td>unknown</td><td>静态规格与展期表冲突，缺观察时刻实际权重</td></tr>
         <tr><td>WTI ↔ xyz:BRENTOIL</td><td>not_comparable</td><td>WTI 与 Brent 基准不同</td></tr>
       </tbody>
     </table>

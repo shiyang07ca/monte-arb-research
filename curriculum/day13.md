@@ -23,13 +23,13 @@ Lighter 官方当前规格把 `WTI` 定义为 1 桶 WTI Light Sweet Crude Oil，
 
 Lighter 的当前 2026 年 8 月展期表又说明：`WTI` 在 `2026-08-07` 至 `2026-08-13` 从 `U6` 过渡到 `V6`；`BRENTOIL` 在同一日期范围从 `V6` 过渡到 `X6`。WTI 每天 17:30 ET 调整权重，Brent 每天 19:00 ET 调整权重。[2]
 
-trade.xyz 当前商品说明同样把 `WTIOIL (CL)` 定义为 1 桶 WTI，把 `BRENTOIL` 定义为 1 桶 Brent，并说明能源商品使用指定期货合约、在每月第 5–10 个工作日附近展期。[3] 当前规格索引显示 `WTIOIL` 的 underlying 为 `Q6/USD`，`BRENTOIL` 为 `U6/USD`；但该表没有在字段中明确写出合约年份，且官网不同页面的当前月份文字需要先解释时间含义，不能直接把 `U` 或 `V` 当作完整、永久合约身份。[4]
+trade.xyz 当前商品说明同样把 `WTIOIL (CL)` 定义为 1 桶 WTI，把 `BRENTOIL` 定义为 1 桶 Brent，并说明能源商品使用指定期货合约、在每月第 5–10 个工作日附近展期。[3] 当前规格索引显示 `WTIOIL` 为 `Q6/USD`、`BRENTOIL` 为 `U6/USD`；这里的 `Q/U/V/X` 是月份代码，尾数 `6` 表示 2026 年，所以并非“缺少年份”。真正的阻断是：同一官网的展期页又把 2026 年 8 月写成 WTI `U6 → V6`、Brent `V6 → X6`。静态规格表和带日期的展期表对“当前参考哪个合约”的文字冲突，而我们没有观察时刻的实际合约权重，因此不能自行选择其中一条。[4]
 
 因此当前最诚实的程序结果是：
 
 ```text
-WTI ↔ xyz:CL              unknown: CONTRACT_YEAR_UNKNOWN
-BRENTOIL ↔ xyz:BRENTOIL  unknown: CONTRACT_YEAR_UNKNOWN
+WTI ↔ xyz:CL              unknown: CONTRACT_REFERENCE_STATUS_UNKNOWN
+BRENTOIL ↔ xyz:BRENTOIL  unknown: CONTRACT_REFERENCE_STATUS_UNKNOWN
 WTI ↔ xyz:BRENTOIL       not_comparable: BENCHMARK_MISMATCH + CONTRACT_MONTH_MISMATCH
 ```
 
@@ -48,6 +48,7 @@ class EconomicSpecification:
     settlement_currency: str | None
     contract_month_code: str | None
     contract_year: str | None
+    contract_reference_status: str | None  # 观察时刻是否已确认实际合约/权重
     external_session: str | None
     pricing_rule: str | None
     evidence: tuple[str, ...]
@@ -106,7 +107,7 @@ PYTHONPATH=src python3 -m monte_arb.cli map-economics \
 PYTHONPATH=src python3 -m unittest tests.test_day13_economic -v
 ```
 
-测试覆盖：不同原油基准不能因单位相同而配对；缺少年份保持未知；时钟不能替代价格源证据；external、internal 和 roll transition 分开分类。
+测试覆盖：不同原油基准不能因单位相同而配对；静态规格与展期表冲突且缺少观察时刻实际权重时保持未知；时钟不能替代价格源证据；external、internal 和 roll transition 分开分类。
 
 ## 今天的实质验收
 
