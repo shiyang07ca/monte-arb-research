@@ -1,0 +1,33 @@
+{
+  "schema": "icl-day13-checkin-evidence-v1",
+  "credential": "ICL_ACCESS_KEY present; value not recorded",
+  "program_preflight": {
+    "http_status": 200,
+    "response_sha256": "46977abba2f7a2e0f70df267bcd871e6adb419a673cb24394ab7b461650fc0f5",
+    "program_id": "b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+    "lifecycle_status": "ongoing",
+    "viewer_application_status": "approved"
+  },
+  "before_write": {
+    "http_status": 200,
+    "response_sha256": "a6e411f07bfbf3efac86386d2306cdb2447b106ba32e6cf4a43ef71d9b79f368",
+    "record_count": 11,
+    "today_record_present": false
+  },
+  "create": {
+    "http_status": 201,
+    "response_sha256": "3abaeb794ab29526c5aa6f223195889274b7f3dfd69b55feb1436b283aafe145",
+    "checkin_id": "cmsxzl0et03fzps292fgjdhb9",
+    "day_key": "2026-08-18",
+    "created_at": "2026-08-18T01:31:06.197Z"
+  },
+  "readback": {
+    "http_status": 200,
+    "response_sha256": "2fb08691bcff25778001c2275f94ab12e3dab35ead8c14a0d2f5a3b3dfebb618",
+    "record_count": 12,
+    "created_id_found": true,
+    "content_sha256": "b6cb119c36259a655d461edd16c2abc2b737c40758e4fc47d2f7a3dae67b90ae",
+    "content_matches_submitted_after_trailing_newline_normalization": true
+  },
+  "research_status": "Unknown / exclude; check-in success is not trading readiness"
+}
