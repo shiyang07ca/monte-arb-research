@@ -123,6 +123,25 @@ PYTHONPATH=src python3 -m unittest tests.test_day13_economic -v</code></pre>
   </section>
 
   <section class="card">
+    <div class="eyebrow">结算与异常状态</div>
+    <h2>同一个对象，也可能没有可用报价样本</h2>
+    <p>这四个研究对象是永续合约。底层月度期货的到期由参考价格展期处理，不等于永续合约在该月交割。异常状态改变的是“此刻报价是否可用”，不是把 WTI 变成 Brent。</p>
+    <div class="grid">
+      <div class="card half"><strong>立即排除当前样本</strong><ul><li>任一边 external oracle stale 或正切换内部定价</li><li>展期权重未知或不同</li><li>停市、空盘口或单边盘口</li><li>清算压力下混用 mark、oracle 与可成交价</li></ul></div>
+      <div class="card half"><strong>保持两层结论</strong><pre><code>economic_object = same | different | unknown
+quote_sample = eligible | exclude | unknown</code></pre><p><code>economic_object = same</code> 绝不自动推出 <code>quote_sample = eligible</code>。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">学习验收完成</div>
+    <h2>你已经通过综合迁移</h2>
+    <pre><code>economic_object = same
+quote_sample = 不可用，因为 oracle_state 不同</code></pre>
+    <p>该回答证明你能把静态经济对象与动态报价状态分开。Day 13 学习完成；研究映射仍为 <code>unknown / exclude</code>，不代表策略可交易。</p>
+  </section>
+
+  <section class="card">
     <h2>今天完成到哪里</h2>
     <p>完成本页后，你需要能说清：同一个单位为什么仍不足以配对；`unknown` 与 `not_comparable` 有什么区别；外部休市时为什么盘口价差不能直接解释成相对价值。今天不进入费用、资金费或 PnL。</p>
     <p>优先一手资料：

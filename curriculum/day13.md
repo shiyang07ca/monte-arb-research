@@ -1,6 +1,6 @@
 # Day13：经济对象与 RWA 价格状态
 
-> 状态：进行中
+> 状态：已完成（学习掌握）；研究映射仍为 `unknown`
 >
 > 学习时间：30–45 分钟；助手整理来源、实现和测试不占用户学习时间
 >
@@ -93,6 +93,20 @@ ObservationState(
 
 只知道“现在是 17:30 ET”但不知道 oracle 是否 fresh，结果必须是 `unknown`，不能默认 external 或 internal。
 
+## 结算与异常状态：不改变经济对象，但会阻断报价样本
+
+这四个产品都是永续合约，不能把底层月度期货的到期理解成永续合约自身到期交割；期货到期由参考价格的展期机制处理。Hyperliquid 的永续合约没有到期日，并以 USDC 作为保证金；HIP-3 的结算功能必须在部署时单独启用，当前证据没有表明 `xyz:CL` 或 `xyz:BRENTOIL` 是等待结算的到期合约。[8]
+
+异常市场状态只决定“当前样本能否使用”，不把 WTI 变成 Brent，也不把 `same` 自动改成 `different`。以下任何一项发生时，样本都应排除：
+
+- 外部 oracle stale，任一场所已经切换或正在切换到内部价格；
+- 展期权重未知，或两边权重不同；
+- 市场暂停、订单簿空缺或单边；
+- mark price、oracle price 与可成交价的用途混淆；
+- 清算或强平压力使 mark price 与订单簿成交价不能代表同一种观察量。
+
+Lighter 的 mark price 用于决定是否触发清算；trade.xyz 的 mark price用于保证金、清算、触发器和未实现盈亏，并由 oracle、相对 oracle 的中间价 EMA、盘口/末笔成交中位数组成。因此 Day13 的经济对象映射比较 underlying/oracle 定义；后续执行研究比较可成交 bid/ask，不能拿某一边 mark price 与另一边成交价直接构造价差。[9][10]
+
 ## 可运行结果
 
 ```bash
@@ -142,6 +156,20 @@ trade.xyz xyz:CL：外部市场处于 17:00–18:00 ET 日维护窗口
 6. [trade.xyz Oracle Price](https://docs.trade.xyz/perp-mechanics/oracle-price)
 7. [trade.xyz External Price](https://docs.trade.xyz/perp-mechanics/external-price)
 8. [Hyperliquid HIP-3](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals)
+9. [trade.xyz Mark Price](https://docs.trade.xyz/perp-mechanics/mark-price) 与 [Lighter Fair Price Marking](https://docs.lighter.xyz/trading/fair-price-marking)
+
+## 学习验收结果
+
+用户完成了一个同时包含静态定义和动态价格状态的综合迁移：
+
+```text
+economic_object = same
+quote_sample = 不可用，因为 oracle_state 不同
+```
+
+该回答证明用户能把“经济对象相同”与“当前报价样本可用”分开判断。此前对月份冲突的 `unknown` 判断也正确；需要修正的仅是一次表述：决定 `different` 的是观察时点生效内容不同，而不是两条规则的起始生效时间不同。
+
+学习内容至此完成，不再追加浅层选择题。当前研究结果仍为 `unknown / exclude`，因为尚未取得两边观察时刻实际合约权重和 external/internal 状态；Day13 完成不表示策略可交易。
 
 ## Sources
 
@@ -152,3 +180,6 @@ trade.xyz xyz:CL：外部市场处于 17:00–18:00 ET 日维护窗口
 [5] https://mainnet.zklighter.elliot.ai/api/v1/orderBooks — Lighter Order Books API (live endpoint)
 [6] https://apidocs.lighter.xyz/reference/orderbookorders — Lighter Order Book Orders API
 [7] https://mainnet.zklighter.elliot.ai/api/v1/orderBookOrders — Lighter Order Book Orders API (live endpoint)
+[8] https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals — Hyperliquid HIP-3 Builder-deployed Perpetuals
+[9] https://docs.trade.xyz/perp-mechanics/mark-price — trade.xyz Mark Price
+[10] https://docs.lighter.xyz/trading/fair-price-marking — Lighter Fair Price Marking

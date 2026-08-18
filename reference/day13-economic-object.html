@@ -66,6 +66,12 @@
     </table>
   </section>
   <section class="card">
+    <h2>异常状态的边界</h2>
+    <pre><code>economic_object = same | different | unknown
+quote_sample = eligible | exclude | unknown</code></pre>
+    <p>永续合约自身不因底层月度期货到期而交割；参考价通过展期切换。oracle stale、内部定价、权重未知、停市、空/单边盘口、清算压力，以及混用 mark/oracle/成交价，都应排除当前样本，但不自动改变经济对象。</p>
+  </section>
+  <section class="card">
     <h2>禁止的捷径</h2>
     <ul>
       <li>不能按 symbol 相似度自动配对。</li>
