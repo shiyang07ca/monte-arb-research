@@ -1,0 +1,180 @@
+{
+  "schema": "day14-synchronized-quote-smoke-v1",
+  "captured_at": "2026-08-18T01:38:35.900211Z",
+  "read_only": true,
+  "execution_client_present": false,
+  "attempt": {
+    "attempt_id": "day14-1787017114770993000",
+    "started_at": "2026-08-18T01:38:34.771001+00:00",
+    "observations": [
+      {
+        "identity": {
+          "venue": "lighter",
+          "product_type": "perp",
+          "venue_namespace": "default",
+          "symbol": "WTI",
+          "local_id": "145"
+        },
+        "request_started_ns": 95786291,
+        "response_received_ns": 1219821791,
+        "source_time_ms": null,
+        "best_bid": "84.056",
+        "best_ask": "84.070",
+        "bid_size": "16.066",
+        "ask_size": "91.285",
+        "raw_sha256": "9f3b1141625d5d650ed64637795d8b890ccb8d9598ad8e140004640b8e22d3d6"
+      },
+      {
+        "identity": {
+          "venue": "lighter",
+          "product_type": "perp",
+          "venue_namespace": "default",
+          "symbol": "BRENTOIL",
+          "local_id": "159"
+        },
+        "request_started_ns": 96002916,
+        "response_received_ns": 1202532625,
+        "source_time_ms": null,
+        "best_bid": "89.20",
+        "best_ask": "89.22",
+        "bid_size": "2.1792",
+        "ask_size": "85.7387",
+        "raw_sha256": "c63f2b034d2970234c05fe25624465c8aa8f5624a85a140f5b177c4e2c973bea"
+      },
+      {
+        "identity": {
+          "venue": "hyperliquid",
+          "product_type": "perp",
+          "venue_namespace": "xyz",
+          "symbol": "xyz:CL",
+          "local_id": "110029"
+        },
+        "request_started_ns": 96205875,
+        "response_received_ns": 688614750,
+        "source_time_ms": 1787017114726,
+        "best_bid": "84.075",
+        "best_ask": "84.076",
+        "bid_size": "0.238",
+        "ask_size": "138.723",
+        "raw_sha256": "13603f3941385dd77e716776dbd6afa2eebf5c8e1eb3ecce54af8f666cf33c94"
+      },
+      {
+        "identity": {
+          "venue": "hyperliquid",
+          "product_type": "perp",
+          "venue_namespace": "xyz",
+          "symbol": "xyz:BRENTOIL",
+          "local_id": "110049"
+        },
+        "request_started_ns": 96505375,
+        "response_received_ns": 701495708,
+        "source_time_ms": 1787017114726,
+        "best_bid": "89.236",
+        "best_ask": "89.239",
+        "bid_size": "233.93",
+        "ask_size": "33.87",
+        "raw_sha256": "139fb3abd77340e46f34ef84567cc4bfe10a66388863d7a60924780de6cc2181"
+      }
+    ],
+    "errors": []
+  },
+  "snapshot": {
+    "attempt_id": "day14-1787017114770993000",
+    "capture_span_ms": 1124.0355,
+    "observations": [
+      {
+        "identity": {
+          "venue": "lighter",
+          "product_type": "perp",
+          "venue_namespace": "default",
+          "symbol": "WTI",
+          "local_id": "145"
+        },
+        "request_started_ns": 95786291,
+        "response_received_ns": 1219821791,
+        "source_time_ms": null,
+        "best_bid": "84.056",
+        "best_ask": "84.070",
+        "bid_size": "16.066",
+        "ask_size": "91.285",
+        "raw_sha256": "9f3b1141625d5d650ed64637795d8b890ccb8d9598ad8e140004640b8e22d3d6"
+      },
+      {
+        "identity": {
+          "venue": "lighter",
+          "product_type": "perp",
+          "venue_namespace": "default",
+          "symbol": "BRENTOIL",
+          "local_id": "159"
+        },
+        "request_started_ns": 96002916,
+        "response_received_ns": 1202532625,
+        "source_time_ms": null,
+        "best_bid": "89.20",
+        "best_ask": "89.22",
+        "bid_size": "2.1792",
+        "ask_size": "85.7387",
+        "raw_sha256": "c63f2b034d2970234c05fe25624465c8aa8f5624a85a140f5b177c4e2c973bea"
+      },
+      {
+        "identity": {
+          "venue": "hyperliquid",
+          "product_type": "perp",
+          "venue_namespace": "xyz",
+          "symbol": "xyz:CL",
+          "local_id": "110029"
+        },
+        "request_started_ns": 96205875,
+        "response_received_ns": 688614750,
+        "source_time_ms": 1787017114726,
+        "best_bid": "84.075",
+        "best_ask": "84.076",
+        "bid_size": "0.238",
+        "ask_size": "138.723",
+        "raw_sha256": "13603f3941385dd77e716776dbd6afa2eebf5c8e1eb3ecce54af8f666cf33c94"
+      },
+      {
+        "identity": {
+          "venue": "hyperliquid",
+          "product_type": "perp",
+          "venue_namespace": "xyz",
+          "symbol": "xyz:BRENTOIL",
+          "local_id": "110049"
+        },
+        "request_started_ns": 96505375,
+        "response_received_ns": 701495708,
+        "source_time_ms": 1787017114726,
+        "best_bid": "89.236",
+        "best_ask": "89.239",
+        "bid_size": "233.93",
+        "ask_size": "33.87",
+        "raw_sha256": "139fb3abd77340e46f34ef84567cc4bfe10a66388863d7a60924780de6cc2181"
+      }
+    ]
+  },
+  "pair_decisions": [
+    {
+      "pair": "WTI_XYZ_CL",
+      "status": "exclude",
+      "reason_codes": [
+        "CONTRACT_WEIGHT_UNKNOWN",
+        "ECONOMIC_MAPPING_UNKNOWN",
+        "ORACLE_STATE_UNKNOWN",
+        "SOURCE_TIME_NOT_COMPARABLE"
+      ],
+      "receive_skew_ms": 531.207041
+    },
+    {
+      "pair": "BRENTOIL_XYZ_BRENTOIL",
+      "status": "exclude",
+      "reason_codes": [
+        "CONTRACT_WEIGHT_UNKNOWN",
+        "ECONOMIC_MAPPING_UNKNOWN",
+        "ORACLE_STATE_UNKNOWN",
+        "SOURCE_TIME_NOT_COMPARABLE"
+      ],
+      "receive_skew_ms": 501.036917
+    }
+  ],
+  "boundary": "Book snapshots prove current executable top-of-book observations only. They do not prove matching contract weights or oracle source state, and no spread PnL is calculated."
+}

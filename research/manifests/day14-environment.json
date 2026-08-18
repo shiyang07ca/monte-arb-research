@@ -1,0 +1,22 @@
+{
+  "schema": "day14-environment-v1",
+  "captured_at": "2026-08-18T01:38:35.900211Z",
+  "runtime_used_by_verified_commands": {
+    "python": "3.9.6",
+    "os": "macOS 15.6",
+    "kernel": "Darwin 24.6.0 arm64",
+    "ruff": "0.15.12",
+    "node": "25.1.0",
+    "git": "2.39.5 (Apple Git-154)"
+  },
+  "dependency_profile": "stdlib-only collector; no account or execution SDK",
+  "execution_client_present": false,
+  "account_credentials_required": false,
+  "nautilustrader_decision": "deferred; Day14 first proves the data and time semantics with public endpoints before adding an event engine",
+  "limitations": [
+    "This is a local one-attempt REST smoke capture, not a 3-7 day server collector.",
+    "Lighter orderBookOrders has no exchange source timestamp in the observed response.",
+    "REST completion time is not simultaneous market time.",
+    "Contract weights and external/internal oracle states are not exposed by these book responses."
+  ]
+}

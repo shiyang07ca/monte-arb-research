@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 14 参考卡 · 同步报价时间</title><link rel="stylesheet" href="../assets/course.css"></head>
+<body>
+<header><div class="eyebrow">Reference · Day 14</div><h1>同步报价时间与准入</h1><p class="lede">“同一轮请求”只是一种采集组织方式，不自动等于同一市场时刻。</p></header>
+<main>
+  <section class="card"><h2>三种时间</h2><table><thead><tr><th>字段</th><th>含义</th><th>可以比较什么</th></tr></thead><tbody><tr><td><code>request_started_ns</code></td><td>本机开始发请求</td><td>采集窗口起点</td></tr><tr><td><code>response_received_ns</code></td><td>本机完整收到响应</td><td>同进程接收先后与偏差</td></tr><tr><td><code>source_time_ms</code></td><td>交易所快照/事件时间</td><td>只有两边都提供且语义一致时才跨源比较</td></tr></tbody></table></section>
+  <section class="card"><h2>本轮事实</h2><pre><code>4/4 双边盘口
+0 请求错误
+capture_span = 1124.0355 ms
+Hyperliquid source_time = present
+Lighter source_time = None</code></pre><p><code>capture_span</code> 是最早请求开始到最晚响应完成，不是共同市场时间。</p></section>
+  <section class="card"><h2>准入顺序</h2><pre><code>盘口有效？
+→ economic_object == same？
+→ contract weights matched？
+→ oracle states known and equal？
+→ receive skew within limit？
+→ eligible
+
+任何关键未知/冲突 → exclude</code></pre></section>
+  <section class="card"><h2>保留原始观察</h2><ul><li>原始观察保存身份、三种时间、bid/ask、数量和原始哈希。</li><li>缺失时间保留 <code>None</code>，不得用接收时间代填。</li><li><code>exclude</code> 是派生决定，不删除原始数据。</li><li>以后取得合约权重和 oracle 状态后，可以重算准入。</li></ul></section>
+  <section class="card"><h2>当前决定</h2><pre><code>WTI ↔ xyz:CL = exclude
+BRENTOIL ↔ xyz:BRENTOIL = exclude
+
+reasons:
+ECONOMIC_MAPPING_UNKNOWN
+CONTRACT_WEIGHT_UNKNOWN
+ORACLE_STATE_UNKNOWN
+SOURCE_TIME_NOT_COMPARABLE</code></pre><p>盘口接近不能覆盖这些阻断项。</p></section>
+</main>
+<footer><a href="../lessons/0010-day14-synchronized-quotes.html">返回 Day 14 互动课程</a></footer>
+</body></html>

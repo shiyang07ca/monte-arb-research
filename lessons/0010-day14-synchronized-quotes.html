@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 14 · 同一采集轮次不等于同一市场时刻</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Monte Arb Research · Day 14</div>
+  <h1>同一采集轮次不等于同一市场时刻</h1>
+  <p class="lede">真实并发读取 Lighter 与 Hyperliquid `xyz` 的四个原油盘口，分清请求开始、本机接收和交易所来源时间，再决定一条报价样本能否进入研究。</p>
+  <div class="meta"><span class="pill">30–45 分钟</span><span class="pill">真实只读采集</span><span class="pill">四个原油市场</span><span class="pill">不算利润、不下单</span></div>
+</header>
+<main>
+  <section class="card">
+    <h2>课程位置</h2>
+    <div class="grid">
+      <div class="card third"><div class="eyebrow">当前目标</div><p>证明一次采集到底记录了什么时间，而不是看到四个价格就称为同步。</p></div>
+      <div class="card third"><div class="eyebrow">当前进度</div><p>Day 12 已确定身份；Day 13 已拆分经济对象与报价状态，但跨场映射仍 unknown。</p></div>
+      <div class="card third"><div class="eyebrow">后续规划</div><p>Day 15 继续处理顺序、缺口和过期；证据完整后才进入可成交价差。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">当前真实现象</div>
+    <h2>四个请求并发完成，跨度仍超过一秒</h2>
+    <p>采集器同时启动四个公开 REST 请求，得到 4/4 双边盘口，0 个请求错误。点击查看真实派生观察；页面没有伪造“同步”标签。</p>
+    <button id="show-capture">显示真实采集</button>
+    <div id="capture-output" class="response">等待显示。</div>
+    <div class="callout warn"><strong>观察：</strong>Hyperliquid 返回毫秒级 <code>time</code>；Lighter 当前 <code>orderBookOrders</code> 响应没有盘口快照来源时间。两者不能直接在 source-time 轴上比较。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">时间语义</div>
+    <h2>三种时间分别回答三个问题</h2>
+    <div class="controls">
+      <select id="time-field">
+        <option value="request">请求何时开始？</option>
+        <option value="receive">本机何时收完响应？</option>
+        <option value="source">交易所认为快照是什么时间？</option>
+      </select>
+      <button id="classify-time">解释字段</button>
+    </div>
+    <div id="time-output" class="response">选择一个问题。</div>
+    <pre><code>capture_span = max(response_received_ns) - min(request_started_ns)</code></pre>
+    <p><code>capture_span</code> 是采集轮次宽度，不是四个市场的共同事件时间。不能把本机时间和交易所时间相减。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">关键代码</div>
+    <h2>原始观察保留缺失，不自行补值</h2>
+    <pre><code>QuoteObservation(
+    identity,
+    request_started_ns,
+    response_received_ns,
+    source_time_ms,  # Lighter 本轮为 None
+    best_bid,
+    best_ask,
+    bid_size,
+    ask_size,
+    raw_sha256,
+)</code></pre>
+    <p>派生规则可以后来修改；原始观察不能被当前规则污染。缺少来源时间就保存 <code>None</code>，而不是填入接收时间。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">准入演示</div>
+    <h2>更小的接收偏差不能补出缺失规则</h2>
+    <div class="controls">
+      <label>经济映射<select id="economic"><option value="unknown">unknown</option><option value="same">same</option></select></label>
+      <label>合约权重<select id="weights"><option value="unknown">unknown</option><option value="matched">matched</option></select></label>
+      <label>左侧 oracle<select id="oracle-left"><option value="unknown">unknown</option><option value="external">external</option><option value="internal">internal</option></select></label>
+      <label>右侧 oracle<select id="oracle-right"><option value="unknown">unknown</option><option value="external">external</option><option value="internal">internal</option></select></label>
+      <button id="run-admission">运行准入</button>
+    </div>
+    <div id="admission-output" class="response">默认值对应本轮真实证据边界。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">可运行仓库</div>
+    <h2>一次真实冒烟采集已经执行</h2>
+    <pre><code>PYTHONPATH=src python3 -m monte_arb.day14_collector \
+  --output research/runs/day14-smoke-test.json \
+  --raw-output research/raw/day14/attempts.jsonl.gz
+
+PYTHONPATH=src python3 -m unittest tests.test_day14_synchronized_quotes -v</code></pre>
+    <p>报告明确写入 <code>read_only=true</code>、<code>execution_client_present=false</code>。原始 gzip JSONL 只保存在本机，不进入 Git；仓库保存配置、派生报告和测试。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">一次综合迁移</div>
+    <h2>如果下一轮接收偏差降到 20ms 呢？</h2>
+    <div class="scenario">
+      <p>假设下一轮 Lighter WTI 与 `xyz:CL` 的本机接收时间只差 20ms，但：</p>
+      <ul><li>经济映射仍为 unknown；</li><li>实际合约权重仍未知；</li><li>oracle external/internal 状态仍未知。</li></ul>
+      <div class="controls">
+        <select id="transfer-answer"><option value="">给出结论</option><option value="eligible">eligible：20ms 足够接近</option><option value="exclude">exclude：时间更近没有补齐规则状态</option></select>
+        <button id="check-transfer">检查</button>
+      </div>
+      <div id="transfer-feedback" class="response">这是一道综合判断，不需要再逐项答题。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>今天的边界</h2>
+    <p>今天是本机 REST 冒烟采集，不是已完成的东京服务器 3–7 天采集。没有费用、资金费、滑点或 PnL，没有账户凭据和执行客户端。你完成综合迁移后，Day 14 的理论部分结束；连续采集、重启、轮转与缺口处理进入后续工程单元。</p>
+    <p>一手资料：<a href="https://apidocs.lighter.xyz/reference/orderbookorders">Lighter orderBookOrders</a> · <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals">Hyperliquid Perpetuals API</a></p>
+  </section>
+</main>
+<footer><a href="../lessons/0009-day13-economic-object.html">上一课：Day 13</a> · <a href="../reference/day14-synchronized-quotes.html">Day 14 参考卡</a></footer>
+<script src="../assets/day14-synchronized-quotes.js"></script>
+</body>
+</html>

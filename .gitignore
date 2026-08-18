@@ -26,3 +26,6 @@ resource/2084604766714261729/
 resource/2085022891339554855/
 resource/2085547569577627715/
 resource/2085549944770031764/
+
+# Day14 raw captures are append-only local evidence; commit manifests and derived reports only.
+research/raw/day14/

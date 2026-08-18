@@ -65,6 +65,8 @@ button { border: 0; border-radius: 8px; padding: 10px 14px; color: white; backgr
 button.secondary { color: var(--ink); background: #e9e5dc; }
 button:hover { filter: brightness(.96); }
 .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0; }
+.controls label { display: grid; gap: 5px; color: var(--muted); font-size: .84rem; }
+.controls select { min-height: 40px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); }
 .scenario { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: white; }
 .response { margin-top: 12px; min-height: 58px; padding: 12px; border-radius: 8px; background: #f0eee8; }
 .response.good { background: var(--ok-soft); }
