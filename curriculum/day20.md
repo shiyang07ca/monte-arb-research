@@ -1,56 +1,50 @@
-# Day20：实时模拟与故障恢复
+# Day20：实时影子研究与机会雷达
 
-> 状态：待学习
+> 状态：待实现
 >
-> 时间：60–90 分钟监督运行；采集器继续后台运行
->
-> 当日成果：真实行情、本地模拟成交、运行指标和四类故障复盘。
+> 里程碑允许跨多个工作日
 
-## 真实问题
+## 目标
 
-历史重放能够完成，不代表实时系统能处理断连、过期行情、坏快照和进程重启。无法解释本地仓位或现金差异时，系统必须停止，而不是静默继续。
+让同一个工作台在真实行情中持续推荐候选并做本地纸上运行，同时用机会雷达低成本探索新 venue、RWA/TradeFi、funding 和链上方向。
 
-## 必须理解
+## 工作台新增能力
 
-- 实时模拟使用真实行情，但所有订单只进入本地执行模型。
-- 当前市场状态、盘口年龄、未对冲名义和净现金组成必须随时可见。
-- 重启后状态从持久事件重建，并与模拟账户摘要比较。
-- 自动恢复只用于结果明确的情况；歧义状态进入停止。
+- 实时只读扫描、候选刷新和本地 paper；
+- 数据延迟、盘口年龄、断连、任务和存储健康；
+- 历史研究逻辑与实时逻辑复用；
+- 工作台重启后恢复候选与实验状态；
+- RadarLead：数据入口、产品语义、限制、异象、下一验证和升级状态；
+- 新方向探针不需要 execution client 或私钥。
 
-## 助手实现
+## 第一批雷达
 
-- 使用 NautilusTrader 实时数据客户端运行 Day19 的同一策略类。
-- 所有订单路由到本地模拟执行，不注册场所执行客户端。
-- 命令行状态显示数据延迟、盘口年龄、候选状态、模拟订单、仓位、剩余敞口和现金组成。
-- 注入断网、过期行情、坏快照和进程重启。
-- 使用账户密钥的独立只读进程核验费率、余额、持仓和资金费记录；输出脱敏。
+- 全部 Hyperliquid HIP-3 RWA；
+- dYdX perpetuals；
+- Architect/AX RWA marketdata；
+- Ostium/Avantis RWA；
+- CEX–DEX funding；
+- Aave/Morpho 借贷与清算；
+- AMM/聚合器跨池 quote。
 
-## 用户任务
+依据：`research/design/opportunity-radar-primary-sources.md`。
 
-1. 监督运行前写出四类故障各自预期的状态。
-2. 审查停止条件和状态恢复函数。
-3. 修改一个过期或停止阈值，预测告警和模拟订单数量变化。
-4. 根据日志定位一个重启后重复处理事件的故障。
+## 用户研究动作
 
-## 通过条件
+用户从主工作台候选和雷达线索中选择一个方向，判断：
 
-- 连续监督运行至少 60 分钟。
-- 四类故障均有可复现输入、预期状态和实际结果。
-- 无法解释的仓位或现金差异进入停止状态。
-- 停止后不产生新模拟开仓。
-- 代码、配置和日志中没有密钥，也没有真实订单路径。
+- 现象是否值得研究；
+- 下一项最低成本验证是什么；
+- 正式适配器能带来什么新能力；
+- 数据、账户、地域、资金或机制限制是否值得维护成本。
 
-## 保存证据
+Agent 执行低成本探针或实现最小适配，用户解释是否升级、继续观察或暂缓。
 
-```text
-research/manifests/day20-shadow.json
-research/runs/day20-metrics.jsonl
-research/runs/day20-faults.md
-research/decisions/day20-operational-status.md
-```
+## 完成条件
 
-## 一手资料
-
-- [NautilusTrader Live Trading](https://nautilustrader.io/docs/latest/concepts/live/)
-- [NautilusTrader Lighter](https://nautilustrader.io/docs/latest/integrations/lighter/)
-- [NautilusTrader Hyperliquid](https://nautilustrader.io/docs/latest/integrations/hyperliquid/)
+- 实时 paper 与历史研究调用同一核心逻辑；
+- 系统健康和数据中断可见；
+- 停止状态不产生新 paper 开仓；
+- 至少一个新方向完成一手资料、公开数据和异象核对；
+- 用户作出正式接入/继续雷达/暂缓决定并解释成本收益；
+- 没有真实订单路径。
