@@ -24,6 +24,7 @@ from .adapters import (
 )
 from .market import CatalogMarket, MarketIdentity, classify_book
 from .oracle_consistency import detect_funding_source_mismatch
+from .stale_quote import detect_stale_quote_codes
 
 WORKBENCH_VERSION = "day14-workbench-v0"
 SCHEMA = "day14-candidate-snapshot-v1"
@@ -336,6 +337,8 @@ def _candidate_from_pair(
     pair: Tuple[CatalogMarket, CatalogMarket, str, str, str],
     left_item: SnapshotItem,
     right_item: SnapshotItem,
+    *,
+    observed_at: Optional[str] = None,
 ) -> Candidate:
     _, _, pair_name, _, _ = pair
     (
@@ -381,6 +384,13 @@ def _candidate_from_pair(
         reasons.append("REFERENCE_DISLOCATION")
     if "BOOK_INCOMPLETE" in issues:
         reasons.append("DATA_QUALITY_ISSUE")
+    stale_codes = detect_stale_quote_codes(
+        left_item,
+        right_item,
+        observed_at=_parse_observed_at(observed_at),
+    )
+    issues.extend(stale_codes)
+    issues = sorted(set(issues))
     trade_rank = max(0.0, 1000.0 - max(spread, 0.0) - depth_mismatch * 500.0)
     research_rank = 100.0
     if funding_divergent:
@@ -417,6 +427,18 @@ def _candidate_from_pair(
     )
 
 
+def _parse_observed_at(value: Optional[str]) -> Optional[datetime]:
+    if value is None:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
 def build_candidate_snapshot(
     lighter_catalog: Sequence[CatalogMarket],
     hyperliquid_catalog: Sequence[CatalogMarket],
@@ -443,7 +465,9 @@ def build_candidate_snapshot(
             # A candidate needs both executable top-of-book quotes; a missing
             # book stops advancement instead of fabricating a spread.
             continue
-        candidates.append(_candidate_from_pair(pair, left_item, right_item))
+        candidates.append(
+            _candidate_from_pair(pair, left_item, right_item, observed_at=observed_at)
+        )
     candidates.sort(key=lambda c: (-c.trade_rank, -c.research_rank, c.pair_name))
     candidates = tuple(candidates)
     boundaries = (
