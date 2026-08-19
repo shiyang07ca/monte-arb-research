@@ -14,6 +14,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Optional, Sequence, Tuple
 
 from .adapters import (
+    LIGHTER_BASE_URL,
     PublicJsonClient,
     SourceRequestError,
     fetch_hyperliquid_book,
@@ -22,6 +23,7 @@ from .adapters import (
     fetch_lighter_catalog,
 )
 from .market import CatalogMarket, MarketIdentity, classify_book
+from .oracle_consistency import detect_funding_source_mismatch
 
 WORKBENCH_VERSION = "day14-workbench-v0"
 SCHEMA = "day14-candidate-snapshot-v1"
@@ -474,6 +476,15 @@ def run_workbench_scan(args: argparse.Namespace) -> int:
     hyperliquid_catalog = fetch_hyperliquid_catalog(client, "xyz")
     request_errors: list[Tuple[str, str]] = []
     books: dict[MarketIdentity, Mapping[str, Any]] = {}
+    tokenlist: Mapping[str, Any] = {}
+    funding_rates: Sequence[Mapping[str, Any]] = ()
+    try:
+        tokenlist = client.get("lighter-tokenlist", f"{LIGHTER_BASE_URL}/tokenlist")
+        funding_rates = client.get(
+            "lighter-funding-rates", f"{LIGHTER_BASE_URL}/funding-rates"
+        )
+    except SourceRequestError:
+        pass
     # Lighter public endpoints are rate-limited (60 req/min unauth); fetching a
     # book for every market would exceed it. Only fetch books for markets that
     # participate in a possible symbol mapping, plus their Lighter counterpart.
@@ -504,6 +515,12 @@ def run_workbench_scan(args: argparse.Namespace) -> int:
         except SourceRequestError:
             request_errors.append((market.identity.selector, "REQUEST_FAILED"))
     observed_at = client.captures[-1].received_at if client.captures else _utc_now()
+    funding_rows: Sequence[Mapping[str, Any]] = ()
+    if isinstance(funding_rates, Mapping):
+        rows = funding_rates.get("funding_rates")
+        if isinstance(rows, list):
+            funding_rows = rows
+    oracle_issues = detect_funding_source_mismatch(tokenlist, funding_rows)
     snapshot = build_candidate_snapshot(
         lighter_catalog,
         hyperliquid_catalog,
@@ -511,7 +528,18 @@ def run_workbench_scan(args: argparse.Namespace) -> int:
         observed_at=observed_at,
         request_errors=tuple(request_errors),
     )
-    _write_json(args.output, snapshot.to_dict())
+    snapshot_dict = snapshot.to_dict()
+    snapshot_dict["oracle_consistency_issues"] = [
+        {
+            "symbol": issue[0],
+            "asset_type": issue[1],
+            "funding_exchange": issue[2],
+            "funding_symbol": issue[3],
+            "note": issue[4],
+        }
+        for issue in oracle_issues
+    ]
+    _write_json(args.output, snapshot_dict)
     print(
         json.dumps(
             {
@@ -519,6 +547,9 @@ def run_workbench_scan(args: argparse.Namespace) -> int:
                 "market_count": len(snapshot.markets),
                 "candidate_count": len(snapshot.candidates),
                 "request_errors": list(snapshot.request_errors),
+                "oracle_consistency_issues": [
+                    {"symbol": i[0], "funding_exchange": i[2]} for i in oracle_issues
+                ],
                 "top_candidates": [
                     {
                         "pair_name": candidate.pair_name,

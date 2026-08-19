@@ -65,6 +65,16 @@ Lighter `funding-rates` 对 market 185（BOT）的参考源：
 **同一交易所内部：价格 oracle 指向股票，funding oracle 参考加密货币。**
 这是数据质量红旗：按 Lighter funding 做资金费率套利会基于错误参考源计算。
 
+## 第二循环：检测器本身的误报审查（2026-08-19）
+
+检测器上线后第一次真实扫描报出 **148 个 oracle 红旗**（AAPL/TSLA/NVDA 等全被标为"价格 oracle 说股票、funding 参考币圈交易所"）。随即审查：
+
+- Binance 上 AAPL 对应 **AAPLBUSDT（代币化股票）**，现价 $310.57 ≈ 苹果股价 → funding 参考源合理，是 Lighter 的设计
+- Binance 上 BOT 只有 BOTBTC/BOTBUSD（加密货币，BREAK 状态），BOTUSDT 不存在 → **BOT 才是唯一真异常**
+- 结论：147 个 VERIFY（需人工确认）+ 1 个 CONFIRMED（BOT）
+
+检测器已改为两档：`CONFIRMED_MISMATCHES = {"BOT"}`（硬错误）与其他（VERIFY 提示）。教训：**检测器报错也要被审查——第一次跑出 148 个红旗本身就该怀疑是检测器过严，而不是数据全错。**
+
 ## 学习验收（用户回答）
 
 1. 候选状态：可疑 ✅（但理由需修正：已实证报价陈旧，而非未验证）
