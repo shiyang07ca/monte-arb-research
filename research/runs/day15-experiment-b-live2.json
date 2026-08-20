@@ -1,0 +1,294 @@
+{
+  "schema": "day15-experiment-b-v1",
+  "session_dir": "research/raw/day15/live-b/20260820T011610Z",
+  "generated_at_utc": "2026-08-20T01:17:12.473509Z",
+  "feed_integrity": [
+    {
+      "market": "BRENTOIL",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.26",
+      "rest_bbo_ask": "90.28",
+      "ws_nearby": true,
+      "ws_skew_ms": 289.8,
+      "ws_bid_levels": 109,
+      "ws_ask_levels": 86,
+      "level_delta_bids": -89,
+      "level_delta_asks": -66
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.26",
+      "rest_bbo_ask": "90.28",
+      "ws_nearby": true,
+      "ws_skew_ms": 1164.3,
+      "ws_bid_levels": 5,
+      "ws_ask_levels": 4,
+      "level_delta_bids": 15,
+      "level_delta_asks": 16
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.26",
+      "rest_bbo_ask": "90.28",
+      "ws_nearby": true,
+      "ws_skew_ms": 2727.5,
+      "ws_bid_levels": 1,
+      "ws_ask_levels": 1,
+      "level_delta_bids": 19,
+      "level_delta_asks": 19
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.28",
+      "rest_bbo_ask": "90.30",
+      "ws_nearby": true,
+      "ws_skew_ms": 2504.9,
+      "ws_bid_levels": 2,
+      "ws_ask_levels": 1,
+      "level_delta_bids": 18,
+      "level_delta_asks": 19
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.328",
+      "rest_bbo_ask": "90.33",
+      "ws_nearby": true,
+      "ws_skew_ms": 306.2,
+      "ws_bid_levels": 20,
+      "ws_ask_levels": 20,
+      "level_delta_bids": 0,
+      "level_delta_asks": 0
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.31",
+      "rest_bbo_ask": "90.318",
+      "ws_nearby": true,
+      "ws_skew_ms": 1365.3,
+      "ws_bid_levels": 20,
+      "ws_ask_levels": 20,
+      "level_delta_bids": 0,
+      "level_delta_asks": 0
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.309",
+      "rest_bbo_ask": "90.316",
+      "ws_nearby": true,
+      "ws_skew_ms": 106.7,
+      "ws_bid_levels": 20,
+      "ws_ask_levels": 20,
+      "level_delta_bids": 0,
+      "level_delta_asks": 0
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.326",
+      "rest_bbo_ask": "90.327",
+      "ws_nearby": true,
+      "ws_skew_ms": 1554.5,
+      "ws_bid_levels": 20,
+      "ws_ask_levels": 20,
+      "level_delta_bids": 0,
+      "level_delta_asks": 0
+    },
+    {
+      "market": "WTI",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.881",
+      "rest_bbo_ask": "84.895",
+      "ws_nearby": true,
+      "ws_skew_ms": 21.8,
+      "ws_bid_levels": 1,
+      "ws_ask_levels": 1,
+      "level_delta_bids": 19,
+      "level_delta_asks": 19
+    },
+    {
+      "market": "WTI",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.881",
+      "rest_bbo_ask": "84.896",
+      "ws_nearby": true,
+      "ws_skew_ms": 1324.5,
+      "ws_bid_levels": 2,
+      "ws_ask_levels": 1,
+      "level_delta_bids": 18,
+      "level_delta_asks": 19
+    },
+    {
+      "market": "WTI",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.881",
+      "rest_bbo_ask": "84.895",
+      "ws_nearby": true,
+      "ws_skew_ms": 522.0,
+      "ws_bid_levels": 3,
+      "ws_ask_levels": 3,
+      "level_delta_bids": 17,
+      "level_delta_asks": 17
+    },
+    {
+      "market": "WTI",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.892",
+      "rest_bbo_ask": "84.904",
+      "ws_nearby": true,
+      "ws_skew_ms": 14.6,
+      "ws_bid_levels": 1,
+      "ws_ask_levels": 1,
+      "level_delta_bids": 19,
+      "level_delta_asks": 19
+    }
+  ],
+  "depth_structure": [
+    {
+      "market": "145",
+      "venue": "lighter",
+      "n_events": 135,
+      "median_levels_bid": 2,
+      "median_levels_ask": 3,
+      "median_depth_top1": 79.9,
+      "median_depth_top5": 253.1,
+      "spread_median_bps": 2.356
+    },
+    {
+      "market": "159",
+      "venue": "lighter",
+      "n_events": 100,
+      "median_levels_bid": 2.0,
+      "median_levels_ask": 2.0,
+      "median_depth_top1": 165.5,
+      "median_depth_top5": 754.5,
+      "spread_median_bps": 3.877
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "venue": "hyperliquid",
+      "n_events": 12,
+      "median_levels_bid": 20.0,
+      "median_levels_ask": 20.0,
+      "median_depth_top1": 83.1,
+      "median_depth_top5": 1660.9,
+      "spread_median_bps": 0.664
+    },
+    {
+      "market": "xyz:CL",
+      "venue": "hyperliquid",
+      "n_events": 12,
+      "median_levels_bid": 20.0,
+      "median_levels_ask": 20.0,
+      "median_depth_top1": 121.2,
+      "median_depth_top5": 1187.3,
+      "spread_median_bps": 0.118
+    }
+  ],
+  "mid_alignment": {
+    "n_aligned_seconds": 8,
+    "diff_usd_median": -0.038,
+    "diff_bps_median": -4.208,
+    "diff_bps_p95_abs": 6.589,
+    "seconds": [
+      {
+        "bucket_utc": "2026-08-20T01:16:11Z",
+        "lighter_mid": 90.28,
+        "xyz_mid": 90.31200000000001,
+        "diff_usd": -0.03200000000001069,
+        "diff_bps": -3.543272211888861
+      },
+      {
+        "bucket_utc": "2026-08-20T01:16:13Z",
+        "lighter_mid": 90.24000000000001,
+        "xyz_mid": 90.2995,
+        "diff_usd": -0.059499999999985675,
+        "diff_bps": -6.589183771780096
+      },
+      {
+        "bucket_utc": "2026-08-20T01:16:19Z",
+        "lighter_mid": 90.265,
+        "xyz_mid": 90.3135,
+        "diff_usd": -0.048500000000004206,
+        "diff_bps": -5.37018275230217
+      },
+      {
+        "bucket_utc": "2026-08-20T01:16:40Z",
+        "lighter_mid": 90.27,
+        "xyz_mid": 90.31649999999999,
+        "diff_usd": -0.04649999999999466,
+        "diff_bps": -5.1485608941881775
+      },
+      {
+        "bucket_utc": "2026-08-20T01:16:51Z",
+        "lighter_mid": 90.28,
+        "xyz_mid": 90.3205,
+        "diff_usd": -0.04049999999999443,
+        "diff_bps": -4.484031864304829
+      },
+      {
+        "bucket_utc": "2026-08-20T01:16:56Z",
+        "lighter_mid": 90.27,
+        "xyz_mid": 90.3035,
+        "diff_usd": -0.03350000000000364,
+        "diff_bps": -3.709712248141394
+      },
+      {
+        "bucket_utc": "2026-08-20T01:17:02Z",
+        "lighter_mid": 90.265,
+        "xyz_mid": 90.3005,
+        "diff_usd": -0.03549999999999898,
+        "diff_bps": -3.9313182097550925
+      },
+      {
+        "bucket_utc": "2026-08-20T01:17:07Z",
+        "lighter_mid": 90.30000000000001,
+        "xyz_mid": 90.299,
+        "diff_usd": 0.0010000000000047748,
+        "diff_bps": 0.11074319759961625
+      }
+    ]
+  },
+  "boundary": "Read-only diagnostics. Level counts and mid differences are research features; they do not measure executable PnL after fees and slippage."
+}

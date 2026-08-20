@@ -1,0 +1,528 @@
+{
+  "schema": "day15-experiment-b-v1",
+  "session_dir": "research/raw/day15/20260820T001309Z",
+  "generated_at_utc": "2026-08-20T01:13:08.361237Z",
+  "feed_integrity": [
+    {
+      "market": "BRENTOIL",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.21",
+      "rest_bbo_ask": "90.23",
+      "ws_nearby": false
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.21",
+      "rest_bbo_ask": "90.23",
+      "ws_nearby": false
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.21",
+      "rest_bbo_ask": "90.23",
+      "ws_nearby": false
+    },
+    {
+      "market": "BRENTOIL",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.21",
+      "rest_bbo_ask": "90.23",
+      "ws_nearby": false
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.255",
+      "rest_bbo_ask": "90.261",
+      "ws_nearby": false
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.255",
+      "rest_bbo_ask": "90.261",
+      "ws_nearby": false
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.255",
+      "rest_bbo_ask": "90.262",
+      "ws_nearby": false
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "90.279",
+      "rest_bbo_ask": "90.295",
+      "ws_nearby": false
+    },
+    {
+      "market": "WTI",
+      "round": 0,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.862",
+      "rest_bbo_ask": "84.863",
+      "ws_nearby": false
+    },
+    {
+      "market": "WTI",
+      "round": 1,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.862",
+      "rest_bbo_ask": "84.863",
+      "ws_nearby": false
+    },
+    {
+      "market": "WTI",
+      "round": 2,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.862",
+      "rest_bbo_ask": "84.863",
+      "ws_nearby": false
+    },
+    {
+      "market": "WTI",
+      "round": 3,
+      "status": "OK",
+      "rest_bid_levels": 20,
+      "rest_ask_levels": 20,
+      "rest_bbo_bid": "84.862",
+      "rest_bbo_ask": "84.863",
+      "ws_nearby": false
+    }
+  ],
+  "depth_structure": [
+    {
+      "market": "145",
+      "venue": "lighter",
+      "n_events": 1356,
+      "median_levels_bid": 2.0,
+      "median_levels_ask": 2.0,
+      "median_depth_top1": 26.4,
+      "median_depth_top5": 144.6,
+      "spread_median_bps": 2.605
+    },
+    {
+      "market": "159",
+      "venue": "lighter",
+      "n_events": 551,
+      "median_levels_bid": 2,
+      "median_levels_ask": 2,
+      "median_depth_top1": 234.4,
+      "median_depth_top5": 953.4,
+      "spread_median_bps": 5.566
+    },
+    {
+      "market": "xyz:BRENTOIL",
+      "venue": "hyperliquid",
+      "n_events": 101,
+      "median_levels_bid": 20,
+      "median_levels_ask": 20,
+      "median_depth_top1": 75.9,
+      "median_depth_top5": 866.9,
+      "spread_median_bps": 0.445
+    },
+    {
+      "market": "xyz:CL",
+      "venue": "hyperliquid",
+      "n_events": 101,
+      "median_levels_bid": 20,
+      "median_levels_ask": 20,
+      "median_depth_top1": 119.3,
+      "median_depth_top5": 886.7,
+      "spread_median_bps": 0.237
+    }
+  ],
+  "mid_alignment": {
+    "n_aligned_seconds": 51,
+    "diff_usd_median": -0.025,
+    "diff_bps_median": -2.78,
+    "diff_bps_p95_abs": 12.624,
+    "seconds": [
+      {
+        "bucket_utc": "2026-08-20T00:13:09Z",
+        "lighter_mid": 89.91,
+        "xyz_mid": 89.9375,
+        "diff_usd": -0.02750000000000341,
+        "diff_bps": -3.0576789437112892
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:14Z",
+        "lighter_mid": 89.92,
+        "xyz_mid": 89.9495,
+        "diff_usd": -0.02949999999999875,
+        "diff_bps": -3.2796180078820614
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:20Z",
+        "lighter_mid": 89.78999999999999,
+        "xyz_mid": 89.94800000000001,
+        "diff_usd": -0.15800000000001546,
+        "diff_bps": -17.565704629343113
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:25Z",
+        "lighter_mid": 89.88,
+        "xyz_mid": 89.9385,
+        "diff_usd": -0.05850000000000932,
+        "diff_bps": -6.5044447038820215
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:30Z",
+        "lighter_mid": 89.905,
+        "xyz_mid": 89.9225,
+        "diff_usd": -0.017499999999998295,
+        "diff_bps": -1.9461202702325109
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:36Z",
+        "lighter_mid": 89.9,
+        "xyz_mid": 89.9265,
+        "diff_usd": -0.026499999999998636,
+        "diff_bps": -2.9468510394598515
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:41Z",
+        "lighter_mid": 89.9,
+        "xyz_mid": 89.9205,
+        "diff_usd": -0.02049999999999841,
+        "diff_bps": -2.2797915936853563
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:46Z",
+        "lighter_mid": 89.925,
+        "xyz_mid": 89.9195,
+        "diff_usd": 0.00549999999999784,
+        "diff_bps": 0.6116582053945852
+      },
+      {
+        "bucket_utc": "2026-08-20T00:13:51Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.912,
+        "diff_usd": -0.04200000000000159,
+        "diff_bps": -4.67123409556028
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:02Z",
+        "lighter_mid": 89.88,
+        "xyz_mid": 89.8945,
+        "diff_usd": -0.014499999999998181,
+        "diff_bps": -1.6130019077917093
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:13Z",
+        "lighter_mid": 89.88,
+        "xyz_mid": 89.9,
+        "diff_usd": -0.020000000000010232,
+        "diff_bps": -2.224694104561761
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:18Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.90899999999999,
+        "diff_usd": -0.03899999999998727,
+        "diff_bps": -4.33771924946193
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:40Z",
+        "lighter_mid": 89.93,
+        "xyz_mid": 89.8945,
+        "diff_usd": 0.03550000000001319,
+        "diff_bps": 3.9490736363195955
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:45Z",
+        "lighter_mid": 89.89,
+        "xyz_mid": 89.8935,
+        "diff_usd": -0.003500000000002501,
+        "diff_bps": -0.3893496192719719
+      },
+      {
+        "bucket_utc": "2026-08-20T00:14:50Z",
+        "lighter_mid": 89.86500000000001,
+        "xyz_mid": 89.9065,
+        "diff_usd": -0.04149999999998499,
+        "diff_bps": -4.615906525110531
+      },
+      {
+        "bucket_utc": "2026-08-20T00:15:01Z",
+        "lighter_mid": 89.885,
+        "xyz_mid": 89.90950000000001,
+        "diff_usd": -0.024500000000003297,
+        "diff_bps": -2.724962323225387
+      },
+      {
+        "bucket_utc": "2026-08-20T00:15:06Z",
+        "lighter_mid": 89.88499999999999,
+        "xyz_mid": 89.9105,
+        "diff_usd": -0.025500000000008072,
+        "diff_bps": -2.836153730655271
+      },
+      {
+        "bucket_utc": "2026-08-20T00:15:12Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.87899999999999,
+        "diff_usd": -0.00899999999998613,
+        "diff_bps": -1.001346254407162
+      },
+      {
+        "bucket_utc": "2026-08-20T00:15:23Z",
+        "lighter_mid": 89.85,
+        "xyz_mid": 89.8845,
+        "diff_usd": -0.03450000000000841,
+        "diff_bps": -3.8382590991782135
+      },
+      {
+        "bucket_utc": "2026-08-20T00:15:44Z",
+        "lighter_mid": 89.84,
+        "xyz_mid": 89.8765,
+        "diff_usd": -0.03649999999998954,
+        "diff_bps": -4.061128326090752
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:00Z",
+        "lighter_mid": 89.86,
+        "xyz_mid": 89.8815,
+        "diff_usd": -0.021500000000003183,
+        "diff_bps": -2.3920384061239726
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:06Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.87049999999999,
+        "diff_usd": -0.0004999999999881766,
+        "diff_bps": -0.05563560901387848
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:11Z",
+        "lighter_mid": 89.80000000000001,
+        "xyz_mid": 89.87950000000001,
+        "diff_usd": -0.07949999999999591,
+        "diff_bps": -8.84517604125478
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:16Z",
+        "lighter_mid": 89.875,
+        "xyz_mid": 89.89,
+        "diff_usd": -0.015000000000000568,
+        "diff_bps": -1.668706196462406
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:33Z",
+        "lighter_mid": 89.89500000000001,
+        "xyz_mid": 89.9115,
+        "diff_usd": -0.01649999999999352,
+        "diff_bps": -1.8351378855867735
+      },
+      {
+        "bucket_utc": "2026-08-20T00:16:54Z",
+        "lighter_mid": 89.92,
+        "xyz_mid": 89.92750000000001,
+        "diff_usd": -0.00750000000000739,
+        "diff_bps": -0.8340051708328807
+      },
+      {
+        "bucket_utc": "2026-08-20T00:17:05Z",
+        "lighter_mid": 89.93,
+        "xyz_mid": 89.9325,
+        "diff_usd": -0.0024999999999977263,
+        "diff_bps": -0.27798626747813376
+      },
+      {
+        "bucket_utc": "2026-08-20T00:17:16Z",
+        "lighter_mid": 89.9,
+        "xyz_mid": 89.925,
+        "diff_usd": -0.024999999999991473,
+        "diff_bps": -2.780094523212841
+      },
+      {
+        "bucket_utc": "2026-08-20T00:17:27Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.908,
+        "diff_usd": -0.0379999999999967,
+        "diff_bps": -4.226542688080783
+      },
+      {
+        "bucket_utc": "2026-08-20T00:17:43Z",
+        "lighter_mid": 89.845,
+        "xyz_mid": 89.8755,
+        "diff_usd": -0.030500000000003524,
+        "diff_bps": -3.3935833458510407
+      },
+      {
+        "bucket_utc": "2026-08-20T00:17:59Z",
+        "lighter_mid": 89.84,
+        "xyz_mid": 89.875,
+        "diff_usd": -0.03499999999999659,
+        "diff_bps": -3.8942976356046275
+      },
+      {
+        "bucket_utc": "2026-08-20T00:18:20Z",
+        "lighter_mid": 89.845,
+        "xyz_mid": 89.87100000000001,
+        "diff_usd": -0.02600000000001046,
+        "diff_bps": -2.8930355732116544
+      },
+      {
+        "bucket_utc": "2026-08-20T00:18:36Z",
+        "lighter_mid": 89.855,
+        "xyz_mid": 89.8685,
+        "diff_usd": -0.013499999999993406,
+        "diff_bps": -1.5021948736201678
+      },
+      {
+        "bucket_utc": "2026-08-20T00:18:47Z",
+        "lighter_mid": 89.82,
+        "xyz_mid": 89.8395,
+        "diff_usd": -0.019500000000007844,
+        "diff_bps": -2.170537458468474
+      },
+      {
+        "bucket_utc": "2026-08-20T00:19:09Z",
+        "lighter_mid": 89.8,
+        "xyz_mid": 89.8675,
+        "diff_usd": -0.06750000000000966,
+        "diff_bps": -7.511057946422195
+      },
+      {
+        "bucket_utc": "2026-08-20T00:19:36Z",
+        "lighter_mid": 89.75999999999999,
+        "xyz_mid": 89.886,
+        "diff_usd": -0.12600000000000477,
+        "diff_bps": -14.01775582404432
+      },
+      {
+        "bucket_utc": "2026-08-20T00:19:41Z",
+        "lighter_mid": 89.815,
+        "xyz_mid": 89.88550000000001,
+        "diff_usd": -0.07050000000000978,
+        "diff_bps": -7.843311768862583
+      },
+      {
+        "bucket_utc": "2026-08-20T00:19:46Z",
+        "lighter_mid": 89.92500000000001,
+        "xyz_mid": 89.8845,
+        "diff_usd": 0.04050000000000864,
+        "diff_bps": 4.5057824207742865
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:02Z",
+        "lighter_mid": 89.88499999999999,
+        "xyz_mid": 89.9145,
+        "diff_usd": -0.02950000000001296,
+        "diff_bps": -3.2808946276755093
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:13Z",
+        "lighter_mid": 89.91499999999999,
+        "xyz_mid": 89.9175,
+        "diff_usd": -0.002500000000011937,
+        "diff_bps": -0.2780326410333847
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:24Z",
+        "lighter_mid": 89.895,
+        "xyz_mid": 89.9125,
+        "diff_usd": -0.017499999999998295,
+        "diff_bps": -1.9463367162517222
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:29Z",
+        "lighter_mid": 89.9,
+        "xyz_mid": 89.90950000000001,
+        "diff_usd": -0.009500000000002728,
+        "diff_bps": -1.0566180436998012
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:46Z",
+        "lighter_mid": 89.88499999999999,
+        "xyz_mid": 89.902,
+        "diff_usd": -0.017000000000010118,
+        "diff_bps": -1.8909479210707345
+      },
+      {
+        "bucket_utc": "2026-08-20T00:20:56Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.907,
+        "diff_usd": -0.03699999999999193,
+        "diff_bps": -4.115363653552218
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:07Z",
+        "lighter_mid": 89.795,
+        "xyz_mid": 89.9085,
+        "diff_usd": -0.11350000000000193,
+        "diff_bps": -12.62394545565791
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:12Z",
+        "lighter_mid": 89.88,
+        "xyz_mid": 89.9265,
+        "diff_usd": -0.04650000000000887,
+        "diff_bps": -5.1708895598081615
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:23Z",
+        "lighter_mid": 89.87,
+        "xyz_mid": 89.9295,
+        "diff_usd": -0.059499999999999886,
+        "diff_bps": -6.616293874646238
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:34Z",
+        "lighter_mid": 89.91,
+        "xyz_mid": 89.92750000000001,
+        "diff_usd": -0.017500000000012506,
+        "diff_bps": -1.9460120652761952
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:39Z",
+        "lighter_mid": 89.89,
+        "xyz_mid": 89.9115,
+        "diff_usd": -0.021500000000003183,
+        "diff_bps": -2.3912402751598165
+      },
+      {
+        "bucket_utc": "2026-08-20T00:21:45Z",
+        "lighter_mid": 89.9,
+        "xyz_mid": 89.9115,
+        "diff_usd": -0.011499999999998067,
+        "diff_bps": -1.2790354960153112
+      }
+    ]
+  },
+  "boundary": "Read-only diagnostics. Level counts and mid differences are research features; they do not measure executable PnL after fees and slippage."
+}
