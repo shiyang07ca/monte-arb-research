@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 15 · 一次快照不是异常，连续数据才是证据</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<header>
+  <div class="eyebrow">Monte Arb Research · Day 15</div>
+  <h1>一次快照不是异常，连续数据才是证据</h1>
+  <p class="lede">把 Lighter 与 Hyperliquid 四个原油市场的公开 WebSocket 流连续追加保存，用市场自己的基线区分一次噪声、持续异常和时段结构，再决定哪个方向值得投入实验。</p>
+  <div class="meta"><span class="pill">30–45 分钟</span><span class="pill">真实 WS 连续采集</span><span class="pill">四个原油市场</span><span class="pill">不算利润、不下单</span></div>
+</header>
+<main>
+  <section class="card">
+    <h2>课程位置</h2>
+    <div class="grid">
+      <div class="card third"><div class="eyebrow">当前目标</div><p>候选不再由单一快照制造：从连续真实数据区分一次噪声、持续/重复异常和时段结构，并选择一个方向解释为什么值得实验。</p></div>
+      <div class="card third"><div class="eyebrow">当前进度</div><p>Day 14 完成只读快照工作台 v0（双向可成交价差、oracle/陈旧检测器、56 项测试），但所有候选都来自单次 REST 快照，不知道机会能持续多久。</p></div>
+      <div class="card third"><div class="eyebrow">后续规划</div><p>Day 16 把持续时间与容量并入候选榜（多规模走档、费用/资金费/退出成本）；Day 17 机制实验室做区分性实验。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">当前真实现象</div>
+    <h2>同一秒里，四个市场的报价节律完全不同</h2>
+    <p>本次真实采集（会话 <code id="session-id">加载中</code>）持续把两家的 L2/BBO、成交和 mark/oracle/funding 上下文追加写入 gzip JSONL。点按钮查看真实基线；页面只显示实际收到的数字，不补零、不伪造。</p>
+    <button id="show-baseline">显示真实基线</button>
+    <div id="baseline-output" class="response">等待显示。</div>
+    <div class="callout warn"><strong>先想再按：</strong>同样的"价差 5bps"，对一个每秒更新 20 次的市场和一个 90 秒才更新一次的市场，意义完全不同。基线必须来自市场自己。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">异常分类</div>
+    <h2>三种异常，三种研究含义</h2>
+    <table>
+      <thead><tr><th>分类</th><th>定义</th><th>对研究意味着什么</th></tr></thead>
+      <tbody>
+        <tr><td><strong>一次噪声</strong> (transient)</td><td>短于 ~20 秒、只出现一次的越界；之后回到自身基线</td><td>可能是成交冲击、报价机瞬时抖动；先问"它还会来吗"，不值得直接建策略</td></tr>
+        <tr><td><strong>持续/重复</strong> (persistent / repeating)</td><td>长时间不回落，或同一特征反复越界</td><td>可能是流动性结构或机制缺口；重复模式可以做事件研究</td></tr>
+        <tr><td><strong>时段结构</strong> (structural)</td><td>越界总出现在同一 UTC 时段（跨多个不同小时/日期）</td><td>可能对应外部时段（NY 开盘、EIA 发布）、维护窗口或展期；研究结论可以迁移</td></tr>
+      </tbody>
+    </table>
+    <p>分类由同一检测器给出：<code>阈值 = max(基线中位数 + k·MAD, 1.5×基线中位数)</code>，连续越界且间隔小于 5 秒的算同一窗口；窗口之间被静默缺口或乱序时间戳隔开就拆开。k=6 时，完全平静的市场也不会把中位数自己当成异常。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">数据健康</div>
+    <h2>断连、缺口和过期必须可见</h2>
+    <p>每一次连接、断开、重连、静默缺口和解析失败都写入 <code>health.jsonl.gz</code>。候选页必须能回答：这段"异常"是市场行为，还是我的数据管道睡着了？</p>
+    <button id="show-health" class="secondary">显示本次会话健康事件</button>
+    <div id="health-output" class="response">等待显示。</div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">时段结构 · 500 小时真实历史</div>
+    <h2>WTI 的成交活跃时段和 Brent 基差一起变化</h2>
+    <p>用已保存的 500 小时逐小时真实数据（Lighter WTI/BRENTOIL）计算 UTC 时段的成交中位数与 Brent−WTI 价差中位数。看真实曲线，然后回答：</p>
+    <button id="show-history">显示时段曲线</button>
+    <div id="history-output" class="response">等待显示。</div>
+    <div class="scenario">
+      <p><strong>你的观察（先自己想，再点按钮核对）：</strong>基差最窄的时段，恰好是成交最活跃的时段吗？这能否用"活跃时段做市竞争更充分"解释？还有什么竞争解释？</p>
+      <button id="show-history-check" class="secondary">显示核对要点</button>
+      <div id="history-check-output" class="response">等待显示。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">候选异常 · 你的研究动作</div>
+    <h2>三个真实候选，选一个继续研究</h2>
+    <p>以下三个候选来自真实数据（本次连续采集或 500 小时历史）。每个都给出原始证据与数据质量诊断。选择其中一个，并写一句：<strong>为什么它比另外两个更值得投入区分性实验？</strong></p>
+    <div id="candidate-list" class="response">加载候选数据中…</div>
+    <div class="scenario">
+      <div class="controls">
+        <select id="candidate-choice">
+          <option value="">选择候选</option>
+          <option value="a">A · 瞬时异常（一次噪声）</option>
+          <option value="b">B · 持续/重复异常</option>
+          <option value="c">C · 时段结构变化</option>
+        </select>
+        <button id="submit-choice">提交选择与理由</button>
+      </div>
+      <textarea id="candidate-reason" rows="3" style="width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="写一句你的解释：为什么选它？你想检验什么机制？"></textarea>
+      <div id="candidate-feedback" class="response">提交后显示 Agent 的竞争解释与数据质量诊断。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">关键代码</div>
+    <h2>检测器只回答"偏离自身基线多少"，不回答"能不能赚钱"</h2>
+    <pre><code>threshold = max(median + k * mad, median * 1.5)
+# 连续越界、间隔 &lt;= 5s 的合并为一个窗口；
+# 静默缺口或乱序时间戳把窗口拆开（禁止缝合）。
+for idx in range(n):
+    if spread[idx] &gt;= threshold:
+        if current and (recv[idx] - recv[current[-1]]) / 1e9 &gt; 5.0:
+            runs.append(current); current = []
+        current.append(idx)
+    elif current:
+        runs.append(current); current = []</code></pre>
+    <p>原始事件（<code>events_*.jsonl.gz</code>）每次运行新建会话目录，重启不覆盖；基线、异常窗口和健康事件都是派生视图，可以随时重算。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">可运行仓库</div>
+    <h2>本次真实执行的命令</h2>
+    <pre><code>PYTHONPATH=src .venv/bin/python -m monte_arb.day15_collector \
+  --duration 480 --out research/raw/day15
+
+PYTHONPATH=src .venv/bin/python -m monte_arb.day15_analysis \
+  --session-dir research/raw/day15/&lt;session&gt; \
+  --output research/runs/day15-analysis-&lt;session&gt;.json
+
+PYTHONPATH=src .venv/bin/python -m pytest tests/ -q</code></pre>
+    <p>采集器可部署到东京服务器连续运行 3–7 天（只读公开行情）；会话目录结构支持跨天追加。当前本机只做了有界采集用于学习验证。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">一次综合迁移</div>
+    <h2>如果同一异常在三个不同日期的同一 UTC 时段出现呢？</h2>
+    <div class="scenario">
+      <p>假设你发现：过去三天的 13:00–13:30 UTC，WTI 盘口价差都稳定越过自身基线的 5 倍，且每次持续约 20 分钟，但 12:30 之前和 13:30 之后完全正常。你的分类判断和下一步实验各是什么？</p>
+      <div class="controls">
+        <select id="transfer-answer">
+          <option value="">给出判断</option>
+          <option value="transient">transient：每天一次就是噪声</option>
+          <option value="structural">structural：同 UTC 时段重复出现，优先查外部事件（如数据发布/维护）</option>
+          <option value="persistent">persistent：跨三天就说明市场一直异常</option>
+        </select>
+        <button id="check-transfer">检查</button>
+      </div>
+      <div id="transfer-feedback" class="response">先写你的理由，再点检查。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>今天的边界</h2>
+    <p>连续数据证明"偏离自身基线"和"持续多久"，不证明"扣费后可成交利润"。没有费用、资金费、滑点或 PnL；<code>read_only=true</code>，无执行客户端。基线/异常是研究特征，不是交易信号。</p>
+    <p>一手资料：<a href="https://apidocs.lighter.xyz/docs/websocket-reference">Lighter WebSocket Reference</a> · <a href="https://github.com/elliottech/lighter-python/blob/main/lighter/paper_client/live.py">lighter-python PaperOrderBookListener</a> · <a href="https://github.com/hyperliquid-dex/hyperliquid-python-sdk/blob/master/hyperliquid/websocket_manager.py">hyperliquid-python-sdk WebsocketManager</a></p>
+  </section>
+</main>
+<footer><a href="../lessons/0010-day14-synchronized-quotes.html">上一课：Day 14</a> · <a href="../reference/day15-continuous-data.html">Day 15 参考卡</a></footer>
+<script src="../assets/day15-continuous-data.js"></script>
+<script src="../assets/day15-continuous-quiz.js"></script>
+</body>
+</html>

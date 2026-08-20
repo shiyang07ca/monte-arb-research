@@ -22,7 +22,7 @@
 
 ## 当前能力缺口
 
-- 需要建立连续 WebSocket 采集与市场自身基线，才能研究持续时间、重复频率和机会寿命。
+- Day15 已建立公开 WS 连续采集与自身基线/异常窗口（会话 20260820T001309Z，79 项测试）；持续时间、重复频率和机会寿命研究可复用该采集器与检测器。
 - 需要把账户实际费率、盘口走档、资金费、退出成本和未成交量纳入可执行现金结果。
 - RWA external/internal 状态、展期权重和外部时段仍需独立证据，不能从单个 `oraclePx` 推断。
 - 双腿部分成交、第二腿延迟、旧订单风险和补对冲需要在事件回放中训练。
@@ -40,7 +40,7 @@
 - 学习目标：`MISSION.md`
 - 当前唯一计划：`resource/plan.md`
 - 里程碑索引：`curriculum/README.md`
-- 当前里程碑：`curriculum/day14.md`
+- 当前里程碑：`curriculum/day15.md`
 - 工作台设计：`research/design/workbench-design.md`
 
 ## 旧材料处理决定

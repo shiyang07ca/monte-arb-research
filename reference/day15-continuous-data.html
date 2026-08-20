@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 15 参考卡 · 连续数据与异常发现</title><link rel="stylesheet" href="../assets/course.css"></head>
+<body>
+<header><div class="eyebrow">Reference · Day 15</div><h1>连续数据与异常发现</h1><p class="lede">候选由市场自己的连续基线产生：一次噪声、持续/重复异常、时段结构。</p></header>
+<main>
+  <section class="card"><h2>WS 端点与订阅（一手资料）</h2>
+    <pre><code>Hyperliquid: wss://api.hyperliquid.xyz/ws
+  {"method":"subscribe","subscription":{"type":"l2Book","coin":"xyz:CL"}}
+  trades / activeAssetCtx 同型；客户端每 30s {"method":"ping"}
+
+Lighter: wss://mainnet.zklighter.elliot.ai/stream?encoding=json
+  "connected" 后发送 {"type":"subscribe","channel":"order_book/145"}
+  初始快照 "subscribed/order_book"，更新 "update/order_book"
+  服务端 "ping" → 回复 {"type":"pong"}</code></pre>
+    <p>来源：<a href="https://github.com/hyperliquid-dex/hyperliquid-python-sdk/blob/master/hyperliquid/websocket_manager.py">hyperliquid-python-sdk</a> · <a href="https://github.com/elliottech/lighter-python/blob/main/lighter/paper_client/live.py">lighter-python PaperOrderBookListener</a></p>
+  </section>
+  <section class="card"><h2>存储原则</h2><ul>
+    <li>每次运行新建会话目录 <code>research/raw/day15/&lt;utc时间戳&gt;/</code>，追加式 gzip JSONL，重启不覆盖。</li>
+    <li>事件信封：<code>recv_ns</code>（本机接收）+ <code>venue/kind/market/payload</code>；交易所时间单独放 <code>ts_ms</code>，不混用。</li>
+    <li>健康事件（连接/断开/重连/静默缺口/解析失败）与行情事件分开保存。</li>
+    <li>Lighter 盘口行归一化为 <code>[px, sz]</code>；HL 行字段是 <code>px/sz</code>，Lighter REST 行是 <code>price/remaining_base_amount</code>。</li>
+  </ul></section>
+  <section class="card"><h2>自身基线</h2><pre><code>每个市场独立计算（秒级/10s 桶）：
+- spread 中位数 / p95 / MAD（bps）
+- 更新间隔中位数、每 10s 事件数中位数
+- 档 1 与档 5 深度中位数
+- 10s 对数收益 std（自身价格波动）
+- 静默缺口数（间隔 &gt; 30s 或 &gt; 8×中位间隔）</code></pre>
+    <p>同一价差数字在不同节律的市场里含义不同；基线必须来自市场自己。</p>
+  </section>
+  <section class="card"><h2>异常窗口</h2><pre><code>threshold = max(median + k*MAD, 1.5*median)   # k=6 默认
+连续越界且间隔 &lt;= 5s → 同一窗口
+静默缺口 / 乱序时间戳 → 拆开窗口（禁止缝合）
+
+分类：
+- transient   : 短于 ~20s、单次出现
+- repeating   : 会话内多次出现（同小时内不算时段证据）
+- persistent  : 时长 &gt; 120s 不回落
+- structural  : 同时段重复跨不同小时/日期</code></pre>
+  </section>
+  <section class="card"><h2>研究动作</h2><ul>
+    <li>先看健康事件，再解释异常：断连/缺口会伪造持续性与重复性。</li>
+    <li>transient → 问"可复现吗、冲击还是抖动"；repeating → 事件研究；structural → 对齐外部日历，再问可成交性。</li>
+    <li>时段结构例证（500h 真实历史）：WTI 成交量 12 UTC ≈ 9,841（04 UTC ≈ 1,279）；Brent−WTI 基差活跃时段 ≈ 3.07 vs 安静时段 ≈ 3.53。</li>
+  </ul></section>
+  <section class="card"><h2>边界</h2><pre><code>read_only = true；无执行客户端；无 PnL
+基线/异常是研究特征，不是交易信号
+连续数据证明"偏离基线 + 持续时间"，不证明"扣费后可成交"</code></pre>
+  </section>
+</main>
+<footer><a href="../lessons/0011-day15-continuous-data.html">返回 Day 15 互动课程</a></footer>
+</body></html>
