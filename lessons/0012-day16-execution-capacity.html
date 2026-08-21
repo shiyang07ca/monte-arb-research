@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 16 · 可执行性与容量——从屏幕价差到各规模现金结果</title>
+  <link rel="stylesheet" href="../assets/course.css">
+  <style>
+    table.data { width:100%; border-collapse:collapse; font-size:.88rem; margin:10px 0; }
+    table.data th, table.data td { padding:6px 8px; border-bottom:1px solid var(--line); text-align:right; font-family:var(--mono); }
+    table.data th:first-child, table.data td:first-child { text-align:left; }
+    table.data th { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; }
+    .pos { color:#1a7f4b; font-weight:700; } .neg { color:#b23a3a; font-weight:700; }
+    .unknown { color:var(--muted); }
+    .curve { display:flex; align-items:flex-end; gap:4px; height:120px; margin:14px 0 4px; }
+    .curve .bar { flex:1; background:#cfe3dd; border-radius:3px 3px 0 0; position:relative; min-height:2px; }
+    .curve .bar span { position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:.66rem; font-family:var(--mono); color:var(--muted); }
+    .curve .bar.flip { background:#e8b35a; }
+    .slider-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:10px 0; }
+    .slider-row input[type=range] { flex:1; min-width:200px; }
+    .whatif { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:10px 0; }
+    .whatif input { width:110px; font-family:var(--mono); padding:6px 8px; border:1px solid var(--line); border-radius:6px; }
+    .hidden-agent { display:none; }
+    .unlock-note { font-size:.85rem; color:var(--muted); }
+    .btn { background:var(--panel); border:1px solid var(--line); padding:8px 14px; border-radius:8px; cursor:pointer; font:inherit; }
+    .btn:hover { border-color:var(--accent); }
+    .big-number { font:700 1.6rem/1.1 var(--mono); }
+  </style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Monte Arb Research · Day 16</div>
+  <h1>可执行性与容量——从屏幕价差到各规模现金结果</h1>
+  <p class="lede">同一次冻结 L2，两个方向、七个规模：双腿分别逐档走盘口，得到可成交 VWAP、滑点、已知费率、未成交数量和容量边界。学会读出"哪个规模让这个候选失去吸引力"，而不是只看一个正负数。</p>
+  <div class="meta"><span class="pill">30–45 分钟</span><span class="pill">真实 L2 冻结重算</span><span class="pill">60 对候选</span><span class="pill">只读、不下单</span></div>
+</header>
+<main>
+  <section class="card">
+    <h2>课程位置</h2>
+    <div class="grid">
+      <div class="card third"><div class="eyebrow">当前目标</div><p>把 Day14 的 top-of-book 屏幕价差升级为"目标规模 × 方向"下的双腿可成交结果与容量曲线。</p></div>
+      <div class="card third"><div class="eyebrow">当前进度</div><p>Day15 已确认 BRENTOIL 宽价差来自 tick 粒度而非深度；Day16 引擎已接入工作台执行视图（<a href="http://127.0.0.1:18769/workbench/execution">/workbench/execution</a>）。</p></div>
+      <div class="card third"><div class="eyebrow">后续规划</div><p>Day17 进入机制实验室：用区分性实验解释"为什么这个方向在这个规模变负"。</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">当前真实现象（2026-08-21 00:14 UTC 快照）</div>
+    <h2>同一对市场，不同规模与方向，净结果完全不同</h2>
+    <p>下面三张表来自同一次真实扫描的冻结盘口重算。数字是 <strong>净价差</strong>（价差捕获 − 双腿滑点；不含未知费率），单位为 bps，正数代表按该方向吃单后价格上仍有盈余。</p>
+    <div id="tables"></div>
+    <p><strong>先观察，不要急着解释。</strong>注意三个模式：</p>
+    <ul>
+      <li>BRENTOIL 买左卖右从 <span class="pos">+0.44</span> 一路降到 <span class="neg">−0.03</span>：它在哪个规模翻负？</li>
+      <li>AAPL 两个方向差异悬殊（+4.80 vs −6.00@$100）：为什么买右卖左总是更好？</li>
+      <li>所有候选的 $10 档都不可下单（MIN_QUOTE）：为什么"$10 预算"在真实最小名义面前是无效档？</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">你的研究动作</div>
+    <h2>选择一个方向与一个规模，先给出你的解释</h2>
+    <p>在 Telegram 回复以下三问（不要等 Agent 的结论）：</p>
+    <ol>
+      <li><strong>为什么这个规模有意义？</strong>（对照你的 $5–200 实验预算，或对照 BOT 这类深水市场）</li>
+      <li><strong>哪一项成本最可能改变结论？</strong>（滑点？HL 未知费率？退出滑点？）</li>
+      <li><strong>如果持有时间从秒级变成 1 天，哪里需要重新计算？</strong>（提示：资金费、退出时点、盘口可能已变）</li>
+    </ol>
+    <p class="unlock-note">提交解释后解锁 Agent 的竞争假设与成本敏感性实验。</p>
+    <button class="btn" id="unlock">我已经提交解释，解锁 Agent 假设</button>
+    <div class="hidden-agent" id="agent-hypotheses">
+      <h3>Agent 竞争假设（与你对照，不覆盖你的版本）</h3>
+      <ul>
+        <li><strong>H1 · 卖腿深度消耗</strong>：BRENTOIL 的翻转主要来自 Hyperliquid 卖腿滑点（$1000 时 0.24 bps），不是 Lighter 买腿。检验：看两腿各自的 slippage_bps 随规模变化。</li>
+        <li><strong>H2 · tick 不对称</strong>：AAPL 方向差异来自 Lighter tick 0.001（极窄）与 xyz tick 结构不对称——买左吃 Lighter 盘口要跨越其 0.476 价差，买右吃 xyz 只需 0.04。检验：对比两腿 top-of-book 价差宽度。</li>
+        <li><strong>H3 · 未知费率吃掉一切</strong>：HL HIP-3 未公开 taker 费率，一旦假设 2.5 bps，BRENTOIL 所有正净价差都变负。检验：下方费率敏感性滑杆。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">核心口径</div>
+    <h2>四个价差，别混成一个数</h2>
+    <table class="data">
+      <thead><tr><th>口径</th><th>定义</th><th>本例意义</th></tr></thead>
+      <tbody>
+        <tr><td>屏幕价差</td><td>top-of-book bid/ask 差（Day14 已算）</td><td>只说明此刻谁挂单最便宜</td></tr>
+        <tr><td>价差捕获 capture</td><td>卖腿 VWAP − 买腿 VWAP，除以参考价</td><td>按目标数量实际吃单后的价格差</td></tr>
+        <tr><td>净价差 net</td><td>捕获 − 双腿滑点（不含未知费率）</td><td>只看价格冲击后的盈余</td></tr>
+        <tr><td>总成本 total</td><td>净价差 − 已知费率；任一腿费率未知则保持 null</td><td>未知不填零，这是纪律不是懒惰</td></tr>
+      </tbody>
+    </table>
+    <p>未知费率规则：Hyperliquid HIP-3 meta 不暴露 taker 费率，所以卖腿（或买腿）的 <code>fee_bps = null</code>，总成本保持 <code>null</code>，绝不把未知当作 0 bps 参与结论。</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">交互探查器（真实冻结盘口，非模拟数据）</div>
+    <h2>容量探查：找到翻转点</h2>
+    <div class="slider-row">
+      <label>候选：<select id="pair"></select></label>
+      <label>方向：<select id="dir">
+        <option value="buy_left_sell_right">买左卖右</option>
+        <option value="buy_right_sell_left">买右卖左</option>
+      </select></label>
+      <label>规模：<input type="range" id="size" min="10" max="2000" step="10" value="100"> <strong id="size-label">$100</strong></label>
+    </div>
+    <div class="curve" id="curve"></div>
+    <p id="readout" class="unlock-note">拖动滑杆。</p>
+    <h3>费率敏感性（what-if）</h3>
+    <p class="unlock-note">假设 Hyperliquid 对 xyz 永续收 taker 费率 X bps，重新判断当前选中规模的方向是否还成立。</p>
+    <div class="whatif">
+      <label>假设 HL taker：<input type="number" id="hl-fee" value="0" step="0.5" min="0"> bps</label>
+      <span id="whatif-out"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">容量定义</div>
+    <h2>"容量 $X" 到底是什么意思</h2>
+    <p>工作台把容量定义为<strong>在冻结盘口上双腿都 100% 成交的最大测试规模</strong>（测试档：$10–$1000）。它不是"可以反复成交 $X"的承诺，也不是 24h 成交量。低于最小单的档位（如 $10）不参与容量曲线——它们不是"容量为 0"，而是"根本下不了单"。</p>
+    <p>深度不足时引擎保留<strong>未成交数量</strong>和未成交名义，而不是悄悄把订单截断成可成交的部分再假装全成。</p>
+  </section>
+
+  <section class="card">
+    <h2>一手资料</h2>
+    <ul>
+      <li><a href="https://apidocs.lighter.xyz/reference/orderbookorders">Lighter orderBookOrders</a>——盘口档位与剩余数量</li>
+      <li><a href="https://apidocs.lighter.xyz/reference/orderbooks">Lighter orderBooks / orderBookDetails</a>——taker/maker 费率、最小数量、精度、multiplier</li>
+      <li><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint">Hyperliquid Info API l2Book</a>——每侧 20 档</li>
+      <li><a href="https://perpdexlist.com/execution-cost">perpdexlist Execution Cost</a>——分规模执行成本 UI 的参考设计（"0 费率≠0 成本"）</li>
+      <li>本机工作台：<code>http://127.0.0.1:18769/workbench/execution</code>（30 秒自动刷新 + 手动刷新 + 自定义规模即时重算）</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>迁移验收（一次有难度的综合检查）</h2>
+    <p>打开工作台执行视图，选 <strong>SPCX</strong> 或 <strong>META</strong>，回答：</p>
+    <ol>
+      <li>它在哪个规模、哪个方向失去吸引力？你从表里哪两列读出来的？</li>
+      <li>把 HL 假设费率调到 2.5 bps，哪个候选的哪个方向会翻负？</li>
+      <li>为什么"容量 $1000"不等于"每天能赚 $1000×净价差"？</li>
+    </ol>
+    <p>把三个答案连同你的规模选择贴回 Telegram；Agent 会用同一冻结盘口复核并给出过程反馈。</p>
+  </section>
+
+  <section class="card">
+    <p class="unlock-note">有不清楚的地方随时问 Agent——这页的数字都可以追溯到 <code>research/runs/day16-execution-scan.json</code> 里的原始盘口。</p>
+  </section>
+</main>
+<script src="../assets/day16-execution-capacity.js"></script>
+<script>
+(function () {
+  const data = window.DAY16;
+  const DIRS = ['buy_left_sell_right', 'buy_right_sell_left'];
+  const DIR_LABEL = {buy_left_sell_right: '买左卖右', buy_right_sell_left: '买右卖左'};
+
+  function money(v) { return '$' + Number(v).toLocaleString('en-US', {maximumFractionDigits: 0}); }
+  function fmt(v, d) { return v === null || v === undefined ? '<span class="unknown">—</span>' : Number(v).toFixed(d); }
+  function cls(v) { return v > 0 ? 'pos' : (v < 0 ? 'neg' : ''); }
+
+  function renderTables() {
+    const root = document.getElementById('tables');
+    root.innerHTML = data.pairs.map(pair => {
+      const head = '<tr><th>规模</th>' + DIRS.map(d => '<th>' + DIR_LABEL[d] + ' 净价差</th><th>成交率</th>').join('') + '</tr>';
+      const rows = pair.per_size.map(r => {
+        const cells = DIRS.map(d => {
+          const x = r[d];
+          return '<td class="' + cls(x.net_spread_bps) + '">' + fmt(x.net_spread_bps, 2) + '</td><td>' + (x.fill_pct * 100).toFixed(0) + '%</td>';
+        }).join('');
+        return '<tr><td>' + money(r.size_usd) + '</td>' + cells + '</tr>';
+      }).join('');
+      return '<h3>' + pair.pair_name + ' · 容量 ' + money(pair.capacity_usd.buy_left_sell_right) + '/' + money(pair.capacity_usd.buy_right_sell_left) + '</h3>' +
+        '<table class="data"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table>';
+    }).join('');
+  }
+
+  function buildCurve(pairName, direction) {
+    const pair = data.pairs.find(p => p.pair_name === pairName);
+    const values = pair.per_size.map(r => ({size: r.size_usd, net: r[direction].net_spread_bps, fill: r[direction].fill_pct}));
+    const net = values.map(v => v.net);
+    const min = Math.min(...net), max = Math.max(...net);
+    const span = (max - min) || 1;
+    const bars = values.map(v => {
+      const h = 8 + ((v.net - min) / span) * 92;
+      const flipped = v.net < 0;
+      return '<div class="bar' + (flipped ? ' flip' : '') + '" style="height:' + h + '%" title="' + money(v.size) + ' → ' + v.net.toFixed(2) + ' bps"><span>' + money(v.size) + '</span></div>';
+    }).join('');
+    document.getElementById('curve').innerHTML = bars;
+    return values;
+  }
+
+  const pairSel = document.getElementById('pair');
+  data.pairs.forEach(p => { const o = document.createElement('option'); o.value = p.pair_name; o.textContent = p.pair_name; pairSel.appendChild(o); });
+  pairSel.value = 'BRENTOIL__xyz:BRENTOIL';
+
+  const dirSel = document.getElementById('dir');
+  const sizeSlider = document.getElementById('size');
+  const sizeLabel = document.getElementById('size-label');
+  const readout = document.getElementById('readout');
+  const hlFee = document.getElementById('hl-fee');
+  const whatifOut = document.getElementById('whatif-out');
+
+  function sizeRow(pair, direction, size) {
+    return pair.per_size.find(r => Math.abs(r.size_usd - size) < 0.01);
+  }
+
+  function update() {
+    const pair = data.pairs.find(p => p.pair_name === pairSel.value);
+    const direction = dirSel.value;
+    buildCurve(pair.pair_name, direction);
+    const size = Number(sizeSlider.value);
+    sizeLabel.textContent = money(size);
+    const row = sizeRow(pair, direction, size);
+    if (!row) { readout.textContent = '该规模不在测试档内，用工作台自定义规模重算。'; whatifOut.textContent = ''; return; }
+    const d = row[direction];
+    const fee = Number(hlFee.value) || 0;
+    const afterFee = d.net_spread_bps - fee;
+    readout.innerHTML = money(size) + ' · ' + DIR_LABEL[direction] + '：捕获 ' + fmt(d.capture_bps, 2) + ' bps，滑点成本 ' + fmt(d.slippage_cost_bps, 2) + ' bps，' +
+      '净价差 <span class="' + cls(d.net_spread_bps) + '">' + fmt(d.net_spread_bps, 2) + '</span> bps，成交率 ' + (d.fill_pct * 100).toFixed(1) + '%' +
+      '；买腿 ' + d.buy.venue + '（' + fmt(d.buy.vwap, 4) + '，档 ' + d.buy.levels_used + '），卖腿 ' + d.sell.venue + '（' + fmt(d.sell.vwap, 4) + '，档 ' + d.sell.levels_used + '）' +
+      (d.buy.unfilled_qty > 0 || d.sell.unfilled_qty > 0 ? '；<strong>未成交</strong> ' + fmt(d.buy.unfilled_qty, 4) + '/' + fmt(d.sell.unfilled_qty, 4) : '');
+    whatifOut.innerHTML = fee > 0
+      ? '假设 HL 收 ' + fee + ' bps：净价差 → <span class="' + cls(afterFee) + '">' + afterFee.toFixed(2) + '</span> bps' + (afterFee <= 0 ? '，<strong>该方向不成立</strong>' : '，仍成立（但总成本还缺退出腿）')
+      : '（当前按未知费率处理，总成本为 null）';
+  }
+
+  pairSel.onchange = update; dirSel.onchange = update;
+  sizeSlider.oninput = update; hlFee.oninput = update;
+
+  document.getElementById('unlock').onclick = function () {
+    document.getElementById('agent-hypotheses').style.display = 'block';
+    this.style.display = 'none';
+  };
+
+  renderTables();
+  update();
+})();
+</script>
+</body>
+</html>

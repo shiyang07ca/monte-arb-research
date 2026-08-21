@@ -22,10 +22,10 @@
 
 ## 当前能力缺口
 
-- Day15 已建立公开 WS 连续采集与自身基线/异常窗口（会话 20260820T001309Z，79 项测试）；持续时间、重复频率和机会寿命研究可复用该采集器与检测器。
-- 需要把账户实际费率、盘口走档、资金费、退出成本和未成交量纳入可执行现金结果。
+- Day16 已建立冻结 L2 走档引擎与执行视图（`day16_execution.py` + `/workbench/execution`，134 项测试）；容量曲线、未知费率规则与自定义规模重算可复用。
+- 需要把账户实际费率（HL HIP-3 `userFees`、Lighter 账户层级）、资金费现金流、退出滑点和双腿部分成交纳入可执行现金结果。
 - RWA external/internal 状态、展期权重和外部时段仍需独立证据，不能从单个 `oraclePx` 推断。
-- 双腿部分成交、第二腿延迟、旧订单风险和补对冲需要在事件回放中训练。
+- 双腿部分成交、第二腿延迟、旧订单风险和补对冲需要在事件回放中训练（Day19）。
 - NautilusTrader 目前未作为本仓库运行依赖锁定；引入前必须固定版本和 Python `>=3.12,<3.15` 环境，并分别验证 Lighter/Hyperliquid 只读数据适配器。
 
 ## 数据、账户与服务器授权
@@ -40,7 +40,7 @@
 - 学习目标：`MISSION.md`
 - 当前唯一计划：`resource/plan.md`
 - 里程碑索引：`curriculum/README.md`
-- 当前里程碑：`curriculum/day15.md`
+- 当前里程碑：`curriculum/day16.md`
 - 工作台设计：`research/design/workbench-design.md`
 
 ## 旧材料处理决定
