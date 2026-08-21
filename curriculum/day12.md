@@ -285,7 +285,7 @@ src/monte_arb/market.py
 src/monte_arb/adapters.py
 src/monte_arb/cli.py
 tests/fixtures/day12/
-tests/test_day12_scan.py
+tests/test_market_scan.py
 research/manifests/day12-universe.json
 research/raw/day12/*.json
 research/runs/day12-scan.json

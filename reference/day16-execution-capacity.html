@@ -1,39 +1,32 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 16 参考卡 · 可执行性与容量</title><link rel="stylesheet" href="../assets/course.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 16 参考卡 · 可执行性与容量 v2</title><link rel="stylesheet" href="../assets/course.css"></head>
 <body>
-<header><div class="eyebrow">Reference · Day 16</div><h1>目标规模执行成本与容量</h1><p class="lede">屏幕价差只是起点；按目标数量与方向逐档走盘口，才得到现金结果。</p></header>
+<header><div class="eyebrow">Reference · Day 16 · v2</div><h1>共同敞口、入场 VWAP 与往返基线</h1><p class="lede">屏幕价差只是候选；完整判断至少需要共同数量、四次主动成交、费用、funding 与未来退出状态。</p></header>
 <main>
-  <section class="card"><h2>四个口径</h2><table><thead><tr><th>口径</th><th>公式</th><th>用途</th></tr></thead><tbody>
-    <tr><td>屏幕价差</td><td>bid/ask top-of-book 差</td><td>候选初筛（Day14）</td></tr>
-    <tr><td>价差捕获</td><td>(卖腿 VWAP − 买腿 VWAP) / 参考价 × 1e4</td><td>目标数量真实吃单后的价格差</td></tr>
-    <tr><td>净价差</td><td>捕获 − 买滑点 − 卖滑点</td><td>价格冲击后的盈余（不含费率）</td></tr>
-    <tr><td>总成本</td><td>净价差 − 已知费率</td><td>任一腿费率未知 → null，不填零</td></tr>
-  </tbody></table></section>
-  <section class="card"><h2>单腿计算顺序</h2><pre><code>目标名义 ÷ (最优价 × multiplier)
-→ 按 size_decimals 向下取整
-→ 低于 min_base_amount → MIN_BASE，不下单
-→ 数量 × 价 × multiplier &lt; min_quote_amount → MIN_QUOTE，不下单
-→ 按该侧档位顺序走：逐档取 min(剩余, 档量)
-→ VWAP = Σ(price×size) / Σsize
-→ 滑点 bps = |VWAP − top| / top × 1e4（买向上、卖向下）
-→ 未成交数量 × VWAP = 未成交名义，保留不隐藏</code></pre></section>
-  <section class="card"><h2>容量定义</h2><p>冻结盘口上<strong>两腿均 100% 成交的最大测试规模</strong>。低于最小单的档位跳过，不参与曲线；它不是可重复成交的承诺，也不是 24h 量。</p></section>
-  <section class="card"><h2>费率规则</h2><ul>
-    <li>Lighter：orderBookDetails 的 taker/maker fee 按百分比读（0.05 → 5 bps）；账户级费率未知。</li>
-    <li>Hyperliquid HIP-3：meta 无费率字段 → <code>fee_bps = null</code>，总成本 <code>null</code>。</li>
-    <li>判断"是否成立"时，未知费率必须做敏感性假设（what-if），不能直接当 0。</li>
-  </ul></section>
-  <section class="card"><h2>真实案例（2026-08-21 00:14 UTC）</h2><pre><code>BRENTOIL 买左卖右：+0.44（$25–250）→ +0.15（$500）→ −0.03（$1000）
-  翻转来自卖腿（HL）滑点随档位消耗上升。
-AAPL 买右卖左：+4.80 稳定到 $500，$1000 降到 +4.70；反向始终 −6 左右。
-  Lighter tick 0.001 极窄，xyz 盘口更厚——方向不对称由两所盘口结构决定。
-$10 档全部 MIN_QUOTE：向下取整后名义不足最小报价金额，预算档≠可下单档。</code></pre></section>
-  <section class="card"><h2>工作台接口</h2><pre><code>GET  /workbench/execution              执行视图（30s 自动刷新）
-POST /workbench/api/refresh            手动刷新（重读最新快照文件）
-POST /workbench/api/execution/compute  自定义规模即时重算（冻结盘口）
-GET  /workbench/api/execution          当前快照 JSON
-CLI: python3 -m monte_arb.day16_execution --output research/runs/day16-execution-scan.json</code></pre></section>
-</main>
-</body>
-</html>
+<section class="card"><h2>口径</h2><table><thead><tr><th>字段</th><th>公式/语义</th></tr></thead><tbody>
+<tr><td>共同经济敞口</td><td>两腿 <code>qty × multiplier</code> 完全相等，并同时满足数量网格与最小单</td></tr>
+<tr><td>入场可成交价差</td><td>(卖腿 VWAP − 买腿 VWAP) / 参考价 × 1e4；只在目标共同敞口全成时输出</td></tr>
+<tr><td>盘口冲击分解</td><td>买/卖腿从 top-of-book 到 VWAP 的恶化；VWAP 已包含它，禁止重复扣除</td></tr>
+<tr><td>冻结盘口往返</td><td>入场两腿 + 同一敞口反向退出两腿；只是四次主动成交基线，不是未来退出预测</td></tr>
+<tr><td>费后结果</td><td>任一账户实际费率未知即 <code>null</code>；funding 无持有时间即 <code>null</code></td></tr>
+</tbody></table></section>
+<section class="card"><h2>数量顺序</h2><pre><code>目标 USD / 两腿价格
+→ 计算双方 exposure step = quantity_step × multiplier
+→ 取双方 exposure step 的最小公倍数
+→ 向下取最大共同经济敞口
+→ 校验两边 min_base / min_quote
+→ 两腿按对应 qty 逐档走 L2
+→ 任一腿未全成：保留 unfilled 与 residual，目标规模 PnL = null</code></pre></section>
+<section class="card"><h2>容量</h2><p>最大测试档全成时显示 <strong>≥ $X</strong>，只是容量下界。首次失败档单独记录；低于最小单的档位跳过。</p></section>
+<section class="card"><h2>真实 v2 结论</h2><ul>
+<li>BRENTOIL 当前快照：小规模入场接近 0，$500/$1000 转负；同盘口往返全档为负。</li>
+<li>AAPL / META / SPCX 某方向入场为正，但同盘口往返为负：正入场价差不是完整利润。</li>
+<li>BOT 大规模部分成交时不发布目标规模 PnL，只保留成交率、未成交量与残余敞口。</li>
+</ul></section>
+<section class="card"><h2>刷新语义</h2><pre><code>GET  /workbench/api/execution          只读当前快照
+POST /workbench/api/execution/compute  冻结盘口自定义规模重算
+POST /workbench/api/refresh            仅 --live-refresh 模式真正重扫市场
+全市场顺序扫描约 100 秒；capture_span_ms 必须可见</code></pre></section>
+<section class="card"><h2>仍缺证据</h2><ul><li>Hyperliquid/Lighter 账户实际费率</li><li>指定持有区间的 funding 现金流</li><li>未来退出时的真实 L2</li><li>账户可用保证金、权限和组合保证金状态</li></ul></section>
+</main></body></html>

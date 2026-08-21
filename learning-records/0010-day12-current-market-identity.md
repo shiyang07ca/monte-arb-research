@@ -27,7 +27,7 @@
 - 扫描结果：`research/runs/day12-scan.json`
 - 请求及原始响应清单：`research/manifests/day12-universe.json`
 - 实现：`src/monte_arb/market.py`、`src/monte_arb/adapters.py`、`src/monte_arb/cli.py`
-- 测试：`tests/test_day12_scan.py`
+- 测试：`tests/test_market_scan.py`
 
 ## 尚未证明
 

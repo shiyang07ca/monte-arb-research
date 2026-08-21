@@ -106,10 +106,10 @@ for idx in range(n):
   <section class="card">
     <div class="eyebrow">可运行仓库</div>
     <h2>本次真实执行的命令</h2>
-    <pre><code>PYTHONPATH=src .venv/bin/python -m monte_arb.day15_collector \
+    <pre><code>PYTHONPATH=src .venv/bin/python -m monte_arb.market_event_collector \
   --duration 480 --out research/raw/day15
 
-PYTHONPATH=src .venv/bin/python -m monte_arb.day15_analysis \
+PYTHONPATH=src .venv/bin/python -m monte_arb.market_event_analysis \
   --session-dir research/raw/day15/&lt;session&gt; \
   --output research/runs/day15-analysis-&lt;session&gt;.json
 

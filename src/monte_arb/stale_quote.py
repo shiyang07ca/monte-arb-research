@@ -1,4 +1,4 @@
-"""Day14 stale-quote detection.
+"""Stale-quote detection for cross-venue candidate snapshots.
 
 Automates the "stale quote" trap found in the BOT case study: a wide
 top-of-book spread plus a large cross-venue mid divergence means the quote
@@ -25,7 +25,7 @@ from decimal import Decimal, InvalidOperation
 from typing import TYPE_CHECKING, Optional, Tuple
 
 if TYPE_CHECKING:  # pragma: no cover - import-time only
-    from .workbench import BookQuote, SnapshotItem
+    from .candidate_workbench import BookQuote, SnapshotItem
 
 STALE_SOURCE_MAX_AGE_MS = 60_000  # 60 s
 WIDE_SPREAD_MAX_BPS = 100.0  # 1%

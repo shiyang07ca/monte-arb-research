@@ -188,13 +188,21 @@ def normalize_hyperliquid_catalog(
                 f"hyperliquid symbol {symbol!r} lacks namespace {expected_prefix!r}"
             )
         asset_id = 100000 + perp_dex_index * 10000 + index
+        market_context = dict(context)
+        # Preserve static instrument fields required by later execution sizing.
+        # `metaAndAssetCtxs` returns metadata and contexts as parallel arrays;
+        # dropping meta here previously made every Day16 HIP-3 market fall back
+        # to an invented 2-decimal quantity grid.
+        for field_name in ("szDecimals", "maxLeverage", "marginTableId"):
+            if field_name in meta:
+                market_context[field_name] = meta[field_name]
         markets.append(
             CatalogMarket(
                 MarketIdentity(
                     "hyperliquid", "perp", venue_namespace, symbol, str(asset_id)
                 ),
                 "delisted" if meta.get("isDelisted") is True else "active",
-                dict(context),
+                market_context,
                 index,
             )
         )

@@ -22,8 +22,8 @@
 
 ## 当前能力缺口
 
-- Day16 已建立冻结 L2 走档引擎与执行视图（`day16_execution.py` + `/workbench/execution`，134 项测试）；容量曲线、未知费率规则与自定义规模重算可复用。
-- 需要把账户实际费率（HL HIP-3 `userFees`、Lighter 账户层级）、资金费现金流、退出滑点和双腿部分成交纳入可执行现金结果。
+- Day16 v2 已建立共同经济敞口、冻结 L2 走档、部分成交阻断、同敞口四次主动成交基线与容量下界（`execution_engine.py` + `/workbench/execution`）；工作台模块按职责命名并固定使用浅色模式；全仓 151 项测试通过。
+- 需要把账户实际费率（HL HIP-3 `userFees`、Lighter 账户层级）、指定持有期 funding、未来退出 L2 和账户可用保证金接入，才能形成完整现金区间；当前同盘口往返只是成本基线，不是未来退出预测。
 - RWA external/internal 状态、展期权重和外部时段仍需独立证据，不能从单个 `oraclePx` 推断。
 - 双腿部分成交、第二腿延迟、旧订单风险和补对冲需要在事件回放中训练（Day19）。
 - NautilusTrader 目前未作为本仓库运行依赖锁定；引入前必须固定版本和 Python `>=3.12,<3.15` 环境，并分别验证 Lighter/Hyperliquid 只读数据适配器。

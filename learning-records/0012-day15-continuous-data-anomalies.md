@@ -20,9 +20,9 @@ Day14 工作台 v0 的候选全部来自单次 REST 快照，无法回答"机会
 
 ## 已发生事实（证据可复查）
 
-- `src/monte_arb/day15_collector.py`：Lighter/Hyperliquid 公共 WS 采集，追加式 gzip JSONL，会话目录 `research/raw/day15/<utc>/`，重启不覆盖；健康事件独立文件。
-- `src/monte_arb/day15_analysis.py`：自身基线（spread/depth/更新频率/10s 波动/静默缺口）、异常窗口（k=6 MAD + 1.5× 下限）、500 小时时段结构。
-- `src/monte_arb/day15_depth_diagnosis.py`：B 实验——REST/WS 同时刻对比（wall-clock 对齐）、深度结构、mid 对齐；`--live-duration` 模式。
+- `src/monte_arb/market_event_collector.py`：Lighter/Hyperliquid 公共 WS 采集，追加式 gzip JSONL，会话目录 `research/raw/day15/<utc>/`，重启不覆盖；健康事件独立文件。
+- `src/monte_arb/market_event_analysis.py`：自身基线（spread/depth/更新频率/10s 波动/静默缺口）、异常窗口（k=6 MAD + 1.5× 下限）、500 小时时段结构。
+- `src/monte_arb/depth_diagnostics.py`：B 实验——REST/WS 同时刻对比（wall-clock 对齐）、深度结构、mid 对齐；`--live-duration` 模式。
 - 真实采集：本机会话 `20260820T001309Z`（9 分钟 4 市场 0 错误）；VPS `139.162.68.224` systemd `monte-arb-capture.service` 7 天录制运行中（会话 `20260820T011135Z`）。
 - 测试 84/84；提交 `969e9ef`（B 实验）、`981a529`（Day15 主体）。
 - 课程页 `lessons/0011-day15-continuous-data.html` + 参考卡 `reference/day15-continuous-data.html`。

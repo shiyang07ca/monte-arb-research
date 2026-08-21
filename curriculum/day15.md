@@ -4,11 +4,11 @@
 
 ## 已实现（2026-08-20）
 
-- `src/monte_arb/day15_collector.py`：Lighter/Hyperliquid 公共 WS 连续采集（l2Book/trades/activeAssetCtx；Lighter order_book），追加式 gzip JSONL，每次运行新建会话目录；
-- `src/monte_arb/day15_analysis.py`：市场自身基线（spread/深度/更新频率/价格波动/静默缺口）、异常窗口（transient/repeating/persistent/structural）、500 小时时段结构；
-- `tests/test_day15_collector.py` + `tests/test_day15_analysis.py`：23 项新测试（全仓 79 项通过）；
+- `src/monte_arb/market_event_collector.py`：Lighter/Hyperliquid 公共 WS 连续采集（l2Book/trades/activeAssetCtx；Lighter order_book），追加式 gzip JSONL，每次运行新建会话目录；
+- `src/monte_arb/market_event_analysis.py`：市场自身基线（spread/深度/更新频率/价格波动/静默缺口）、异常窗口（transient/repeating/persistent/structural）、500 小时时段结构；
+- `tests/test_market_event_collector.py` + `tests/test_market_event_analysis.py`：23 项新测试（全仓 79 项通过）；
 - 真实采集会话 `research/raw/day15/20260820T001309Z`（9 分钟，4 市场），分析报告 `research/runs/day15-analysis-20260820T001309Z.json`；
-- 课程页 `lessons/0011-day15-continuous-data.html` + 参考卡 + 数据生成器 `day15_lesson_data.py`。
+- 课程页 `lessons/0011-day15-continuous-data.html` + 参考卡 + 数据生成器 `market_event_lesson_data.py`。
 >
 > 里程碑允许跨多个工作日
 
