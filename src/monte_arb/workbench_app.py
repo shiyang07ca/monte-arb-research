@@ -10,9 +10,17 @@ import json
 import math
 import threading
 from http.server import BaseHTTPRequestHandler
-from typing import Any, Callable, Optional, Sequence
+from typing import Any, Callable, Mapping, Optional, Sequence
+from urllib.parse import parse_qs, urlsplit
 
 from .candidate_workbench import CandidateSnapshot, SnapshotItem
+from .oil_relative_value import export_source_csv
+from .research_console_views import (
+    render_dashboard_html,
+    render_data_html,
+    render_oil_html,
+    render_placeholder_html,
+)
 from .workbench_views import render_candidate_html, render_execution_html
 
 
@@ -28,12 +36,29 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
-        path = self.path.split("?", 1)[0]
+        request_url = urlsplit(self.path)
+        path = request_url.path
         if path in ("/", "/workbench", "/workbench/"):
-            if self.app.snapshot is not None:
+            if self.app.oil is not None:
+                self._send(
+                    200,
+                    render_dashboard_html(self.app.oil).encode("utf-8"),
+                    "text/html; charset=utf-8",
+                )
+            elif self.app.snapshot is not None:
                 self._send(200, render_candidate_html(self.app.snapshot).encode("utf-8"), "text/html; charset=utf-8")
             else:
                 self._send(200, render_execution_html().encode("utf-8"), "text/html; charset=utf-8")
+            return
+        if path == "/workbench/candidates":
+            if self.app.snapshot is None:
+                self._send(404, b"candidate snapshot not loaded", "text/plain; charset=utf-8")
+                return
+            self._send(
+                200,
+                render_candidate_html(self.app.snapshot).encode("utf-8"),
+                "text/html; charset=utf-8",
+            )
             return
         if path in ("/workbench/api/candidates", "/api/candidates"):
             if self.app.snapshot is None:
@@ -47,6 +72,73 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             return
         if path == "/workbench/execution":
             self._send(200, render_execution_html().encode("utf-8"), "text/html; charset=utf-8")
+            return
+        if path == "/workbench/oil":
+            if self.app.oil is None:
+                self._send(404, b"oil projection not loaded", "text/plain; charset=utf-8")
+                return
+            self._send(
+                200,
+                render_oil_html().encode("utf-8"),
+                "text/html; charset=utf-8",
+            )
+            return
+        if path == "/workbench/data":
+            if self.app.oil is None:
+                self._send(404, b"oil projection not loaded", "text/plain; charset=utf-8")
+                return
+            self._send(
+                200,
+                render_data_html(self.app.oil).encode("utf-8"),
+                "text/html; charset=utf-8",
+            )
+            return
+        placeholders = {
+            "/workbench/markets": (
+                "markets",
+                "全市场 Screener",
+                "按同标的跨场所、跨标的相对价值和 funding 三种研究视图浏览市场。",
+            ),
+            "/workbench/funding": (
+                "funding",
+                "Funding",
+                "保留原生结算间隔，比较跨场所 funding，并累计真实历史现金流。",
+            ),
+            "/workbench/tools/spread": (
+                "tools",
+                "Spread Grapher",
+                "从 Brent–WTI 模块抽出成熟的同步、权重和图表接口后，再开放任意两腿配置。",
+            ),
+        }
+        if path in placeholders:
+            active, title, description = placeholders[path]
+            self._send(
+                200,
+                render_placeholder_html(active, title, description).encode("utf-8"),
+                "text/html; charset=utf-8",
+            )
+            return
+        if path in ("/workbench/api/oil", "/api/oil"):
+            if self.app.oil is None:
+                self._send(404, b"oil projection not loaded", "text/plain; charset=utf-8")
+                return
+            self._send(
+                200,
+                json.dumps(self.app.oil, ensure_ascii=False).encode("utf-8"),
+                "application/json; charset=utf-8",
+            )
+            return
+        if path == "/workbench/api/oil.csv":
+            if self.app.oil is None:
+                self._send(404, b"oil projection not loaded", "text/plain; charset=utf-8")
+                return
+            source = parse_qs(request_url.query).get("source", [""])[0]
+            try:
+                body = export_source_csv(self.app.oil, source).encode("utf-8")
+            except KeyError:
+                self._send(404, b"unknown oil source", "text/plain; charset=utf-8")
+                return
+            self._send(200, body, "text/csv; charset=utf-8")
             return
         if path == "/workbench/api/execution":
             if self.app.execution is None:
@@ -134,6 +226,7 @@ class WorkbenchApp:
         snapshot: Optional[Any] = None,
         *,
         execution: Optional[Any] = None,
+        oil: Optional[Mapping[str, Any]] = None,
         scanner: Optional[Callable[[], Any]] = None,
     ) -> None:
         self.snapshot: Optional[CandidateSnapshot] = None
@@ -144,6 +237,7 @@ class WorkbenchApp:
             self.snapshot = snapshot
         if execution is not None:
             self.execution = execution
+        self.oil = dict(oil) if oil is not None else None
         self.scanner = scanner
         self._lock = threading.Lock()
         self.last_scan_error: Optional[str] = None
@@ -216,15 +310,25 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
     parser.add_argument("--snapshot", type=Path, default=None)
     parser.add_argument("--execution", type=Path, default=None)
+    parser.add_argument(
+        "--oil",
+        type=Path,
+        default=None,
+        help="oil-relative-value-v1 research projection JSON",
+    )
     parser.add_argument("--port", type=int, default=18768)
     parser.add_argument("--live-refresh", action="store_true")
     parser.add_argument("--rescan-seconds", type=float, default=0.0)
     args = parser.parse_args(argv)
-    if args.snapshot is None and args.execution is None:
-        raise SystemExit("--snapshot <day14-scan.json> or --execution <day16-scan.json> is required")
+    if args.snapshot is None and args.execution is None and args.oil is None:
+        raise SystemExit(
+            "--oil <oil-relative-value.json>, --snapshot <day14-scan.json>, "
+            "or --execution <day16-scan.json> is required"
+        )
 
     snapshot = None
     execution = None
+    oil = None
     scanner: Optional[Callable[[], Any]] = None
     if args.snapshot is not None:
         import json as _json
@@ -267,7 +371,13 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
             scanner = _scanner
 
-    app = WorkbenchApp(snapshot, execution=execution, scanner=scanner)
+    if args.oil is not None:
+        loaded_oil = json.loads(args.oil.read_text(encoding="utf-8"))
+        if not isinstance(loaded_oil, Mapping) or loaded_oil.get("schema") != "oil-relative-value-v1":
+            raise SystemExit("--oil must contain schema=oil-relative-value-v1")
+        oil = loaded_oil
+
+    app = WorkbenchApp(snapshot, execution=execution, oil=oil, scanner=scanner)
     if args.rescan_seconds > 0:
         if scanner is None:
             raise SystemExit("--rescan-seconds requires --live-refresh")
@@ -284,6 +394,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         threading.Thread(target=_rescan_loop, daemon=True).start()
     server = ThreadingHTTPServer(("127.0.0.1", args.port), app.make_handler())
     print(f"workbench http://127.0.0.1:{args.port}/workbench")
+    if args.oil is not None:
+        print(f"oil view http://127.0.0.1:{args.port}/workbench/oil")
     if args.execution is not None:
         print(f"execution view http://127.0.0.1:{args.port}/workbench/execution")
     server.serve_forever()

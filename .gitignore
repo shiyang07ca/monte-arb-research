@@ -30,6 +30,10 @@ resource/2085549944770031764/
 # Day14 raw captures are append-only local evidence; commit manifests and derived reports only.
 research/raw/day14/
 research/raw/day15/
+research/raw/oil/
+
+# Large live research projections are reproducible local runtime artifacts.
+research/runs/oil-relative-value.json
 
 # Session scratch files.
 tmp/
