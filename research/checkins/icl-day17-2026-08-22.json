@@ -1,0 +1,35 @@
+{
+  "schema": "icl-day17-checkin-evidence-v1",
+  "credential": "ICL_ACCESS_KEY present; value not recorded",
+  "program_preflight": {
+    "checked_at": "2026-08-22T05:44:45.886977Z",
+    "http_status": 200,
+    "response_sha256": "46977abba2f7a2e0f70df267bcd871e6adb419a673cb24394ab7b461650fc0f5",
+    "program_id": "b43d2e97-ed88-4ca3-b12f-7ef672b01205",
+    "lifecycle_status": "ongoing",
+    "viewer_application_status": "approved"
+  },
+  "before_write": {
+    "http_status": 200,
+    "response_sha256": "fe40ed3be0ec0089d96b947d7efbe4a8aacd36a84412e1f4c1fb498c2679f1c5",
+    "record_count": 15,
+    "today_record_present": false
+  },
+  "create": {
+    "http_status": 201,
+    "response_sha256": "13bc6a1ec35e5206ce8b622e15d374d4726c4bbc5f4b0bdc8bd9ce5009f480a4",
+    "checkin_id": "cmt3yfj5c0efiro29t5apxvbq",
+    "day_key": "2026-08-22"
+  },
+  "readback": {
+    "http_status": 200,
+    "response_sha256": "ed8991eaeaaf4c0f55bb7d8880094a4417013813e1d1c8744ae9dac534e4da7f",
+    "record_count": 16,
+    "created_id_found": true,
+    "content_sha256": "d095f26605749428483c0b7091240d493a4f42c8e773fd1564a5c78b17f0be8d",
+    "content_matches_submitted_after_trailing_newline_normalization": true
+  },
+  "verified": true,
+  "research_status": "Blocked / No-Go; check-in success is not trading readiness",
+  "note": "sanitized; authentication header and raw account response not stored"
+}

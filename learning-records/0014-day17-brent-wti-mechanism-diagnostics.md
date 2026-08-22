@@ -106,6 +106,15 @@ roll 权重、venue-native funding、账户费率和未来退出没有证据时�
 
 因此当前状态是：**机制研究能力可用；策略是否可交易尚未验证。**
 
+## 共学打卡
+
+- Intensive CoLearn：已通过官方 Agent API 创建 2026-08-22 的 Day17 打卡，HTTP `201`；
+- 写入前课程状态为 `ongoing`，当前报名状态为 `approved`，当天没有既有记录；
+- 随后查询个人打卡列表，HTTP `200`；服务端返回同一记录 ID，平台正文哈希与提交内容一致；
+- 脱敏证据：`research/checkins/icl-day17-2026-08-22.json`；
+- 凭据仅从本地环境读取，值、认证 header 和原始账户响应均未写入仓库；
+- 平台打卡验证成功不改变研究结论：策略仍为 **Blocked / No-Go**。
+
 ## 证据路径
 
 - `src/monte_arb/oil_relative_value.py`
